@@ -1,0 +1,193 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Calcolatore Funnel MRR</title>
+<style>
+  :root {
+    --bg: #f6f7f9; --card: #ffffff; --text: #16181d; --muted: #5d6470;
+    --line: #e2e5ea; --accent: #2f6fed; --good: #12865a; --warn: #b26a00; --bad: #c43838;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #111317; --card: #1a1d23; --text: #eef0f3; --muted: #9aa2ae;
+      --line: #2b3038; --accent: #6b9bff; --good: #3ccf8e; --warn: #f0a841; --bad: #ff6b6b;
+    }
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; background: var(--bg); color: var(--text);
+    font: 15px/1.5 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  }
+  main { max-width: 980px; margin: 0 auto; padding: 24px 16px 48px; }
+  h1 { font-size: 1.6rem; margin: 0 0 4px; }
+  .sub { color: var(--muted); margin: 0 0 24px; }
+  .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  @media (max-width: 760px) { .grid { grid-template-columns: 1fr; } }
+  .card { background: var(--card); border: 1px solid var(--line); border-radius: 12px; padding: 18px; }
+  .card h2 { font-size: 1rem; margin: 0 0 14px; }
+  .field { margin-bottom: 14px; }
+  .field label { display: flex; justify-content: space-between; font-size: .9rem; color: var(--muted); }
+  .field label b { color: var(--text); font-variant-numeric: tabular-nums; }
+  input[type=range] { width: 100%; accent-color: var(--accent); }
+  .presets { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 16px; }
+  .presets button {
+    border: 1px solid var(--line); background: var(--card); color: var(--text);
+    border-radius: 999px; padding: 6px 12px; cursor: pointer; font: inherit; font-size: .85rem;
+  }
+  .presets button:hover { border-color: var(--accent); }
+  .funnel { display: flex; flex-direction: column; gap: 6px; margin-bottom: 18px; }
+  .step { display: flex; align-items: center; gap: 10px; }
+  .bar { height: 26px; background: var(--accent); border-radius: 6px; min-width: 4px; transition: width .25s; opacity: .85; }
+  .step span { font-size: .85rem; white-space: nowrap; font-variant-numeric: tabular-nums; }
+  .kpis { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
+  .kpi { border: 1px solid var(--line); border-radius: 10px; padding: 10px 12px; }
+  .kpi small { color: var(--muted); display: block; font-size: .78rem; }
+  .kpi strong { font-size: 1.3rem; font-variant-numeric: tabular-nums; }
+  .goal { margin-top: 16px; padding: 14px; border-radius: 10px; border: 1px solid var(--line); }
+  .goal p { margin: 4px 0; }
+  .verdict { font-weight: 700; }
+  .good { color: var(--good); } .warn { color: var(--warn); } .bad { color: var(--bad); }
+  table { width: 100%; border-collapse: collapse; font-size: .88rem; font-variant-numeric: tabular-nums; }
+  th, td { text-align: right; padding: 6px 8px; border-bottom: 1px solid var(--line); }
+  th:first-child, td:first-child { text-align: left; }
+  .wide { margin-top: 16px; }
+</style>
+</head>
+<body>
+<main>
+  <h1>Calcolatore Funnel → MRR</h1>
+  <p class="sub">Da contatti a clienti a ricavi ricorrenti. Muovi gli slider e scopri quanto lavoro serve per arrivare a €10.000/mese.</p>
+
+  <div class="presets" id="presets"></div>
+
+  <div class="grid">
+    <section class="card">
+      <h2>Ipotesi</h2>
+      <div id="fields"></div>
+    </section>
+
+    <section class="card">
+      <h2>Risultato mensile</h2>
+      <div class="funnel" id="funnel"></div>
+      <div class="kpis" id="kpis"></div>
+      <div class="goal" id="goal"></div>
+    </section>
+  </div>
+
+  <section class="card wide">
+    <h2>Proiezione 12 mesi (stesso volume ogni mese, al netto del churn)</h2>
+    <table id="proj"></table>
+  </section>
+</main>
+
+<script>
+const F = [
+  { id: "contacts", label: "Contatti al mese", min: 50, max: 5000, step: 50, v: 1000, fmt: n => n },
+  { id: "reply", label: "Tasso di risposta", min: 1, max: 40, step: 1, v: 10, fmt: n => n + "%" },
+  { id: "call", label: "Risposte → call", min: 5, max: 80, step: 5, v: 30, fmt: n => n + "%" },
+  { id: "close", label: "Call → cliente", min: 5, max: 80, step: 5, v: 33, fmt: n => n + "%" },
+  { id: "price", label: "Prezzo mensile (€)", min: 29, max: 3000, step: 1, v: 500, fmt: n => "€" + n },
+  { id: "margin", label: "Margine lordo", min: 10, max: 95, step: 5, v: 75, fmt: n => n + "%" },
+  { id: "churn", label: "Churn mensile", min: 0, max: 20, step: 1, v: 4, fmt: n => n + "%" },
+  { id: "cac", label: "Costo acquisizione per contatto (€)", min: 0, max: 20, step: 0.5, v: 1, fmt: n => "€" + n },
+];
+
+const PRESETS = {
+  "Agenzia AI per PMI": { contacts: 600, reply: 8, call: 35, close: 30, price: 800, margin: 65, churn: 5, cac: 2 },
+  "Voice AI per ristoranti": { contacts: 1500, reply: 6, call: 40, close: 35, price: 199, margin: 70, churn: 6, cac: 1 },
+  "Micro-SaaS self-serve": { contacts: 5000, reply: 3, call: 50, close: 20, price: 49, margin: 90, churn: 7, cac: 0.5 },
+  "Automazioni n8n B2B": { contacts: 400, reply: 10, call: 40, close: 30, price: 1200, margin: 60, churn: 3, cac: 3 },
+};
+
+const state = Object.fromEntries(F.map(f => [f.id, f.v]));
+const eur = n => "€" + Math.round(n).toLocaleString("it-IT");
+const num = n => (Math.round(n * 10) / 10).toLocaleString("it-IT");
+
+function renderFields() {
+  document.getElementById("fields").innerHTML = F.map(f => `
+    <div class="field">
+      <label for="${f.id}">${f.label} <b id="${f.id}-v">${f.fmt(state[f.id])}</b></label>
+      <input type="range" id="${f.id}" min="${f.min}" max="${f.max}" step="${f.step}" value="${state[f.id]}">
+    </div>`).join("");
+  F.forEach(f => document.getElementById(f.id).addEventListener("input", e => {
+    state[f.id] = +e.target.value;
+    document.getElementById(f.id + "-v").textContent = f.fmt(state[f.id]);
+    compute();
+  }));
+}
+
+function renderPresets() {
+  const box = document.getElementById("presets");
+  Object.entries(PRESETS).forEach(([name, p]) => {
+    const b = document.createElement("button");
+    b.textContent = name;
+    b.onclick = () => { Object.assign(state, p); renderFields(); compute(); };
+    box.appendChild(b);
+  });
+}
+
+function compute() {
+  const s = state;
+  const replies = s.contacts * s.reply / 100;
+  const calls = replies * s.call / 100;
+  const clients = calls * s.close / 100;
+  const newMrr = clients * s.price;
+  const spend = s.contacts * s.cac;
+  const cacClient = clients > 0 ? spend / clients : Infinity;
+  const lifetime = s.churn > 0 ? 100 / s.churn : 60; // mesi, cap a 5 anni se churn 0
+  const ltv = s.price * (s.margin / 100) * lifetime;
+  const ratio = cacClient > 0 && isFinite(cacClient) ? ltv / cacClient : Infinity;
+
+  const steps = [["Contatti", s.contacts], ["Risposte", replies], ["Call", calls], ["Clienti", clients]];
+  document.getElementById("funnel").innerHTML = steps.map(([n, v]) =>
+    `<div class="step"><div class="bar" style="width:${Math.max(1, v / s.contacts * 70)}%"></div><span>${n}: <b>${num(v)}</b></span></div>`).join("");
+
+  document.getElementById("kpis").innerHTML = [
+    ["Nuovo MRR / mese", eur(newMrr)],
+    ["CAC per cliente", isFinite(cacClient) ? eur(cacClient) : "—"],
+    ["LTV (margine)", eur(ltv)],
+    ["LTV : CAC", isFinite(ratio) ? num(ratio) + "×" : "∞"],
+  ].map(([k, v]) => `<div class="kpi"><small>${k}</small><strong>${v}</strong></div>`).join("");
+
+  // Proiezione 12 mesi con churn
+  let mrr = 0, cust = 0, hit = null;
+  const rows = [];
+  for (let m = 1; m <= 12; m++) {
+    cust = cust * (1 - s.churn / 100) + clients;
+    mrr = cust * s.price;
+    if (hit === null && mrr >= 10000) hit = m;
+    rows.push([m, cust, mrr, mrr * s.margin / 100]);
+  }
+  // Stato stazionario: clienti = nuovi / churn
+  const ceiling = s.churn > 0 ? clients / (s.churn / 100) * s.price : Infinity;
+
+  // Contatti necessari per arrivare a €10k in 6 mesi
+  const perContact = s.reply / 100 * s.call / 100 * s.close / 100;
+  let factor6 = 0; for (let m = 0; m < 6; m++) factor6 += Math.pow(1 - s.churn / 100, m);
+  const needContacts = perContact > 0 ? 10000 / s.price / factor6 / perContact : Infinity;
+  const clientsFor10k = Math.ceil(10000 / s.price);
+
+  let cls, verdict;
+  if (hit && hit <= 6 && ratio >= 3) { cls = "good"; verdict = "Lo farei: €10k/mese raggiungibili in " + hit + " mesi con LTV:CAC sano."; }
+  else if (hit || ceiling >= 10000) { cls = "warn"; verdict = "Fattibile, ma lento o costoso: lavora su prezzo, conversione o churn."; }
+  else { cls = "bad"; verdict = "Non lo farei così: con questi numeri non arrivi mai a €10k/mese."; }
+
+  document.getElementById("goal").innerHTML = `
+    <p class="verdict ${cls}">${verdict}</p>
+    <p>Ti servono <b>${clientsFor10k}</b> clienti attivi a ${eur(s.price)} per €10.000/mese.</p>
+    <p>Per arrivarci in 6 mesi: circa <b>${isFinite(needContacts) ? Math.ceil(needContacts).toLocaleString("it-IT") : "—"}</b> contatti/mese.</p>
+    <p>Tetto massimo MRR con questo churn: <b>${isFinite(ceiling) ? eur(ceiling) : "illimitato"}</b>.</p>`;
+
+  document.getElementById("proj").innerHTML =
+    `<tr><th>Mese</th><th>Clienti attivi</th><th>MRR</th><th>Margine lordo</th></tr>` +
+    rows.map(([m, c, r, g]) => `<tr${r >= 10000 ? ' class="good"' : ""}><td>${m}</td><td>${num(c)}</td><td>${eur(r)}</td><td>${eur(g)}</td></tr>`).join("");
+}
+
+renderPresets();
+renderFields();
+compute();
+</script>
+</body>
+</html>
