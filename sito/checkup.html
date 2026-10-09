@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Check-up conformità 2027 · Targa10</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Source+Sans+3:wght@400;600&family=Source+Serif+4:opsz,wght@8..60,460;8..60,560&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/site.css">
+</head>
+<body>
+  <header class="top">
+    <div class="wrap top-inner">
+      <a class="brand" href="index.html"><b>TARGA10</b><span>CHECK-UP</span></a>
+      <nav><a href="index.html">Home</a><a href="esempio.html">Demo</a><a href="faq.html">FAQ</a></nav>
+      <div class="lang"><a class="on" href="index.html">IT</a><a href="en.html">EN</a></div>
+    </div>
+  </header>
+  <main class="wrap" style="padding:36px 0 56px">
+    <div class="grid-2">
+      <div>
+        <p class="kicker">Gratuito · risposta in 48 ore · NDA su richiesta</p>
+        <h1 style="font-family:var(--serif);font-size:42px;letter-spacing:-0.03em;margin:0 0 12px">Cosa manca alla documentazione della tua macchina</h1>
+        <p class="sub">Bastano ragione sociale, un modello e i mercati. Il manuale completo lo mandi dopo l’NDA. Nessun impegno.</p>
+        <form class="form" id="checkup">
+          <label>Ragione sociale <input name="ragione" required></label>
+          <label>Email del referente tecnico <input name="email" type="email" required></label>
+          <label>Telefono <input name="telefono" type="tel"></label>
+          <label>Modello o famiglia <input name="modello" required placeholder="Centro di lavoro verticale, serie…"></label>
+          <div>
+            <div class="num">MERCATI UE</div>
+            <div class="checks">
+              <label><input type="checkbox" name="mercato" value="DE"> Germania</label>
+              <label><input type="checkbox" name="mercato" value="FR"> Francia</label>
+              <label><input type="checkbox" name="mercato" value="ES"> Spagna</label>
+              <label><input type="checkbox" name="mercato" value="PL"> Polonia</label>
+              <label><input type="checkbox" name="mercato" value="AT"> Austria</label>
+              <label><input type="checkbox" name="mercato" value="NL"> Paesi Bassi</label>
+              <label><input type="checkbox" name="mercato" value="RO"> Romania</label>
+              <label><input type="checkbox" name="mercato" value="IT"> Solo Italia</label>
+            </div>
+          </div>
+          <label>Pagine attuali del manuale <input name="pagine" inputmode="numeric" placeholder="120"></label>
+          <label>Note <textarea name="note" rows="3" placeholder="Foto targa in fiera, retrofit, lingue già pronte…"></textarea></label>
+          <label style="font-weight:500"><input type="checkbox" required> Ho letto l’informativa e accetto il contatto per il check-up.</label>
+          <button class="btn" type="submit">Invia e apri la mail</button>
+          <p class="note" id="form-ok" hidden>Se il programma di posta non si apre, scrivi a info@targa10.it con gli stessi dati.</p>
+        </form>
+      </div>
+      <aside>
+        <article class="price">
+          <div class="num">STIMA, NON VINCOLANTE</div>
+          <h3>Per una famiglia, 120 pagine</h3>
+          <p>Revisione 950–1.700 € una tantum.</p>
+          <p>Archivio QR 250–350 €/anno.</p>
+          <p>AI 19–39 €/mese per famiglia.</p>
+          <p class="note" style="margin-top:10px">Le traduzioni si aggiungono solo per i mercati segnati. La targa si quota sul numero di matricole.</p>
+        </article>
+        <p class="note" style="margin-top:14px">Il modulo apre una mail verso info@targa10.it, così funziona anche allo stand senza server. In produzione va collegato a una casella vera.</p>
+      </aside>
+    </div>
+  </main>
+  <script src="js/site.js"></script>
+</body>
+</html>

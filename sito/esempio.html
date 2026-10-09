@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Esempio targa e assistente · Targa10</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Source+Sans+3:wght@400;600&family=Source+Serif+4:opsz,wght@8..60,460;8..60,560&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/site.css">
+</head>
+<body>
+  <header class="top">
+    <div class="wrap top-inner">
+      <a class="brand" href="index.html"><b>TARGA10</b><span>DEMO</span></a>
+      <nav>
+        <a href="index.html">Home</a>
+        <a href="checkup.html">Check-up</a>
+      </nav>
+      <div class="lang"><a class="on" href="index.html">IT</a><a href="en.html">EN</a></div>
+    </div>
+  </header>
+  <main class="wrap" style="padding:28px 0 48px">
+    <p class="kicker">Demo su costruttore inventato · non è un cliente</p>
+    <h1 style="font-family:var(--serif);font-size:40px;letter-spacing:-0.03em;margin:0 0 8px">Officine Esempio · CL-850 · CL850-0427</h1>
+    <p class="sub">Chi inquadra il QR apre questa pagina. L’assistente risponde solo da un manuale di esempio, cita il paragrafo e non esce dal testo.</p>
+    <div class="demo">
+      <aside class="demo-side">
+        <img src="img/targa.jpg" alt="Targa di esempio">
+        <p class="serial">OFFICINE ESEMPIO S.r.l.<br>Centro di lavoro verticale<br>Tipo CL-850<br>Matricola CL850-0427<br>Anno 2027 · 7 850 kg<br>400 V 3~ 50 Hz<br><br>manuali.officine-esempio.it/CL850-0427</p>
+        <img src="img/qr-esempio.png" alt="QR di esempio verso questa pagina" width="140" height="140">
+      </aside>
+      <div class="demo-main">
+        <div class="demo-bar">
+          <strong>Istruzioni della matricola</strong>
+          <div class="langs" id="langs">
+            <button type="button" data-lang="it" class="on">IT</button>
+            <button type="button" data-lang="en">EN</button>
+            <button type="button" data-lang="de">DE</button>
+            <button type="button" data-lang="pl">PL</button>
+          </div>
+        </div>
+        <div class="docs" id="docs"></div>
+        <div class="chat">
+          <div id="log"></div>
+          <div class="chips" id="chips"></div>
+          <form class="ask" id="ask">
+            <input id="q" name="q" placeholder="Scrivi allarme 4102, convogliatore bloccato…" autocomplete="off">
+            <button class="btn small" type="submit">Chiedi</button>
+          </form>
+          <p class="note">Demo locale, senza invio dei dati. In produzione la risposta è limitata al manuale pubblicato di quella matricola.</p>
+        </div>
+      </div>
+    </div>
+  </main>
+  <script>
+    const copy = {
+      it: {
+        docs: [["Manuale d'uso e manutenzione", "Rev. 03 · 214 pag."], ["Dichiarazione UE di conformità", "Reg. 2023/1230"], ["Trasporto e installazione", "Rev. 02 · 36 pag."], ["Schema elettrico", "Solo tecnici autorizzati"]],
+        chips: ["Allarme 4102", "Convogliatore bloccato", "Escludi il riparo"],
+        ph: "Scrivi allarme 4102, convogliatore bloccato…",
+        empty: "Non è nel manuale di questa matricola. Chiama l'assistenza Officine Esempio e indica CL850-0427.",
+        alarm: { cite: "§ 8.4 · Allarme 4102", text: "Asse Z non in quota. 1) Stop ciclo e attendi il fermo mandrino. 2) Controlla che non ci sia un ostacolo in Z. 3) Azzera l'allarme solo dopo il controllo. 4) Se torna, non ripartire in automatico: chiama l'assistenza con la matricola." },
+        jam: { cite: "§ 10.2 · Convogliatore trucioli", text: "1) Premi stop ciclo e attendi il fermo mandrino. 2) Metti in sicurezza: sezionatore a 0 e lucchetto, § 9.2. 3) Togli i trucioli con il gancio, mai con le mani. 4) Fai girare il convogliatore 5 secondi indietro, poi avanti." },
+        guard: { cite: "Regola fissa · non nel manuale come procedura", text: "Non escludere ripari o interblocchi. Il manuale non prevede questa manovra. Per un intervento a riparo aperto serve la procedura di sicurezza del § 9 e un tecnico autorizzato." }
+      },
+      en: {
+        docs: [["Operation and maintenance manual", "Rev. 03 · 214 pp."], ["EU declaration of conformity", "Reg. 2023/1230"], ["Transport and installation", "Rev. 02 · 36 pp."], ["Wiring diagram", "Authorised technicians only"]],
+        chips: ["Alarm 4102", "Conveyor jammed", "Bypass the guard"],
+        ph: "Ask alarm 4102, conveyor jammed…",
+        empty: "Not in this serial's manual. Call Officine Esempio service and quote CL850-0427.",
+        alarm: { cite: "§ 8.4 · Alarm 4102", text: "Z axis not in position. 1) Cycle stop and wait until the spindle is still. 2) Check there is no obstacle on Z. 3) Reset the alarm only after the check. 4) If it returns, do not restart in auto: call service with the serial." },
+        jam: { cite: "§ 10.2 · Chip conveyor", text: "1) Press cycle stop and wait until the spindle is still. 2) Make safe: main switch to 0 and padlock, § 9.2. 3) Remove chips with the hook, never by hand. 4) Run the conveyor 5 seconds reverse, then forward." },
+        guard: { cite: "Fixed rule · not a manual procedure", text: "Do not bypass guards or interlocks. The manual has no such procedure. Work with a guard open requires the § 9 safety procedure and an authorised technician." }
+      },
+      de: {
+        docs: [["Betriebs- und Wartungshandbuch", "Rev. 03 · 214 S."], ["EU-Konformitätserklärung", "Verordn. 2023/1230"], ["Transport und Installation", "Rev. 02 · 36 S."], ["Stromlaufplan", "Nur autorisierte Techniker"]],
+        chips: ["Alarm 4102", "Förderer blockiert", "Schutz umgehen"],
+        ph: "Alarm 4102, Förderer blockiert…",
+        empty: "Steht nicht im Handbuch dieser Maschine. Service Officine Esempio anrufen, Matrikel CL850-0427.",
+        alarm: { cite: "§ 8.4 · Alarm 4102", text: "Z-Achse nicht in Position. 1) Zyklustopp, warten bis die Spindel steht. 2) Hindernis auf Z prüfen. 3) Alarm erst nach der Prüfung quittieren. 4) Kommt er wieder, nicht im Automatik starten: Service mit Matrikel rufen." },
+        jam: { cite: "§ 10.2 · Späneförderer", text: "1) Zyklustopp, warten bis die Spindel steht. 2) Sichern: Hauptschalter auf 0, Vorhängeschloss, § 9.2. 3) Späne mit dem Haken entfernen, nie mit den Händen. 4) Förderer 5 Sekunden rückwärts, dann vorwärts." },
+        guard: { cite: "Feste Regel", text: "Schutzeinrichtungen oder Verriegelungen nie überbrücken. Das Handbuch sieht das nicht vor. Eingriff bei offenem Schutz nur nach § 9 und durch autorisiertes Personal." }
+      },
+      pl: {
+        docs: [["Instrukcja obsługi i konserwacji", "Rev. 03 · 214 str."], ["Deklaracja zgodności UE", "Rozp. 2023/1230"], ["Transport i instalacja", "Rev. 02 · 36 str."], ["Schemat elektryczny", "Tylko upoważnieni"]],
+        chips: ["Alarm 4102", "Przenośnik zablokowany", "Obejdź osłonę"],
+        ph: "Alarm 4102, przenośnik zablokowany…",
+        empty: "Nie ma tego w instrukcji tej maszyny. Zadzwoń do serwisu Officine Esempio, numer CL850-0427.",
+        alarm: { cite: "§ 8.4 · Alarm 4102", text: "Oś Z nie w pozycji. 1) Stop cyklu, czekaj aż wrzeciono stanie. 2) Sprawdź przeszkodę na Z. 3) Skasuj alarm dopiero po kontroli. 4) Jeśli wraca, nie startuj w auto: wezwij serwis z numerem." },
+        jam: { cite: "§ 10.2 · Przenośnik wiórów", text: "1) Stop cyklu, czekaj aż wrzeciono stanie. 2) Zabezpiecz: wyłącznik główny na 0 i kłódka, § 9.2. 3) Wióry hakiem, nigdy ręką. 4) Przenośnik 5 sekund wstecz, potem naprzód." },
+        guard: { cite: "Stała zasada", text: "Nie obchodź osłon ani blokad. Instrukcja tego nie przewiduje. Praca przy otwartej osłonie tylko według § 9 i przez upoważnionego technika." }
+      }
+    };
+    let lang = "it";
+    const docs = document.getElementById("docs");
+    const chips = document.getElementById("chips");
+    const log = document.getElementById("log");
+    const q = document.getElementById("q");
+    function render() {
+      const c = copy[lang];
+      docs.innerHTML = c.docs.map((d) => `<div class="doc"><span>${d[0]}</span><span class="note">${d[1]}</span></div>`).join("");
+      chips.innerHTML = c.chips.map((t) => `<button type="button">${t}</button>`).join("");
+      q.placeholder = c.ph;
+      chips.querySelectorAll("button").forEach((b) => b.onclick = () => answer(b.textContent));
+    }
+    function answer(text) {
+      const c = copy[lang];
+      const n = text.toLowerCase();
+      let hit = c.empty;
+      let cite = "Manuale CL850-0427";
+      if (/4102|alarm|allarm/.test(n)) { hit = c.alarm.text; cite = c.alarm.cite; }
+      else if (/convog|convey|förder|przeno|blocc|jam|block/.test(n)) { hit = c.jam.text; cite = c.jam.cite; }
+      else if (/ripar|guard|schutz|osłon|esclud|bypass|umgeh|obejd/.test(n)) { hit = c.guard.text; cite = c.guard.cite; }
+      log.innerHTML += `<div class="bubble user">${text}</div><div class="bubble bot"><div class="cite">${cite}</div>${hit}</div>`;
+      q.value = "";
+    }
+    document.getElementById("langs").onclick = (e) => {
+      const b = e.target.closest("button");
+      if (!b) return;
+      lang = b.dataset.lang;
+      document.querySelectorAll("#langs button").forEach((x) => x.classList.toggle("on", x === b));
+      render();
+    };
+    document.getElementById("ask").onsubmit = (e) => { e.preventDefault(); if (q.value.trim()) answer(q.value.trim()); };
+    render();
+  </script>
+</body>
+</html>

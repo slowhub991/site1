@@ -1,0 +1,1433 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Manuale digitale VMC-850 · Demo Targa10</title>
+<meta name="description" content="Demo Targa10: la pagina che si apre dal QR sulla targa di una macchina CNC. Manuale, documenti UE e risposte in 7 lingue.">
+<meta name="robots" content="noindex">
+<meta name="theme-color" content="#14171B">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Barlow+Condensed:wght@500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: one mobile-first column (max 760px) — machine nameplate as header, sticky tab bar, four panels: manual, ask, documents, paper copy */
+:root {
+  --bg: #EBEEF0;
+  --surface: #FFFFFF;
+  --surface-2: #F4F6F7;
+  --ink: #172027;
+  --muted: #56636D;
+  --line: #D2D9DE;
+  --accent: #F2C200;          /* safety yellow */
+  --accent-ink: #191710;
+  --accent-soft: #FFF4C2;
+  --warn-ink: #6B5300;
+  --signal: #1B5DA3;          /* mandatory-action blue: links, citations */
+  --signal-soft: #E2EDF8;
+  --danger: #B3261E;
+  --danger-soft: #FBE9E7;
+  --ok: #1E7449;
+  --ok-soft: #E1F2E8;
+  --plate-hi: #E6EAEC;
+  --plate-lo: #C5CCD1;
+  --plate-ink: #1D252B;
+  --plate-line: #98A3AA;
+  --stripe: #191710;
+  --qr-bg: #FFFFFF;
+  --qr-ink: #111417;
+  --user-bg: #172027;
+  --user-ink: #F4F6F7;
+  --shadow: 0 1px 2px rgb(16 24 32 / .06), 0 6px 20px rgb(16 24 32 / .07);
+  --font-body: "Barlow", "Segoe UI", system-ui, -apple-system, sans-serif;
+  --font-display: "Barlow Condensed", "Arial Narrow", "Roboto Condensed", system-ui, sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
+  --radius: 10px;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0E1316; --surface: #161E23; --surface-2: #1B252B; --ink: #E3E8EB; --muted: #98A4AD; --line: #2A353C;
+    --accent: #F2C200; --accent-ink: #191710; --accent-soft: #352E0E; --warn-ink: #F2C200;
+    --signal: #7DB2EC; --signal-soft: #16304A; --danger: #FF8A80; --danger-soft: #3A1A18; --ok: #72D3A1; --ok-soft: #133526;
+    --plate-hi: #3D474E; --plate-lo: #262E34; --plate-ink: #E6EBEE; --plate-line: #5A666E; --stripe: #0B0C08;
+    --qr-bg: #FFFFFF; --qr-ink: #111417; --user-bg: #2B4057; --user-ink: #EEF3F7;
+    --shadow: 0 1px 2px rgb(0 0 0 / .45), 0 8px 24px rgb(0 0 0 / .35);
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #0E1316; --surface: #161E23; --surface-2: #1B252B; --ink: #E3E8EB; --muted: #98A4AD; --line: #2A353C;
+  --accent: #F2C200; --accent-ink: #191710; --accent-soft: #352E0E; --warn-ink: #F2C200;
+  --signal: #7DB2EC; --signal-soft: #16304A; --danger: #FF8A80; --danger-soft: #3A1A18; --ok: #72D3A1; --ok-soft: #133526;
+  --plate-hi: #3D474E; --plate-lo: #262E34; --plate-ink: #E6EBEE; --plate-line: #5A666E; --stripe: #0B0C08;
+  --qr-bg: #FFFFFF; --qr-ink: #111417; --user-bg: #2B4057; --user-ink: #EEF3F7;
+  --shadow: 0 1px 2px rgb(0 0 0 / .45), 0 8px 24px rgb(0 0 0 / .35);
+  color-scheme: dark;
+}
+
+html { -webkit-text-size-adjust: 100%; }
+body { background: var(--bg); color: var(--ink); font-family: var(--font-body); font-size: 16px; line-height: 1.5; }
+:focus-visible { outline: 2px solid var(--signal); outline-offset: 2px; }
+.sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+.mono { font-family: var(--font-mono); font-size: .92em; font-variant-numeric: tabular-nums; }
+
+.ribbon { background: var(--accent); color: var(--accent-ink); font: 600 12px/1.2 var(--font-display); letter-spacing: .09em; text-transform: uppercase; text-align: center; padding: 7px 16px; }
+.wrap { max-width: 760px; margin-inline: auto; padding-inline: 16px; padding-block: 18px 56px; }
+
+/* header */
+.head { display: grid; gap: 14px; }
+.eyebrow { margin: 0; font: 600 13px/1.2 var(--font-display); letter-spacing: .1em; text-transform: uppercase; color: var(--muted); }
+h1 { margin: 0; font: 700 clamp(28px, 7.4vw, 42px)/1.02 var(--font-display); text-wrap: balance; }
+
+/* nameplate */
+.plate { position: relative; display: grid; gap: 12px; grid-template-areas: "top" "fields" "qr";
+  padding: 16px 20px 16px; border-radius: 6px; color: var(--plate-ink);
+  background: linear-gradient(170deg, var(--plate-hi), var(--plate-lo)); border: 1px solid var(--plate-line); box-shadow: var(--shadow); }
+.rivet { position: absolute; width: 8px; height: 8px; border-radius: 50%; background: radial-gradient(circle at 35% 35%, var(--plate-hi), var(--plate-line)); border: 1px solid var(--plate-line); }
+.rivet.tl { top: 7px; left: 7px } .rivet.tr { top: 7px; right: 7px } .rivet.bl { bottom: 7px; left: 7px } .rivet.br { bottom: 7px; right: 7px }
+.plate-top { grid-area: top; display: flex; justify-content: space-between; align-items: center; gap: 12px; padding-bottom: 10px; border-bottom: 1px solid var(--plate-line); }
+.maker { font: 700 15px/1.15 var(--font-display); letter-spacing: .08em; text-transform: uppercase; }
+.maker small { display: block; font: 500 12px/1.3 var(--font-body); letter-spacing: 0; text-transform: none; opacity: .85; margin-top: 2px; }
+.ce { font: 700 30px/1 var(--font-display); letter-spacing: -.02em; }
+.fields { grid-area: fields; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px 16px; margin: 0; }
+.fields div { min-width: 0; }
+.fields dt { font: 600 11px/1.2 var(--font-display); letter-spacing: .1em; text-transform: uppercase; opacity: .78; }
+.fields dd { margin: 2px 0 0; font: 500 15px/1.25 var(--font-mono); font-variant-numeric: tabular-nums; overflow-wrap: anywhere; }
+.qrbox { grid-area: qr; display: grid; grid-template-columns: 84px minmax(0, 1fr); gap: 12px; align-items: center; padding-top: 12px; border-top: 1px solid var(--plate-line); }
+.qr { width: 84px; height: 84px; display: grid; place-items: center; background: var(--qr-bg); border-radius: 4px; padding: 4px; }
+.qr svg { width: 100%; height: 100%; display: block; }
+.qr .qr-bg { fill: var(--qr-bg); } .qr .qr-fg { fill: var(--qr-ink); }
+.qr.missing { font: 600 12px/1.2 var(--font-mono); color: var(--qr-ink); }
+.qrbox p { margin: 0; font-size: 14px; line-height: 1.35; }
+.qrbox p strong { display: block; font: 700 14px/1.2 var(--font-display); letter-spacing: .06em; text-transform: uppercase; }
+@media (min-width: 560px) {
+  .plate { grid-template-columns: minmax(0, 1fr) 170px; grid-template-areas: "top top" "fields qr"; }
+  .fields { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .qrbox { grid-template-columns: 1fr; justify-items: center; text-align: center; padding-top: 0; border-top: 0; padding-left: 16px; border-left: 1px solid var(--plate-line); }
+  .qr { width: 110px; height: 110px; }
+}
+.meta { display: flex; flex-wrap: wrap; gap: 6px 16px; margin: 0; padding: 0; list-style: none; font-size: 14px; color: var(--muted); }
+.meta li { display: flex; gap: 6px; align-items: center; }
+.meta b { color: var(--ink); font-weight: 600; }
+
+/* tabs */
+.tabs { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 10; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 4px;
+  margin-top: 18px; padding-block: 8px; background: var(--bg); border-bottom: 1px solid var(--line); }
+.tab { appearance: none; border: 0; background: transparent; color: var(--muted); cursor: pointer;
+  font: 600 14px/1.1 var(--font-display); letter-spacing: .03em; text-transform: uppercase; padding: 11px 2px; border-radius: 8px; min-width: 0;
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+@media (min-width: 420px) { .tab { font-size: 15px; letter-spacing: .05em; } }
+.tab:hover { color: var(--ink); }
+.tab[aria-selected="true"] { color: var(--ink); background: var(--surface); box-shadow: inset 0 -3px 0 var(--accent); }
+.panel { padding-top: 16px; display: grid; gap: 14px; }
+.panel > .lead { margin: 0; color: var(--muted); font-size: 15px; }
+
+/* manual */
+.search { display: grid; gap: 6px; }
+.search-row { position: relative; }
+.search-row svg { position: absolute; left: 12px; top: 50%; width: 18px; height: 18px; transform: translateY(-50%); fill: none; stroke: var(--muted); stroke-width: 2; stroke-linecap: round; }
+input[type="search"], input[type="text"], input[type="email"], input[type="date"], textarea {
+  width: 100%; box-sizing: border-box; font: 400 16px/1.3 var(--font-body); color: var(--ink); background: var(--surface);
+  border: 1px solid var(--line); border-radius: 10px; padding: 12px 14px; }
+input[type="search"] { padding-left: 40px; }
+.count { margin: 0; min-height: 1.2em; font-size: 14px; color: var(--muted); }
+.quick { display: flex; flex-wrap: wrap; gap: 6px; }
+.chip { appearance: none; cursor: pointer; border: 1px solid var(--line); background: var(--surface); color: var(--ink);
+  font: 500 14px/1.2 var(--font-body); padding: 8px 12px; border-radius: 999px; text-align: left; }
+.chip:hover { border-color: var(--muted); }
+.sections { display: grid; gap: 8px; }
+details.sec { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); scroll-margin-top: 72px; }
+details.sec > summary { list-style: none; display: grid; grid-template-columns: 2.4em minmax(0, 1fr) 20px; gap: 8px; align-items: center;
+  padding: 14px 16px; cursor: pointer; font: 600 19px/1.2 var(--font-display); letter-spacing: .01em; }
+details.sec > summary::-webkit-details-marker { display: none; }
+.chev { width: 20px; height: 20px; fill: none; stroke: var(--muted); stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; transition: transform .2s; }
+details.sec[open] .chev { transform: rotate(180deg); }
+.num { font: 500 13px/1.2 var(--font-mono); color: var(--muted); font-variant-numeric: tabular-nums; }
+.st { display: flex; flex-wrap: wrap; gap: 4px 8px; align-items: center; min-width: 0; }
+.badge { font: 600 11px/1 var(--font-display); letter-spacing: .07em; text-transform: uppercase; background: var(--signal-soft); color: var(--signal); padding: 4px 7px; border-radius: 999px; }
+.sec-body { display: grid; gap: 20px; padding: 16px; border-top: 1px solid var(--line); }
+.sub { scroll-margin-top: 76px; border-radius: 6px; }
+.sub h3 { margin: 0 0 8px; display: flex; gap: 8px; align-items: baseline; font: 600 17px/1.3 var(--font-body); text-wrap: balance; }
+.sub p, .sub ul, .sub ol { margin: 0 0 8px; }
+.sub ul, .sub ol { padding-left: 1.25em; }
+.sub li + li { margin-top: 4px; }
+.sub > :last-child { margin-bottom: 0; }
+.sub.flash { animation: flash 1.8s ease-out; }
+@keyframes flash { from { background: var(--accent-soft); box-shadow: 0 0 0 8px var(--accent-soft); } to { background: transparent; box-shadow: 0 0 0 8px transparent; } }
+.tbl { overflow-x: auto; margin: 0 0 8px; }
+.tbl table { border-collapse: collapse; width: 100%; font-size: 15px; }
+.tbl th, .tbl td { text-align: left; vertical-align: top; padding: 8px 12px 8px 0; border-bottom: 1px solid var(--line); }
+.tbl th { font: 600 12px/1.2 var(--font-display); letter-spacing: .08em; text-transform: uppercase; color: var(--muted); }
+.tbl td:first-child { font-weight: 600; }
+.key { display: inline-block; font: 500 12px/1 var(--font-mono); padding: 3px 6px; border: 1px solid var(--line); border-bottom-width: 2px; border-radius: 5px; background: var(--surface-2); white-space: nowrap; vertical-align: 1px; }
+
+.callout { display: grid; grid-template-columns: 22px minmax(0, 1fr); gap: 10px; align-items: start; padding: 12px 14px; border-radius: 8px; margin: 4px 0 10px; }
+.callout p, .callout ul, .callout ol { margin: 0; }
+.callout ul, .callout ol { margin-top: 4px; }
+.callout .lbl { display: block; font: 700 13px/1.2 var(--font-display); letter-spacing: .09em; text-transform: uppercase; margin-bottom: 2px; }
+.callout.danger { position: relative; overflow: hidden; padding-top: 20px; background: var(--danger-soft); }
+.callout.danger::before { content: ""; position: absolute; inset: 0 0 auto 0; height: 7px; background: repeating-linear-gradient(135deg, var(--accent) 0 9px, var(--stripe) 9px 18px); }
+.callout.danger .lbl { color: var(--danger); }
+.callout.warn { background: var(--accent-soft); }
+.callout.warn .lbl { color: var(--warn-ink); }
+.callout.note { background: var(--signal-soft); }
+.callout.note .lbl { color: var(--signal); }
+.ic { width: 22px; height: 22px; display: block; }
+.ic-warn .tri { fill: var(--accent); stroke: var(--stripe); stroke-width: 1.6; stroke-linejoin: round; }
+.ic-warn .mark { fill: none; stroke: var(--stripe); stroke-width: 2.4; stroke-linecap: round; }
+.ic-note circle { fill: var(--signal); }
+.ic-note path { fill: none; stroke: var(--surface); stroke-width: 2.4; stroke-linecap: round; }
+
+.cite { appearance: none; border: 0; cursor: pointer; background: var(--signal-soft); color: var(--signal); font: 500 12px/1 var(--font-mono);
+  padding: 4px 6px; border-radius: 6px; margin: 0 1px; vertical-align: 1px; white-space: nowrap; }
+.cite:hover { text-decoration: underline; }
+
+/* ask */
+.chat-intro { display: grid; grid-template-columns: 22px minmax(0, 1fr); gap: 10px; background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 14px 16px; }
+.chat-intro p { margin: 0; }
+.chat-intro p + p { margin-top: 4px; color: var(--muted); font-size: 14px; }
+.msgs { display: grid; gap: 10px; }
+.msg { max-width: 90%; padding: 10px 14px; border-radius: 14px; overflow-wrap: anywhere; }
+.msg .body { white-space: pre-wrap; }
+.msg.user { justify-self: end; background: var(--user-bg); color: var(--user-ink); border-bottom-right-radius: 4px; }
+.msg.bot { justify-self: start; background: var(--surface); border: 1px solid var(--line); border-bottom-left-radius: 4px; }
+.msg .tag { display: block; margin-bottom: 6px; font: 600 11px/1.2 var(--font-display); letter-spacing: .09em; text-transform: uppercase; color: var(--muted); }
+.msg .tag.example { color: var(--warn-ink); }
+.msg.user .tag { color: var(--user-ink); opacity: .75; }
+.msg .err { display: block; margin-top: 6px; font-size: 14px; color: var(--danger); }
+.msg.thinking .body { color: var(--muted); }
+.hit + .hit { margin-top: 10px; padding-top: 10px; border-top: 1px dashed var(--line); }
+.hit b { display: block; font-weight: 600; margin-bottom: 2px; }
+.suggest { display: flex; flex-wrap: wrap; gap: 6px; }
+.ask { position: sticky; bottom: 0; display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 8px; background: var(--bg);
+  padding-block: 10px calc(10px + env(safe-area-inset-bottom, 0px)); }
+.btn { appearance: none; border: 0; cursor: pointer; background: var(--accent); color: var(--accent-ink); font: 700 15px/1 var(--font-display);
+  letter-spacing: .07em; text-transform: uppercase; padding: 13px 18px; border-radius: 10px; }
+.btn:disabled { opacity: .55; cursor: default; }
+.btn.secondary { background: var(--surface); color: var(--ink); border: 1px solid var(--line); }
+.ai-status { margin: 0; font-size: 13px; color: var(--muted); }
+.langs { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; }
+.langs-label { font: 600 12px/1.2 var(--font-display); letter-spacing: .09em; text-transform: uppercase; color: var(--muted); margin-right: 4px; }
+.lang { appearance: none; cursor: pointer; min-width: 44px; min-height: 36px; padding: 0 10px; border: 1px solid var(--line); border-radius: 8px;
+  background: var(--surface); color: var(--ink); font: 600 13px/1 var(--font-mono); letter-spacing: .04em; }
+.lang:hover { border-color: var(--muted); }
+.lang[aria-pressed="true"] { background: var(--ink); border-color: var(--ink); color: var(--surface); }
+
+/* documents */
+.retain { display: grid; grid-template-columns: 22px minmax(0, 1fr); gap: 10px; background: var(--ok-soft); border-radius: var(--radius); padding: 12px 14px; }
+.retain p { margin: 0; }
+.retain .ic circle { fill: var(--ok); }
+.doclist { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); }
+.doc { display: grid; grid-template-columns: 34px minmax(0, 1fr) auto; gap: 12px; align-items: center; padding: 12px 14px; border-top: 1px solid var(--line); }
+.doc:first-child { border-top: 0; }
+.ft { width: 34px; height: 42px; box-sizing: border-box; display: grid; place-items: end center; padding-bottom: 6px; border: 1px solid var(--line); border-radius: 3px 10px 3px 3px;
+  background: var(--surface-2); font: 600 9px/1 var(--font-mono); color: var(--muted); }
+.doc h4 { margin: 0; font: 600 16px/1.25 var(--font-body); }
+.doc .dmeta { margin: 2px 0 0; font-size: 13px; color: var(--muted); }
+.doc .state { display: inline-block; margin-top: 4px; font: 600 11px/1 var(--font-display); letter-spacing: .07em; text-transform: uppercase; padding: 4px 7px; border-radius: 999px; }
+.state.on { background: var(--ok-soft); color: var(--ok); }
+.state.old { background: var(--surface-2); color: var(--muted); }
+.doc .open { appearance: none; cursor: pointer; border: 1px solid var(--line); background: var(--surface); color: var(--ink); font: 600 14px/1 var(--font-display); letter-spacing: .06em; text-transform: uppercase; padding: 9px 12px; border-radius: 8px; }
+.doc .dnote { grid-column: 2 / -1; margin: 0; font-size: 13px; color: var(--muted); }
+h2.h { margin: 6px 0 0; font: 700 20px/1.2 var(--font-display); letter-spacing: .02em; }
+.paper { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 18px; font-size: 15px; }
+.paper header { text-align: center; padding-bottom: 12px; margin-bottom: 12px; border-bottom: 2px solid var(--ink); }
+.paper header strong { display: block; font: 700 20px/1.2 var(--font-display); letter-spacing: .06em; text-transform: uppercase; }
+.paper header span { font-size: 13px; color: var(--muted); }
+.paper ol { margin: 0; padding-left: 1.3em; display: grid; gap: 8px; }
+.paper .sign { margin-top: 14px; padding-top: 12px; border-top: 1px solid var(--line); display: grid; gap: 2px; }
+.paper .sigline { margin-top: 18px; width: 180px; border-top: 1px solid var(--muted); font-size: 12px; color: var(--muted); padding-top: 3px; }
+.paper .fac { margin: 14px 0 0; font-size: 12px; color: var(--muted); text-align: center; }
+.log { list-style: none; margin: 0; padding: 0; display: grid; gap: 10px; }
+.log li { display: grid; grid-template-columns: 92px minmax(0, 1fr); gap: 10px; }
+.log time { font: 500 13px/1.5 var(--font-mono); color: var(--muted); font-variant-numeric: tabular-nums; }
+
+/* paper copy */
+.form { display: grid; gap: 14px; background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 16px; }
+.field { display: grid; gap: 5px; min-width: 0; }
+.field label { font-weight: 600; font-size: 14px; }
+.field .hint { font-size: 13px; color: var(--muted); }
+.row2 { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+@media (max-width: 480px) { .row2 { grid-template-columns: 1fr; } }
+.check { display: grid; grid-template-columns: 20px minmax(0, 1fr); gap: 10px; align-items: start; font-size: 15px; }
+.check input { width: 18px; height: 18px; margin: 2px 0 0; accent-color: var(--signal); }
+.done { display: grid; grid-template-columns: 22px minmax(0, 1fr); gap: 10px; background: var(--ok-soft); border-radius: var(--radius); padding: 14px 16px; }
+.done p { margin: 0; } .done p + p { margin-top: 4px; font-size: 14px; color: var(--muted); }
+.done .ic circle { fill: var(--ok); }
+
+footer.foot { margin-top: 28px; padding-top: 14px; border-top: 1px solid var(--line); font-size: 13px; color: var(--muted); display: grid; gap: 4px; }
+
+@media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation: none !important; transition: none !important; scroll-behavior: auto !important; } }
+
+/* base: prima la dava il contenitore della demo */
+body { margin: 0; padding: 0; }
+img { max-width: 100%; }
+[hidden]:not([hidden=until-found i]) { display: none !important; }
+
+/* barra Targa10: da dove arriva chi ha inquadrato il QR */
+.t10 { display: flex; align-items: center; gap: 12px; padding: 10px 16px; background: #14171B; color: #F4F6F7; text-decoration: none; font: 500 14px/1.35 var(--font-body); }
+.t10:focus-visible { outline: 2px solid #FFC20E; outline-offset: -4px; }
+.t10-logo { display: inline-flex; flex-shrink: 0; font: 700 15px/1 var(--font-display); letter-spacing: .06em; }
+.t10-logo b { padding: 4px 6px; border: 1.5px solid #F4F6F7; border-right: 0; border-radius: 4px 0 0 4px; font-weight: 700; }
+.t10-logo i { font-style: normal; padding: 4px 6px; border: 1.5px solid #F4F6F7; border-radius: 0 4px 4px 0; background: #FFC20E; color: #14171B; }
+.t10-txt strong { color: #FFC20E; font-weight: 600; }
+.t10:hover .t10-txt strong { text-decoration: underline; }
+footer.foot a { color: var(--signal); }
+</style>
+</head>
+<body>
+
+<a class="t10" href="../checkup.html">
+  <span class="t10-logo" aria-hidden="true"><b>TARGA</b><i>10</i></span>
+  <span class="t10-txt">Questa pagina si apre dal QR della targa. <strong>Vuoi la stessa per le tue macchine? Check-up gratuito</strong></span>
+</a>
+<div class="ribbon">Esempio dimostrativo · azienda, macchina e dati sono inventati</div>
+
+<div class="wrap">
+  <header class="head">
+    <p class="eyebrow">Manuale digitale · Istruzioni per l'uso</p>
+    <h1>Centro di lavoro verticale VMC-850</h1>
+
+    <section class="plate" aria-label="Targhetta della macchina">
+      <i class="rivet tl"></i><i class="rivet tr"></i><i class="rivet bl"></i><i class="rivet br"></i>
+      <div class="plate-top">
+        <div class="maker">Costruttore Esempio S.r.l.<small>Via dell'Esempio 1 · 33100 Pordenone (PN) · Italia</small></div>
+        <div class="ce" aria-label="Marcatura CE">CE</div>
+      </div>
+      <dl class="fields">
+        <div><dt>Modello</dt><dd>VMC-850</dd></div>
+        <div><dt>Matricola</dt><dd>SN 2027-0042</dd></div>
+        <div><dt>Anno</dt><dd>2027</dd></div>
+        <div><dt>Massa</dt><dd>5.200 kg</dd></div>
+        <div><dt>Tensione</dt><dd>400 V 3~ 50 Hz</dd></div>
+        <div><dt>Potenza</dt><dd>25 kVA</dd></div>
+      </dl>
+      <div class="qrbox">
+        <div class="qr" id="qr" aria-label="Codice QR del manuale"></div>
+        <p><strong>Scansiona</strong>Manuale, dichiarazione UE e documenti di questa matricola</p>
+      </div>
+    </section>
+
+    <ul class="meta">
+      <li>Manuale <b>v1.1</b> · italiano</li>
+      <li>Aggiornato il <b>15/03/2027</b></li>
+      <li>Online almeno fino al <b>01/02/2047</b></li>
+    </ul>
+  </header>
+
+  <nav class="tabs" role="tablist" aria-label="Sezioni">
+    <button class="tab" role="tab" id="tab-manuale" aria-controls="panel-manuale" aria-selected="true">Manuale</button>
+    <button class="tab" role="tab" id="tab-chiedi" aria-controls="panel-chiedi" aria-selected="false" tabindex="-1">Chiedi</button>
+    <button class="tab" role="tab" id="tab-documenti" aria-controls="panel-documenti" aria-selected="false" tabindex="-1">Documenti</button>
+    <button class="tab" role="tab" id="tab-cartaceo" aria-controls="panel-cartaceo" aria-selected="false" tabindex="-1">Cartaceo</button>
+  </nav>
+
+  <!-- MANUALE -->
+  <section class="panel" id="panel-manuale" role="tabpanel" aria-labelledby="tab-manuale">
+    <div class="search">
+      <label for="q" class="sr">Cerca nel manuale</label>
+      <div class="search-row">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+        <input type="search" id="q" placeholder="Cerca nel manuale: allarme, azzeramento, olio…" autocomplete="off">
+      </div>
+      <p class="count" id="count" aria-live="polite"></p>
+    </div>
+    <div class="quick" aria-label="Accesso rapido">
+      <button type="button" class="chip" data-ref="7.2">Avvio giornaliero</button>
+      <button type="button" class="chip" data-ref="10.1">Allarmi</button>
+      <button type="button" class="chip" data-ref="9.1">Manutenzione</button>
+      <button type="button" class="chip" data-ref="9.2">Messa in sicurezza</button>
+      <button type="button" class="chip" data-ref="3.1">Dati tecnici</button>
+    </div>
+    <div class="sections" id="sections"></div>
+  </section>
+
+  <!-- CHIEDI -->
+  <section class="panel" id="panel-chiedi" role="tabpanel" aria-labelledby="tab-chiedi" hidden>
+    <div class="chat-intro">
+      <svg class="ic ic-note" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 10.5v6M12 7.4v.2"/></svg>
+      <div>
+        <p>Fai una domanda sulla macchina, anche nella tua lingua. L'assistente risponde solo con il contenuto di questo manuale e indica la sezione.</p>
+        <p>È un aiuto in più: per la sicurezza fa sempre fede il testo del manuale.</p>
+      </div>
+    </div>
+    <div class="msgs" id="msgs" aria-live="polite"></div>
+    <div class="langs" id="langs" role="group" aria-label="Lingua delle domande di esempio">
+      <span class="langs-label" aria-hidden="true">Esempi in</span>
+      <button type="button" class="lang" data-lang="it" aria-pressed="true" title="Italiano">IT</button>
+      <button type="button" class="lang" data-lang="en" aria-pressed="false" title="English">EN</button>
+      <button type="button" class="lang" data-lang="de" aria-pressed="false" title="Deutsch">DE</button>
+      <button type="button" class="lang" data-lang="fr" aria-pressed="false" title="Français">FR</button>
+      <button type="button" class="lang" data-lang="es" aria-pressed="false" title="Español">ES</button>
+      <button type="button" class="lang" data-lang="pl" aria-pressed="false" title="Polski">PL</button>
+      <button type="button" class="lang" data-lang="uk" aria-pressed="false" title="Українська">UA</button>
+    </div>
+    <div class="suggest" id="suggest" lang="it">
+      <button type="button" class="chip" data-q="Cosa significa l'allarme 4102?">Cosa significa l'allarme 4102?</button>
+      <button type="button" class="chip" data-q="Il convogliatore trucioli è bloccato: cosa faccio?">Il convogliatore trucioli è bloccato: cosa faccio?</button>
+      <button type="button" class="chip" data-q="Posso lavorare con la porta aperta?">Posso lavorare con la porta aperta?</button>
+      <button type="button" class="chip" data-q="Ogni quanto si cambia la finestra?">Ogni quanto si cambia la finestra?</button>
+    </div>
+    <form class="ask" id="ask-form" autocomplete="off">
+      <label for="ask-input" class="sr">Domanda</label>
+      <input type="text" id="ask-input" placeholder="Scrivi la tua domanda…" maxlength="400">
+      <button type="submit" class="btn" id="ask-send">Chiedi</button>
+      <button type="button" class="btn secondary" id="ask-stop" hidden>Stop</button>
+    </form>
+    <p class="ai-status" id="ai-status">Assistente AI in attivazione…</p>
+  </section>
+
+  <!-- DOCUMENTI -->
+  <section class="panel" id="panel-documenti" role="tabpanel" aria-labelledby="tab-documenti" hidden>
+    <div class="retain">
+      <svg class="ic ic-note" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M7.5 12.5l3 3 6-6.5"/></svg>
+      <p>Tutti i documenti della matricola <b>SN 2027-0042</b> restano online almeno fino al <b>01/02/2047</b>: vita prevista della macchina 20 anni, minimo di legge 10 anni dall'immissione sul mercato (01/02/2027). Le versioni sostituite restano in archivio.</p>
+    </div>
+    <div class="doclist" id="doclist"></div>
+
+    <details class="sec" id="doc-ce">
+      <summary><span class="num">UE</span><span class="st">Dichiarazione UE di conformità <span class="badge">Reg. (UE) 2023/1230</span></span><svg class="chev" viewBox="0 0 24 24" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></summary>
+      <div class="sec-body">
+        <article class="paper" aria-label="Dichiarazione UE di conformità, fac-simile">
+          <header><strong>Dichiarazione UE di conformità</strong><span>Fac-simile dimostrativo</span></header>
+          <ol>
+            <li><b>Prodotto:</b> centro di lavoro verticale a 3 assi, modello VMC-850, matricola <span class="mono">SN 2027-0042</span>.</li>
+            <li><b>Fabbricante:</b> Costruttore Esempio S.r.l., Via dell'Esempio 1, 33100 Pordenone (PN), Italia.</li>
+            <li>La presente dichiarazione è rilasciata sotto la responsabilità esclusiva del fabbricante.</li>
+            <li><b>Oggetto della dichiarazione:</b> la macchina descritta al punto 1, anno di costruzione 2027.</li>
+            <li>L'oggetto della dichiarazione è conforme a: <b>Regolamento (UE) 2023/1230</b> relativo alle macchine; Direttiva 2014/30/UE sulla compatibilità elettromagnetica.</li>
+            <li><b>Norme tecniche applicate:</b> EN ISO 12100:2010 · EN ISO 16090-1:2018 · EN 60204-1:2018 · EN ISO 13849-1:2023.</li>
+            <li><b>Procedura di valutazione della conformità:</b> controllo interno della produzione (modulo A). Nessun organismo notificato coinvolto.</li>
+            <li><b>Persona autorizzata a costituire la documentazione tecnica:</b> Mario Rossi, presso Costruttore Esempio S.r.l., Via dell'Esempio 1, 33100 Pordenone (PN), Italia.</li>
+          </ol>
+          <div class="sign">
+            <span>Firmato a nome e per conto di Costruttore Esempio S.r.l.</span>
+            <span>Pordenone, 01/02/2027 · Mario Rossi, legale rappresentante</span>
+            <span class="sigline">firma</span>
+          </div>
+          <p class="fac">Fac-simile con dati inventati, solo a scopo dimostrativo.</p>
+        </article>
+      </div>
+    </details>
+
+    <h2 class="h">Registro delle modifiche</h2>
+    <ul class="log">
+      <li><time datetime="2027-03-15">15/03/2027</time><span>Manuale v1.1: aggiornata la tabella degli allarmi <button type="button" class="cite" data-ref="10.1">§ 10.1</button> dopo il software 3.2.1. La versione 1.0 resta in archivio.</span></li>
+      <li><time datetime="2027-03-10">10/03/2027</time><span>Software del controllo aggiornato alla versione 3.2.1 dall'assistenza del costruttore <button type="button" class="cite" data-ref="11.1">§ 11.1</button>.</span></li>
+      <li><time datetime="2027-02-01">01/02/2027</time><span>Prima emissione: dichiarazione UE, manuale v1.0, schema elettrico, elenco ricambi, rapporto di collaudo.</span></li>
+    </ul>
+  </section>
+
+  <!-- CARTACEO -->
+  <section class="panel" id="panel-cartaceo" role="tabpanel" aria-labelledby="tab-cartaceo" hidden>
+    <p class="lead">Se la chiedi al momento dell'acquisto, la copia cartacea del manuale è gratuita e arriva entro un mese.</p>
+    <form class="form" id="paper-form" novalidate>
+      <div class="row2">
+        <div class="field"><label for="pf-name">Nome e cognome</label><input type="text" id="pf-name" required autocomplete="name" placeholder="Es. Luca Bianchi"></div>
+        <div class="field"><label for="pf-company">Azienda</label><input type="text" id="pf-company" autocomplete="organization" placeholder="Es. Officina Bianchi S.r.l."></div>
+      </div>
+      <div class="field"><label for="pf-email">Email</label><input type="email" id="pf-email" required autocomplete="email" placeholder="nome@azienda.it"></div>
+      <div class="field"><label for="pf-address">Indirizzo di spedizione</label><textarea id="pf-address" rows="2" required autocomplete="street-address" placeholder="Via, numero, CAP, città"></textarea></div>
+      <div class="row2">
+        <div class="field"><label for="pf-serial">Matricola</label><input type="text" id="pf-serial" value="SN 2027-0042" readonly><span class="hint">Già compilata dal QR della macchina.</span></div>
+        <div class="field"><label for="pf-date">Data di acquisto</label><input type="date" id="pf-date" required></div>
+      </div>
+      <label class="check" for="pf-atpurchase"><input type="checkbox" id="pf-atpurchase" checked><span>Chiedo la copia al momento dell'acquisto (gratuita, spedita entro un mese)</span></label>
+      <div><button type="submit" class="btn" id="pf-send">Richiedi la copia cartacea</button></div>
+      <p class="count" id="pf-error" aria-live="polite"></p>
+    </form>
+    <div class="done" id="paper-done" hidden aria-live="polite">
+      <svg class="ic ic-note" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M7.5 12.5l3 3 6-6.5"/></svg>
+      <div>
+        <p id="paper-done-text"></p>
+        <p>Questa è una demo: la richiesta non viene inviata a nessuno.</p>
+      </div>
+    </div>
+  </section>
+
+  <footer class="foot">
+    <span>Demo di manuale digitale con QR, assistente in 7 lingue e archivio documenti per 10 anni.</span>
+    <span>Costruttore, macchina, persone e valori tecnici sono inventati: non usare come manuale reale.</span>
+    <span>Pagina dimostrativa di <a href="../">Targa10</a>: targa con QR, manuale digitale e assistente AI per chi costruisce macchine.</span>
+  </footer>
+</div>
+
+<script src="qrcode.js"></script>
+<script>
+(function () {
+  "use strict";
+  const QR_URL = "https://targa10.it/demo/";
+  const $ = (s, r) => (r || document).querySelector(s);
+  const $$ = (s, r) => Array.from((r || document).querySelectorAll(s));
+
+  /* ---------- content helpers ---------- */
+  const IC = {
+    warn: '<svg class="ic ic-warn" viewBox="0 0 24 24" aria-hidden="true"><path class="tri" d="M12 3 2 20.5h20Z"/><path class="mark" d="M12 9.5v5M12 17.6v.2"/></svg>',
+    note: '<svg class="ic ic-note" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 10.5v6M12 7.4v.2"/></svg>'
+  };
+  const box = (kind, label, html) => '<div class="callout ' + kind + '">' + (kind === "note" ? IC.note : IC.warn) + '<div><strong class="lbl">' + label + '</strong>' + html + '</div></div>';
+  const danger = h => box("danger", "Pericolo", h);
+  const warn = h => box("warn", "Attenzione", h);
+  const note = h => box("note", "Nota", h);
+  const key = k => '<span class="key">' + k + '</span>';
+  const mono = t => '<span class="mono">' + t + '</span>';
+  const ref = r => '<button type="button" class="cite" data-ref="' + r + '">§ ' + r + '</button>';
+  const table = (head, rows) => '<div class="tbl"><table><thead><tr>' + head.map(h => '<th>' + h + '</th>').join("") + '</tr></thead><tbody>' +
+    rows.map(r => '<tr>' + r.map(c => '<td>' + c + '</td>').join("") + '</tr>').join("") + '</tbody></table></div>';
+
+  /* ---------- the example manual ---------- */
+  const MANUAL = [
+    { n: "1", t: "Informazioni generali", subs: [
+      { n: "1.1", t: "Costruttore e assistenza", h:
+        `<p><strong>Costruttore Esempio S.r.l.</strong><br>Via dell'Esempio 1, 33100 Pordenone (PN), Italia</p>
+         <p>Assistenza tecnica: ${mono("+39 0434 000000")} · ${mono("assistenza@costruttore-esempio.example")}<br>Dal lunedì al venerdì, 8:00–17:00.</p>
+         <p>Quando chiami l'assistenza, tieni a portata di mano modello e matricola scritti sulla targhetta.</p>` },
+      { n: "1.2", t: "Identificazione della macchina", h:
+        `<p>Centro di lavoro verticale a 3 assi, modello <strong>VMC-850</strong>. La targhetta è sul fianco sinistro del basamento.</p>
+         <p>La dichiarazione UE di conformità è nella scheda <em>Documenti</em> di questa pagina, raggiungibile anche dal codice QR sulla targhetta.</p>` },
+      { n: "1.3", t: "Uso previsto", h:
+        `<p>La macchina serve per fresare, forare, alesare e maschiare pezzi in acciaio, ghisa, alluminio, ottone e materie plastiche tecniche, bloccati sulla tavola con attrezzature adatte.</p>
+         <ul><li>Uso in ambiente industriale chiuso, tra 10 e 40 °C.</li><li>Solo da parte di operatori formati e autorizzati dal datore di lavoro.</li><li>Carico massimo sulla tavola, attrezzature comprese: 500 kg.</li></ul>` },
+      { n: "1.4", t: "Usi scorretti prevedibili", h:
+        danger(`<p>È vietato:</p><ul><li>lavorare con la porta aperta o con gli interblocchi esclusi o manomessi;</li><li>lavorare legno o magnesio: i trucioli possono prendere fuoco;</li><li>usare oli da taglio interi infiammabili senza un impianto di estinzione;</li><li>superare la velocità massima indicata sull'utensile o sul portautensile;</li><li>lavorare pezzi non bloccati o bloccati con attrezzature non adatte;</li><li>usare la macchina in atmosfera potenzialmente esplosiva.</li></ul>`) },
+      { n: "1.5", t: "Simboli usati nel manuale", h:
+        danger(`<p>Rischio di lesioni gravi o mortali.</p>`) + warn(`<p>Rischio di lesioni lievi o di danni alla macchina.</p>`) + note(`<p>Informazione utile per lavorare meglio.</p>`) }
+    ]},
+    { n: "2", t: "Sicurezza", subs: [
+      { n: "2.1", t: "Dispositivi di sicurezza", h:
+        `<ul>
+          <li><strong>Cabina chiusa</strong> con porta interbloccata: la porta resta bloccata finché mandrino e assi non sono fermi.</li>
+          <li><strong>Arresto di emergenza</strong>: pulsanti a fungo rossi sul pannello operatore e sulla pulsantiera portatile.</li>
+          <li><strong>Modalità Regolazione</strong>: con la porta aperta gli assi si muovono solo a velocità ridotta (massimo 2 m/min) e con il dispositivo di abilitazione premuto; il mandrino è limitato a 50 giri/min.</li>
+          <li><strong>Finestra in policarbonato</strong> antiurto: va sostituita secondo il programma ${ref("9.1")} o subito se è incrinata od opaca.</li>
+          <li><strong>Interruttore generale lucchettabile</strong> per mettere in sicurezza la macchina ${ref("9.2")}.</li>
+        </ul>` + danger(`<p>Non escludere mai gli interblocchi. Se trovi una protezione manomessa, ferma la macchina e avvisa il responsabile.</p>`) },
+      { n: "2.2", t: "Rischi residui", h:
+        `<p>Anche con tutte le protezioni restano questi rischi:</p>
+         <ul><li>tagli durante il carico e la pulizia degli utensili, che hanno spigoli affilati;</li><li>schiacciamento delle mani durante il carico di pezzi pesanti;</li><li>proiezione di trucioli e fluido quando si apre la porta;</li><li>scivolamento sul pavimento bagnato di fluido da taglio;</li><li>inalazione di nebbie di fluido: si consiglia un aspiratore di nebbie;</li><li>rumore: 76 dB(A) al posto di lavoro ${ref("3.2")}.</li></ul>` },
+      { n: "2.3", t: "Dispositivi di protezione individuale (DPI)", h:
+        `<ul><li>Occhiali di protezione: sempre.</li><li>Scarpe antinfortunistiche: sempre.</li><li>Guanti antitaglio: solo per maneggiare utensili e pezzi a macchina ferma.</li><li>Protezione dell'udito: secondo la valutazione del rumore fatta dal datore di lavoro.</li></ul>` +
+        danger(`<p>Mai guanti vicino a parti in rotazione. Niente abiti larghi, braccialetti o collane; raccogli i capelli lunghi.</p>`) },
+      { n: "2.4", t: "Chi può usare la macchina", h:
+        `<ul><li><strong>Operatore</strong>: formato sull'uso e sulle procedure di questo manuale.</li><li><strong>Manutentore meccanico</strong>: manutenzione ordinaria ${ref("9.1")}.</li><li><strong>Elettricista qualificato</strong>: l'unico che può aprire il quadro elettrico.</li></ul>` }
+    ]},
+    { n: "3", t: "Dati tecnici", subs: [
+      { n: "3.1", t: "Caratteristiche principali", h:
+        table(["Voce", "Valore"], [
+          ["Corse X / Y / Z", mono("850 / 510 / 560 mm")],
+          ["Tavola", mono("1000 × 500 mm") + ", 5 cave a T da 18 mm"],
+          ["Carico massimo tavola", mono("500 kg")],
+          ["Mandrino", "cono ISO 40, " + mono("12.000 giri/min")],
+          ["Potenza mandrino", mono("11 kW") + " continua (S1), " + mono("15 kW") + " (S6 40 %)"],
+          ["Magazzino utensili", mono("24") + " posizioni"],
+          ["Utensile massimo", "Ø " + mono("80 mm") + " (Ø " + mono("125 mm") + " con le posizioni vicine libere), lunghezza " + mono("300 mm") + ", peso " + mono("7 kg")],
+          ["Avanzamento rapido", mono("36 m/min")],
+          ["Alimentazione elettrica", mono("400 V ±10 %") + ", trifase, " + mono("50 Hz, 25 kVA")],
+          ["Aria compressa", mono("6 bar, 200 Nl/min") + ", aria secca e filtrata"],
+          ["Serbatoio fluido da taglio", mono("300 L")],
+          ["Massa", mono("5.200 kg")],
+          ["Ingombro L × P × H", mono("2.600 × 2.400 × 2.800 mm")]
+        ]) },
+      { n: "3.2", t: "Rumore", h:
+        `<p>Livello di pressione acustica di emissione ponderato A al posto di lavoro: <strong>${mono("76 dB(A)")}</strong>, incertezza ${mono("K = 2,5 dB")}, misurato durante una lavorazione di riferimento a 8.000 giri/min.</p>
+         <p>Il valore è sotto 80 dB(A): il livello di potenza acustica non è richiesto.</p>` }
+    ]},
+    { n: "4", t: "Trasporto, sollevamento e stoccaggio", subs: [
+      { n: "4.1", t: "Prima del trasporto", h:
+        `<ul><li>Porta assi e mandrino in posizione di trasporto con il programma ${mono("O9001")}.</li><li>Monta le staffe di bloccaggio rosse su tavola e testa.</li><li>Svuota il serbatoio del fluido da taglio e il convogliatore trucioli.</li></ul>` },
+      { n: "4.2", t: "Sollevamento", h:
+        `<p>Massa della macchina: <strong>${mono("5.200 kg")}</strong>.</p>
+         <ul><li><strong>Con gru</strong>: 4 funi da almeno 2.000 kg ciascuna, agganciate alle barre di sollevamento in dotazione inserite nei fori del basamento. Angolo tra le funi non oltre 60°.</li><li><strong>Con carrello elevatore</strong>: portata minima 7.000 kg, forche lunghe almeno 1.800 mm, nei punti segnati in giallo sul basamento.</li></ul>` +
+        danger(`<p>Non stare sotto il carico sospeso e non sollevare la macchina con le staffe di trasporto smontate.</p>`) },
+      { n: "4.3", t: "Stoccaggio", h:
+        `<p>Al coperto, tra 5 e 40 °C, umidità relativa sotto l'80 %, con le superfici lavorate protette da olio antiruggine.</p>` }
+    ]},
+    { n: "5", t: "Installazione e collegamenti", subs: [
+      { n: "5.1", t: "Pavimento e spazi", h:
+        `<ul><li>Soletta in calcestruzzo di almeno 200 mm, senza giunti sotto la macchina.</li><li>Spazio libero di almeno 800 mm sui lati e 1.000 mm sul retro, per la manutenzione.</li><li>Livellamento con i piedini regolabili: tolleranza ${mono("0,02 mm/m")}.</li></ul>` },
+      { n: "5.2", t: "Collegamento elettrico", h:
+        danger(`<p>Il collegamento lo fa solo un elettricista qualificato.</p>`) +
+        `<ul><li>Linea 400 V trifase con conduttore di protezione (PE), conduttori da almeno 10 mm².</li><li>A monte, interruttore magnetotermico da 40 A.</li><li>Dopo il collegamento controlla il senso delle fasi: il convogliatore trucioli deve girare nel verso della freccia.</li></ul>` },
+      { n: "5.3", t: "Aria compressa", h:
+        `<p>6 bar, aria secca e filtrata (filtro 5 µm). Collega il tubo all'innesto rapido sul retro e controlla la pressione sul manometro del gruppo aria.</p>` }
+    ]},
+    { n: "6", t: "Messa in servizio", subs: [
+      { n: "6.1", t: "Controlli prima della prima accensione", h:
+        `<ul><li>Staffe di trasporto rosse rimosse ${ref("4.1")}.</li><li>Olio di lubrificazione delle guide al livello massimo ${ref("9.3")}.</li><li>Serbatoio riempito con emulsione al 6 % ${ref("9.4")}.</li><li>Pressione dell'aria a 6 bar.</li><li>Nessun attrezzo od oggetto dentro la cabina.</li></ul>` },
+      { n: "6.2", t: "Prima accensione", h:
+        `<ol><li>Porta l'interruttore generale su <strong>I</strong>.</li><li>Sblocca gli arresti di emergenza e premi ${key("RESET")}.</li><li>Prova ogni arresto di emergenza: la macchina deve fermarsi subito.</li><li>Prova l'interblocco: con la porta aperta il ciclo non deve partire.</li><li>Esegui la ricerca dello zero degli assi con ${key("HOME")}.</li><li>Esegui il riscaldamento del mandrino, programma ${mono("O9000")} (15 minuti).</li></ol>` }
+    ]},
+    { n: "7", t: "Uso della macchina", subs: [
+      { n: "7.1", t: "Comandi principali", h:
+        `<ul><li><strong>Pannello operatore</strong>: schermo del controllo numerico, tastiera, override di avanzamento e velocità.</li><li><strong>Pulsantiera portatile</strong>: volantino elettronico, scelta dell'asse, dispositivo di abilitazione a tre posizioni, arresto di emergenza.</li><li><strong>Selettore di modalità a chiave</strong>: <em>Automatico</em> (porta chiusa) o <em>Regolazione</em> (porta aperta, velocità ridotte ${ref("2.1")}).</li></ul>` },
+      { n: "7.2", t: "Avvio giornaliero", h:
+        `<ol><li>Controlla i livelli di olio e fluido e la pressione dell'aria.</li><li>Accendi l'interruttore generale e premi ${key("RESET")}.</li><li>Esegui ${key("HOME")} su tutti gli assi.</li><li>Se la macchina è rimasta ferma più di 2 giorni, esegui il riscaldamento ${mono("O9000")}.</li></ol>` },
+      { n: "7.3", t: "Azzeramento del pezzo", h:
+        `<ol><li>Blocca il pezzo sulla tavola con morsa o staffe ${ref("8.2")}.</li><li>Monta il tastatore nel mandrino.</li><li>A porta chiusa, in modalità Automatico, lancia il ciclo di tastatura dello spigolo o del centro foro.</li><li>Il controllo salva il valore nell'origine scelta, da ${mono("G54")} a ${mono("G59")}.</li><li>Prima di lavorare, controlla l'origine con la simulazione grafica.</li></ol>` +
+        note(`<p>Senza tastatore puoi azzerare con il volantino in modalità Regolazione, usando un cercaspigoli.</p>`) },
+      { n: "7.4", t: "Carico degli utensili nel magazzino", h:
+        `<ol><li>In modalità Regolazione apri lo sportello di carico del magazzino.</li><li>Pulisci il cono del portautensile e il naso del mandrino: polvere e trucioli causano vibrazioni.</li><li>Inserisci il portautensile con la chiavetta allineata alla tacca della pinza.</li><li>Scrivi nella tabella utensili numero, lunghezza e raggio.</li></ol>` +
+        warn(`<p>Rispetta i limiti: Ø 80 mm (125 mm con le posizioni vicine libere), lunghezza 300 mm, peso 7 kg ${ref("3.1")}.</p>`) },
+      { n: "7.5", t: "Esecuzione di un programma", h:
+        `<ol><li>Carica il programma e controllalo con la simulazione grafica.</li><li>Prima esecuzione: blocco singolo e avanzamento rapido al 25 %.</li><li>Durante il primo pezzo tieni la mano vicino a ${key("STOP CICLO")}.</li><li>Quando il primo pezzo è controllato, lavora in continuo.</li></ol>` },
+      { n: "7.6", t: "Fine turno e spegnimento", h:
+        `<ol><li>Togli i trucioli da tavola e cabina con lo scovolo e la pistola del fluido.</li><li>Porta gli assi a metà corsa.</li><li>Porta l'interruttore generale su <strong>0</strong>.</li></ol>` +
+        warn(`<p>Non pulire con l'aria compressa: proietta trucioli e nebbie verso di te.</p>`) }
+    ]},
+    { n: "8", t: "Utensili e bloccaggio dei pezzi", subs: [
+      { n: "8.1", t: "Utensili ammessi", h:
+        `<ul><li>Portautensili con cono ISO 40 e tirante del tipo indicato nell'elenco ricambi.</li><li>Utensili equilibrati se usati sopra 8.000 giri/min.</li><li>Velocità massima dell'utensile almeno pari a quella programmata.</li></ul>` },
+      { n: "8.2", t: "Bloccaggio dei pezzi", h:
+        `<ul><li>Usa morse, staffe o attrezzature adatte alle forze di taglio.</li><li>Coppia di serraggio delle viti M16 delle staffe: ${mono("120 Nm")}.</li><li>Pezzo e attrezzatura insieme non devono superare 500 kg, distribuiti sulla tavola.</li></ul>` }
+    ]},
+    { n: "9", t: "Manutenzione", subs: [
+      { n: "9.1", t: "Programma di manutenzione", h:
+        table(["Quando", "Cosa fare"], [
+          ["Ogni giorno", "Pulizia trucioli da tavola e cabina · livello olio guide · livello e concentrazione del fluido (5–8 %) · scarico della condensa dal filtro dell'aria"],
+          ["Ogni settimana", "Pulizia del filtro del fluido · controllo delle pinze del magazzino · pulizia del cono mandrino"],
+          ["Ogni mese", "Prova degli arresti di emergenza e dell'interblocco porta · pulizia dei filtri del quadro elettrico"],
+          ["Ogni 6 mesi", "Controllo del gioco degli assi e della tensione della catena del convogliatore · tenuta di tubi aria e fluido"],
+          ["Ogni anno", "Sostituzione completa del fluido e pulizia del serbatoio · controllo della finestra in policarbonato"],
+          ["Ogni 2 anni", "Sostituzione della finestra in policarbonato, anche se sembra integra: il fluido la indebolisce nel tempo"]
+        ]) + note(`<p>Prima di ogni intervento metti in sicurezza la macchina ${ref("9.2")}.</p>`) },
+      { n: "9.2", t: "Messa in sicurezza per la manutenzione", h:
+        danger(`<p>Prima di qualsiasi intervento dentro la cabina o sui gruppi della macchina:</p><ol><li>ferma il ciclo e aspetta l'arresto completo del mandrino;</li><li>porta l'interruttore generale su 0 e bloccalo con il tuo lucchetto personale;</li><li>appendi il cartello «Manutenzione in corso – non avviare»;</li><li>chiudi e scarica l'aria compressa;</li><li>verifica che la macchina non parta premendo ${key("START")}.</li></ol>`) +
+        `<p>Solo chi ha messo il lucchetto può toglierlo.</p>` },
+      { n: "9.3", t: "Lubrificazione delle guide", h:
+        `<p>Serbatoio da 2 L sul retro della macchina, olio per guide ISO VG 68. Rabbocca quando il livello scende sotto la tacca MIN. Consumo tipico: 0,3 L a settimana su un turno.</p>` },
+      { n: "9.4", t: "Fluido da taglio", h:
+        `<p>Emulsione al 5–8 %. Controlla la concentrazione ogni giorno con il rifrattometro. Rabbocca con emulsione già miscelata, mai con sola acqua.</p>` }
+    ]},
+    { n: "10", t: "Allarmi e anomalie", subs: [
+      { n: "10.1", t: "Allarmi principali", h:
+        table(["Codice", "Messaggio", "Cosa fare"], [
+          [mono("1001"), "Arresto di emergenza premuto", "Elimina la causa, ruota il pulsante per sbloccarlo e premi " + key("RESET") + "."],
+          [mono("2051"), "Porta aperta o interblocco non chiuso", "Chiudi la porta e premi " + key("RESET") + ". Se l'allarme resta, ferma la macchina e chiama l'assistenza " + ref("1.1") + ": non escludere l'interblocco."],
+          [mono("3010"), "Livello olio guide basso", "Rabbocca l'olio " + ref("9.3") + ", poi " + key("RESET") + "."],
+          [mono("3020"), "Pressione aria insufficiente", "Controlla l'alimentazione a 6 bar e il filtro " + ref("5.3") + "."],
+          [mono("4102"), "Sovraccarico mandrino", "Riduci avanzamento o profondità di passata e controlla l'usura dell'utensile."],
+          [mono("5003"), "Utensile non trovato nel magazzino", "Controlla la tabella utensili e la posizione nel magazzino " + ref("7.4") + "."],
+          [mono("6001"), "Livello fluido da taglio basso", "Rabbocca con emulsione già miscelata " + ref("9.4") + "."]
+        ]) },
+      { n: "10.2", t: "Convogliatore trucioli bloccato", h:
+        `<ol><li>Premi ${key("STOP CICLO")} e aspetta l'arresto del mandrino.</li><li>Metti in sicurezza la macchina ${ref("9.2")}.</li><li>Togli i trucioli con il gancio in dotazione, mai con le mani.</li><li>Togli il lucchetto, riaccendi e fai girare il convogliatore all'indietro per 5 secondi, poi in avanti.</li></ol>` },
+      { n: "10.3", t: "In caso di incidente o guasto grave", h:
+        `<ol><li>Premi l'arresto di emergenza.</li><li>Presta soccorso o chiama il ${mono("112")}.</li><li>Avvisa il responsabile.</li><li>Non riavviare la macchina finché la causa non è chiarita.</li></ol>` }
+    ]},
+    { n: "11", t: "Software, rete e protezione dalle manomissioni", badge: "Nuovo dal 2027", subs: [
+      { n: "11.1", t: "Versione del software", h:
+        `<p>Software del controllo: versione ${mono("3.2.1")}. La versione installata si legge in <em>Sistema › Informazioni</em>.</p>
+         <p>Gli aggiornamenti li fornisce solo il costruttore, con file firmato digitalmente. Ogni aggiornamento è registrato nella scheda <em>Documenti</em>.</p>` },
+      { n: "11.2", t: "Collegamento in rete", h:
+        `<ul><li>La porta Ethernet serve solo a trasferire i programmi pezzo.</li><li>Collega la macchina solo alla rete d'officina, dietro un firewall, mai direttamente a internet.</li><li>Arresti di emergenza e interblocchi funzionano anche senza rete.</li></ul>` },
+      { n: "11.3", t: "Manomissioni", h:
+        `<p>Parametri di sicurezza e software sono protetti da una password del costruttore.</p>` +
+        warn(`<p>Se trovi sigilli rotti sul quadro elettrico o un avviso di modifica dei parametri di sicurezza, ferma la macchina e chiama l'assistenza ${ref("1.1")}.</p>`) }
+    ]},
+    { n: "12", t: "Ricambi e smaltimento", subs: [
+      { n: "12.1", t: "Ricambi importanti per la sicurezza", h:
+        `<p>Usa solo ricambi originali o equivalenti approvati dal costruttore per:</p>
+         <ul><li>interruttore di interblocco della porta;</li><li>pulsanti di arresto di emergenza;</li><li>finestra in policarbonato;</li><li>pulsantiera portatile e dispositivo di abilitazione.</li></ul>
+         <p>I codici sono nell'elenco ricambi, scheda <em>Documenti</em>.</p>` },
+      { n: "12.2", t: "Dismissione", h:
+        `<ol><li>Svuota fluido e olio e consegnali a un raccoglitore autorizzato.</li><li>Separa metalli, plastiche e componenti elettrici ed elettronici.</li><li>Smaltisci tutto secondo le norme sui rifiuti in vigore.</li></ol>` }
+    ]}
+  ];
+
+  /* ---------- text utilities ---------- */
+  const norm = s => s.toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g, "");
+  const STOP = new Set(("il lo la le gli un uno una del dello della dei degli delle dal dalla dai dagli dalle nel nella nei negli nelle sul sulla sui " +
+    "con per tra fra che come cosa cos quando quanto quanti quale quali dove devo devi deve posso puoi fare faccio fai non piu sono essere " +
+    "alla alle allo agli macchina mio mia miei mie suo sua questo questa ogni").split(" "));
+  function stems(q) {
+    return norm(q).split(/[^a-z0-9]+/).filter(t => t.length >= 3 && !STOP.has(t)).map(t => (t.length > 5 ? t.slice(0, 5) : t));
+  }
+  function toText(node) {
+    let s = "";
+    node.childNodes.forEach(ch => {
+      if (ch.nodeType === 3) { s += ch.nodeValue; return; }
+      if (ch.nodeType !== 1) return;
+      const tag = ch.tagName;
+      if (tag === "H3" || tag === "svg" || tag === "SVG") return;
+      if (tag === "BR") { s += "\n"; return; }
+      const inner = toText(ch);
+      if (tag === "TD" || tag === "TH") s += inner.trim() + " | ";
+      else if (tag === "LI") s += "\n- " + inner.trim() + "\n";
+      else if (/^(P|TR|DIV|UL|OL|TABLE|THEAD|TBODY|STRONG)$/.test(tag) && ch.classList.contains("lbl")) s += "\n" + inner.trim().toUpperCase() + ": ";
+      else if (/^(P|TR|DIV|UL|OL|TABLE|THEAD|TBODY)$/.test(tag)) s += "\n" + inner + "\n";
+      else s += inner;
+    });
+    return s;
+  }
+  const tidy = s => s.replace(/[ \t]+/g, " ").replace(/ *\n */g, "\n").replace(/\n{2,}/g, "\n").replace(/ \| \n/g, "\n").trim();
+
+  /* ---------- render the manual ---------- */
+  const CHEV = '<svg class="chev" viewBox="0 0 24 24" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>';
+  const idOf = n => "s-" + n.replace(".", "-");
+  const INDEX = [];
+  function renderManual() {
+    $("#sections").innerHTML = MANUAL.map(s =>
+      '<details class="sec" id="' + idOf(s.n) + '" data-n="' + s.n + '"><summary><span class="num">' + s.n + '</span><span class="st">' + s.t +
+      (s.badge ? ' <span class="badge">' + s.badge + '</span>' : '') + '</span>' + CHEV + '</summary><div class="sec-body">' +
+      s.subs.map(u => '<article class="sub" id="' + idOf(u.n) + '" data-n="' + u.n + '"><h3><span class="num">' + u.n + '</span><span>' + u.t + '</span></h3>' + u.h + '</article>').join("") +
+      '</div></details>').join("");
+    MANUAL.forEach(s => s.subs.forEach(u => {
+      const el = document.getElementById(idOf(u.n));
+      const text = tidy(toText(el));
+      INDEX.push({ n: u.n, t: u.t, sec: s, el, text, ntitle: norm(u.t + " " + s.t), ntext: norm(text) });
+    }));
+  }
+  function manualAsText() {
+    return MANUAL.map(s => "§ " + s.n + " " + s.t.toUpperCase() + "\n" +
+      INDEX.filter(x => x.sec === s).map(x => "§ " + x.n + " " + x.t + "\n" + x.text).join("\n\n")).join("\n\n");
+  }
+
+  /* ---------- tabs and navigation ---------- */
+  const TABS = ["manuale", "chiedi", "documenti", "cartaceo"];
+  function setTab(name, opts) {
+    if (!TABS.includes(name)) name = "manuale";
+    TABS.forEach(t => {
+      const on = t === name, b = $("#tab-" + t);
+      b.setAttribute("aria-selected", on ? "true" : "false");
+      b.tabIndex = on ? 0 : -1;
+      $("#panel-" + t).hidden = !on;
+    });
+    if (!opts || opts.hash !== false) { try { history.replaceState(null, "", "#" + name); } catch (e) { /* ignore */ } }
+    if (opts && opts.focus) $("#tab-" + name).focus();
+  }
+  $$(".tab").forEach(b => {
+    b.addEventListener("click", () => setTab(b.id.slice(4)));
+    b.addEventListener("keydown", e => {
+      const i = TABS.indexOf(b.id.slice(4));
+      if (e.key === "ArrowRight" || e.key === "ArrowLeft") {
+        e.preventDefault();
+        setTab(TABS[(i + (e.key === "ArrowRight" ? 1 : TABS.length - 1)) % TABS.length], { focus: true });
+      }
+    });
+  });
+  window.addEventListener("hashchange", () => { const h = location.hash.slice(1); if (TABS.includes(h)) setTab(h, { hash: false }); });
+
+  const reduce = () => window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  function goTo(refNo) {
+    setTab("manuale");
+    if ($("#q").value) { $("#q").value = ""; filterManual(""); }
+    let target = document.getElementById(idOf(refNo));
+    if (!target) return;
+    const det = target.tagName === "DETAILS" ? target : target.closest("details");
+    if (det) det.open = true;
+    requestAnimationFrame(() => {
+      target.scrollIntoView({ block: "start", behavior: reduce() ? "auto" : "smooth" });
+      if (target.classList.contains("sub")) {
+        target.classList.remove("flash"); void target.offsetWidth; target.classList.add("flash");
+      }
+    });
+  }
+  document.addEventListener("click", e => {
+    const b = e.target.closest("[data-ref]");
+    if (b) { e.preventDefault(); goTo(b.getAttribute("data-ref")); }
+  });
+
+  /* ---------- manual search ---------- */
+  let lastQuery = "";
+  function filterManual(q) {
+    const toks = stems(q);
+    let hits = 0;
+    INDEX.forEach(x => {
+      const m = !toks.length || toks.every(t => x.ntitle.includes(t) || x.ntext.includes(t));
+      x.el.hidden = !m;
+      if (m) hits++;
+    });
+    $$("details.sec", $("#sections")).forEach(d => {
+      const any = !!d.querySelector(".sub:not([hidden])");
+      d.hidden = !any;
+      if (toks.length) d.open = any; else if (lastQuery) d.open = false;
+    });
+    $("#count").textContent = !toks.length ? "" : hits ? hits + (hits === 1 ? " paragrafo trovato" : " paragrafi trovati")
+      : "Nessun risultato. Prova un'altra parola o chiedi all'assistente.";
+    lastQuery = toks.join(" ");
+  }
+  $("#q").addEventListener("input", e => filterManual(e.target.value));
+
+  /* ---------- QR on the nameplate ---------- */
+  function drawQR() {
+    const host = $("#qr");
+    if (typeof window.qrcode !== "function") { host.classList.add("missing"); host.textContent = "QR"; return; }
+    try {
+      const q = window.qrcode(0, "M"); q.addData(QR_URL); q.make();
+      const n = q.getModuleCount();
+      let d = "";
+      for (let r = 0; r < n; r++) for (let c = 0; c < n; c++) if (q.isDark(r, c)) d += "M" + c + " " + r + "h1v1h-1z";
+      host.innerHTML = '<svg viewBox="-1 -1 ' + (n + 2) + " " + (n + 2) + '" role="img" aria-label="Codice QR"><rect class="qr-bg" x="-1" y="-1" width="' + (n + 2) + '" height="' + (n + 2) + '"/><path class="qr-fg" d="' + d + '"/></svg>';
+    } catch (e) { host.classList.add("missing"); host.textContent = "QR"; }
+  }
+
+  /* ---------- ask the manual ---------- */
+  const msgs = $("#msgs");
+  const CITE = /\[?§\s*(\d{1,2}(?:\.\d{1,2})?)\]?/g;
+  function fillWithCites(el, text) {
+    el.textContent = "";
+    let last = 0, m;
+    CITE.lastIndex = 0;
+    while ((m = CITE.exec(text))) {
+      if (m.index > last) el.appendChild(document.createTextNode(text.slice(last, m.index)));
+      const exists = document.getElementById(idOf(m[1]));
+      if (exists) {
+        const b = document.createElement("button");
+        b.type = "button"; b.className = "cite"; b.setAttribute("data-ref", m[1]); b.textContent = "§ " + m[1];
+        el.appendChild(b);
+      } else el.appendChild(document.createTextNode(m[0]));
+      last = m.index + m[0].length;
+    }
+    if (last < text.length) el.appendChild(document.createTextNode(text.slice(last)));
+  }
+  function addMsg(role, tag) {
+    const m = document.createElement("div");
+    m.className = "msg " + role;
+    if (tag) { const t = document.createElement("span"); t.className = "tag" + (tag === "Esempio di risposta" ? " example" : ""); t.textContent = tag; m.appendChild(t); }
+    const b = document.createElement("div"); b.className = "body"; m.appendChild(b);
+    msgs.appendChild(m);
+    return m;
+  }
+  function addUser(text, tag) { const m = addMsg("user", tag); $(".body", m).textContent = text; return m; }
+
+  // Example exchange shown at rest (not sent to the AI)
+  (function example() {
+    addUser("Cosa devo fare con l'allarme 2051?", "Esempio di domanda");
+    const m = addMsg("bot", "Esempio di risposta");
+    fillWithCites($(".body", m), "L'allarme 2051 indica porta aperta o interblocco non chiuso [§ 10.1].\n• Chiudi la porta e premi RESET [§ 10.1].\n• Se l'allarme resta, ferma la macchina e chiama l'assistenza al +39 0434 000000 [§ 1.1].\n• Non escludere mai l'interblocco [§ 2.1].");
+  })();
+
+  // Local fallback: search the manual
+  const SYN = { cambi: ["sosti"], sosti: ["cambi"], accen: ["avvio", "avvia"], avvio: ["accen"], olio: ["lubri"], lubri: ["olio"] };
+  const alts = t => [t].concat(SYN[t] || []);
+  const weight = t => (/^\d+$/.test(t) ? 3 : 1);
+  function localAnswer(q) {
+    const toks = stems(q);
+    if (!toks.length) return [];
+    const ranked = INDEX.map(x => {
+      let score = 0, matched = 0;
+      toks.forEach(t => {
+        const inT = alts(t).some(a => x.ntitle.includes(a));
+        const inB = alts(t).reduce((s, a) => s + x.ntext.split(a).length - 1, 0);
+        if (inT || inB) matched++;
+        score += weight(t) * ((inT ? 3 : 0) + Math.min(inB, 3));
+      });
+      if (matched === toks.length) score += 2;
+      return { x, score, matched };
+    }).filter(r => r.matched).sort((a, b) => b.score - a.score);
+    const top = ranked.length ? ranked[0].score : 0;
+    return ranked.filter((r, i) => i === 0 || r.score >= top * 0.6).slice(0, 2).map(r => {
+      const lines = r.x.text.split("\n").filter(l => l.trim().length > 3);
+      let best = lines[0] || "", bestScore = -Infinity;
+      lines.forEach(l => {
+        const nl = norm(l), pos = [];
+        let hits = 0;
+        toks.forEach(t => {
+          const i = alts(t).map(a => nl.indexOf(a)).filter(i => i >= 0).sort((a, b) => a - b)[0];
+          if (i !== undefined) { hits += weight(t); pos.push(i); }
+        });
+        const span = pos.length > 1 ? Math.max.apply(null, pos) - Math.min.apply(null, pos) : 0;
+        const s = hits * 1000 - span;
+        if (s > bestScore) { bestScore = s; best = l; }
+      });
+      return { x: r.x, snippet: best.replace(/^- /, "").replace(/ \|\s*$/, "").replace(/ \| /g, " · ") };
+    });
+  }
+  function renderLocal(m, q) {
+    const tag = $(".tag", m) || document.createElement("span");
+    tag.className = "tag"; tag.textContent = "Risposta dalla ricerca nel manuale";
+    if (!tag.parentNode) m.prepend(tag);
+    m.classList.remove("thinking");
+    const body = $(".body", m);
+    const hits = localAnswer(q);
+    if (!hits.length) { fillWithCites(body, "Non ho trovato questa informazione nel manuale. Prova con altre parole o contatta l'assistenza del costruttore [§ 1.1]."); return; }
+    body.textContent = "";
+    hits.forEach(h => {
+      const d = document.createElement("div"); d.className = "hit";
+      const b = document.createElement("b"); fillWithCites(b, "[§ " + h.x.n + "] " + h.x.t); d.appendChild(b);
+      const p = document.createElement("span"); fillWithCites(p, h.snippet); d.appendChild(p);
+      body.appendChild(d);
+    });
+  }
+
+  /* ==== multilingual-answers:start ==== */
+  // Answers from the translated manual. Used when the AI is not active in this view or cannot be reached.
+  const LANGS = ["it", "en", "de", "fr", "es", "pl", "uk"];
+  const LANG_NAME = { it: "Italiano", en: "English", de: "Deutsch", fr: "Français", es: "Español", pl: "Polski", uk: "Українська" };
+  const PH = {
+    it: "Scrivi la tua domanda…", en: "Type your question…", de: "Ihre Frage eingeben…", fr: "Écrivez votre question…",
+    es: "Escriba su pregunta…", pl: "Wpisz pytanie…", uk: "Напишіть своє запитання…"
+  };
+  const DEMO_Q = {
+    it: ["Cosa significa l'allarme 4102?", "Il convogliatore trucioli è bloccato: cosa faccio?", "Posso lavorare con la porta aperta?", "Ogni quanto si cambia la finestra?"],
+    en: ["What does alarm 4102 mean?", "The chip conveyor is jammed. What do I do?", "Can I run the machine with the door open?", "How often do I replace the window?"],
+    de: ["Was bedeutet Alarm 4102?", "Der Späneförderer ist blockiert. Was tun?", "Darf ich mit offener Tür arbeiten?", "Wie oft wird die Sichtscheibe gewechselt?"],
+    fr: ["Que signifie l'alarme 4102 ?", "Le convoyeur à copeaux est bloqué : que faire ?", "Puis-je travailler porte ouverte ?", "Quand faut-il remplacer la vitre ?"],
+    es: ["¿Qué significa la alarma 4102?", "El transportador de virutas está atascado, ¿qué hago?", "¿Puedo trabajar con la puerta abierta?", "¿Cada cuánto se cambia el visor?"],
+    pl: ["Co oznacza alarm 4102?", "Przenośnik wiórów jest zablokowany. Co robić?", "Czy mogę pracować przy otwartych drzwiach?", "Jak często wymieniać szybę?"],
+    uk: ["Що означає помилка 4102?", "Конвеєр для стружки заблокований. Що робити?", "Чи можна працювати з відчиненими дверима?", "Як часто міняти оглядове вікно?"]
+  };
+  const ALARM_WORD = { it: "Allarme", en: "Alarm", de: "Alarm", fr: "Alarme", es: "Alarma", pl: "Alarm", uk: "Помилка" };
+  const ALARMS = {
+    "1001": {
+      it: ["arresto di emergenza premuto", "Elimina la causa, ruota il pulsante per sbloccarlo e premi RESET."],
+      en: ["emergency stop pressed", "Remove the cause, twist the button to release it and press RESET."],
+      de: ["Not-Halt betätigt", "Ursache beseitigen, den Taster durch Drehen entriegeln und RESET drücken."],
+      fr: ["arrêt d'urgence enclenché", "Supprimez la cause, tournez le bouton pour le déverrouiller et appuyez sur RESET."],
+      es: ["parada de emergencia pulsada", "Elimine la causa, gire el pulsador para desbloquearlo y pulse RESET."],
+      pl: ["naciśnięty wyłącznik awaryjny", "Usuń przyczynę, obróć przycisk, aby go odblokować, i naciśnij RESET."],
+      uk: ["натиснуто кнопку аварійної зупинки", "Усуньте причину, поверніть кнопку, щоб розблокувати її, і натисніть RESET."]
+    },
+    "2051": {
+      it: ["porta aperta o interblocco non chiuso", "Chiudi la porta e premi RESET. Se l'allarme resta, ferma la macchina e chiama l'assistenza [§ 1.1]. Non escludere mai l'interblocco [§ 2.1]."],
+      en: ["door open or interlock not closed", "Close the door and press RESET. If the alarm stays, stop the machine and call service [§ 1.1]. Never bypass the interlock [§ 2.1]."],
+      de: ["Tür offen oder Verriegelung nicht geschlossen", "Tür schließen und RESET drücken. Bleibt der Alarm, die Maschine stillsetzen und den Kundendienst anrufen [§ 1.1]. Die Verriegelung niemals überbrücken [§ 2.1]."],
+      fr: ["porte ouverte ou verrouillage non fermé", "Fermez la porte et appuyez sur RESET. Si l'alarme persiste, arrêtez la machine et appelez l'assistance [§ 1.1]. Ne shuntez jamais le verrouillage [§ 2.1]."],
+      es: ["puerta abierta o enclavamiento no cerrado", "Cierre la puerta y pulse RESET. Si la alarma continúa, detenga la máquina y llame a la asistencia técnica [§ 1.1]. No puentee nunca el enclavamiento [§ 2.1]."],
+      pl: ["otwarte drzwi lub niezamknięta blokada", "Zamknij drzwi i naciśnij RESET. Jeśli alarm nie znika, zatrzymaj maszynę i zadzwoń do serwisu [§ 1.1]. Nigdy nie obchodź blokady [§ 2.1]."],
+      uk: ["двері відчинені або блокування не замкнене", "Зачиніть двері й натисніть RESET. Якщо помилка не зникає, зупиніть верстат і зателефонуйте в сервіс [§ 1.1]. Ніколи не вимикайте блокування [§ 2.1]."]
+    },
+    "3010": {
+      it: ["livello olio guide basso", "Rabbocca l'olio per guide ISO VG 68 [§ 9.3], poi premi RESET."],
+      en: ["slideway oil level low", "Top up with ISO VG 68 slideway oil [§ 9.3], then press RESET."],
+      de: ["Gleitbahnölstand niedrig", "Gleitbahnöl ISO VG 68 nachfüllen [§ 9.3], dann RESET drücken."],
+      fr: ["niveau d'huile de glissières bas", "Faites l'appoint d'huile de glissières ISO VG 68 [§ 9.3], puis appuyez sur RESET."],
+      es: ["nivel bajo de aceite de guías", "Rellene con aceite de guías ISO VG 68 [§ 9.3] y pulse RESET."],
+      pl: ["niski poziom oleju do prowadnic", "Uzupełnij olej do prowadnic ISO VG 68 [§ 9.3], a potem naciśnij RESET."],
+      uk: ["низький рівень оливи для напрямних", "Долийте оливу для напрямних ISO VG 68 [§ 9.3], потім натисніть RESET."]
+    },
+    "3020": {
+      it: ["pressione aria insufficiente", "Controlla l'alimentazione dell'aria a 6 bar e il filtro [§ 5.3]."],
+      en: ["air pressure too low", "Check the 6 bar air supply and the filter [§ 5.3]."],
+      de: ["Luftdruck zu niedrig", "Druckluftversorgung (6 bar) und Filter prüfen [§ 5.3]."],
+      fr: ["pression d'air insuffisante", "Vérifiez l'alimentation en air à 6 bar et le filtre [§ 5.3]."],
+      es: ["presión de aire insuficiente", "Compruebe la alimentación de aire a 6 bar y el filtro [§ 5.3]."],
+      pl: ["za niskie ciśnienie powietrza", "Sprawdź zasilanie sprężonym powietrzem 6 bar i filtr [§ 5.3]."],
+      uk: ["недостатній тиск повітря", "Перевірте подачу стисненого повітря 6 бар і фільтр [§ 5.3]."]
+    },
+    "4102": {
+      it: ["sovraccarico mandrino", "Riduci l'avanzamento o la profondità di passata e controlla l'usura dell'utensile."],
+      en: ["spindle overload", "Reduce the feed rate or the depth of cut and check the tool for wear."],
+      de: ["Spindelüberlastung", "Vorschub oder Schnitttiefe reduzieren und das Werkzeug auf Verschleiß prüfen."],
+      fr: ["surcharge de la broche", "Réduisez l'avance ou la profondeur de passe et contrôlez l'usure de l'outil."],
+      es: ["sobrecarga del husillo", "Reduzca el avance o la profundidad de pasada y revise el desgaste de la herramienta."],
+      pl: ["przeciążenie wrzeciona", "Zmniejsz posuw lub głębokość skrawania i sprawdź zużycie narzędzia."],
+      uk: ["перевантаження шпинделя", "Зменште подачу або глибину різання та перевірте знос інструменту."]
+    },
+    "5003": {
+      it: ["utensile non trovato nel magazzino", "Controlla la tabella utensili e la posizione dell'utensile nel magazzino [§ 7.4]."],
+      en: ["tool not found in the magazine", "Check the tool table and the tool's position in the magazine [§ 7.4]."],
+      de: ["Werkzeug nicht im Magazin gefunden", "Werkzeugtabelle und Platz des Werkzeugs im Magazin prüfen [§ 7.4]."],
+      fr: ["outil introuvable dans le magasin", "Vérifiez la table d'outils et la position de l'outil dans le magasin [§ 7.4]."],
+      es: ["herramienta no encontrada en el almacén", "Compruebe la tabla de herramientas y la posición de la herramienta en el almacén [§ 7.4]."],
+      pl: ["nie znaleziono narzędzia w magazynie", "Sprawdź tabelę narzędzi i pozycję narzędzia w magazynie [§ 7.4]."],
+      uk: ["інструмент не знайдено в магазині", "Перевірте таблицю інструментів і місце інструменту в магазині [§ 7.4]."]
+    },
+    "6001": {
+      it: ["livello fluido da taglio basso", "Rabbocca con emulsione già miscelata, mai con sola acqua [§ 9.4]."],
+      en: ["coolant level low", "Top up with pre-mixed emulsion, never with water alone [§ 9.4]."],
+      de: ["Kühlschmierstoffstand niedrig", "Mit fertig gemischter Emulsion nachfüllen, nie nur mit Wasser [§ 9.4]."],
+      fr: ["niveau de fluide de coupe bas", "Faites l'appoint avec de l'émulsion déjà mélangée, jamais avec de l'eau seule [§ 9.4]."],
+      es: ["nivel bajo de fluido de corte", "Rellene con emulsión ya mezclada, nunca solo con agua [§ 9.4]."],
+      pl: ["niski poziom chłodziwa", "Uzupełnij gotową emulsją, nigdy samą wodą [§ 9.4]."],
+      uk: ["низький рівень мастильно-охолоджувальної рідини", "Долийте готову емульсію, ніколи не доливайте лише воду [§ 9.4]."]
+    }
+  };
+  const UNKNOWN_CODE = {
+    it: c => `Il codice ${c} non è nella tabella degli allarmi [§ 10.1]: il manuale non spiega come risolverlo. Chiama l'assistenza del costruttore con modello e matricola [§ 1.1].`,
+    en: c => `Code ${c} is not in the alarm table [§ 10.1], so the manual does not say how to fix it. Call the manufacturer's service with the model and serial number [§ 1.1].`,
+    de: c => `Der Code ${c} steht nicht in der Alarmtabelle [§ 10.1], die Anleitung beschreibt keine Abhilfe. Rufen Sie den Kundendienst des Herstellers an und nennen Sie Modell und Seriennummer [§ 1.1].`,
+    fr: c => `Le code ${c} ne figure pas dans la table des alarmes [§ 10.1] : le manuel n'indique pas comment le résoudre. Appelez l'assistance du constructeur avec le modèle et le numéro de série [§ 1.1].`,
+    es: c => `El código ${c} no está en la tabla de alarmas [§ 10.1]: el manual no explica cómo resolverlo. Llame a la asistencia del fabricante con el modelo y el número de serie [§ 1.1].`,
+    pl: c => `Kodu ${c} nie ma w tabeli alarmów [§ 10.1], więc instrukcja nie opisuje, jak go usunąć. Zadzwoń do serwisu producenta i podaj model oraz numer seryjny [§ 1.1].`,
+    uk: c => `Коду ${c} немає в таблиці помилок [§ 10.1], тому інструкція не пояснює, як її усунути. Зателефонуйте в сервіс виробника та назвіть модель і серійний номер [§ 1.1].`
+  };
+  const NOT_FOUND = {
+    en: "This demo has only part of the manual in English, and I can't find this topic in it. Try other words, or call the manufacturer's service [§ 1.1].",
+    de: "In dieser Demo ist nur ein Teil der Anleitung auf Deutsch verfügbar, und dieses Thema finde ich darin nicht. Versuchen Sie andere Wörter oder rufen Sie den Kundendienst des Herstellers an [§ 1.1].",
+    fr: "Cette démo ne contient qu'une partie du manuel en français et je n'y trouve pas ce sujet. Essayez d'autres mots ou appelez l'assistance du constructeur [§ 1.1].",
+    es: "Esta demo solo tiene una parte del manual en español y no encuentro este tema. Pruebe con otras palabras o llame a la asistencia del fabricante [§ 1.1].",
+    pl: "W tym demo tylko część instrukcji jest po polsku i nie znajduję w niej tego tematu. Spróbuj innych słów albo zadzwoń do serwisu producenta [§ 1.1].",
+    uk: "У цій демоверсії українською є лише частина інструкції, і цієї теми в ній немає. Спробуйте інші слова або зателефонуйте в сервіс виробника [§ 1.1]."
+  };
+
+  // Keywords: "stem" adds 1, "stem*3" adds 3, "=word" must be a whole word. Order breaks ties.
+  const TOPICS = [
+    { id: "estop", alarm: "1001", kw: {
+      it: ["arresto di emergenza*3", "fungo*2"],
+      en: ["emergency stop*3", "e-stop*3", "estop*3"],
+      de: ["not-halt*3", "nothalt*3", "not-aus*3", "notaus*3"],
+      fr: ["arrêt d'urgence*3", "coup de poing*2"],
+      es: ["parada de emergencia*3", "seta de emergencia*3"],
+      pl: ["wyłącznik awaryjny*3", "wyłącznika awaryjnego*3", "stop awaryjny*3", "grzybek*2"],
+      uk: ["аварійна зупинка*3", "аварійної зупинки*3", "аварійну зупинку*3", "аварійний стоп*3"] } },
+    { id: "door", kw: {
+      it: ["porta aperta*3", "interblocc*2", "escluder*2", "bypass*2", "ponticell*2", "=porta"],
+      en: ["door open*3", "open door*3", "=door", "bypass*2", "interlock*2", "override*2"],
+      de: ["offener tür*3", "tür offen*3", "offene tür*3", "=tür", "überbrück*2", "verriegelung*2"],
+      fr: ["porte ouverte*3", "=porte", "shunt*2", "verrouillage*2", "contourn*2"],
+      es: ["puerta abierta*3", "=puerta", "puente*2", "enclavamiento*2", "anular*2"],
+      pl: ["otwartych drzwiach*3", "otwarte drzwi*3", "drzwi otwarte*3", "=drzwi", "obejś*2", "obchodz*2", "blokad*2"],
+      uk: ["відчинен*2", "відкрит*2", "двер", "блокуван*2", "обійт*2", "перемичк*2"] },
+      a: {
+        it: "Lavorare con la porta aperta o con gli interblocchi esclusi o manomessi è vietato [§ 1.4].\n• La porta resta bloccata finché mandrino e assi non sono fermi [§ 2.1].\n• A porta aperta si lavora solo in modalità Regolazione: assi al massimo a 2 m/min con il dispositivo di abilitazione premuto, mandrino limitato a 50 giri/min [§ 2.1].\n• Se trovi una protezione manomessa, ferma la macchina e avvisa il responsabile [§ 2.1].",
+        en: "Working with the door open, or with the interlocks bypassed or tampered with, is forbidden [§ 1.4].\n• The door stays locked until the spindle and axes have stopped [§ 2.1].\n• With the door open you may only work in Setup mode: axes at 2 m/min maximum with the enabling device held, spindle limited to 50 rpm [§ 2.1].\n• If you find a guard that has been tampered with, stop the machine and tell your supervisor [§ 2.1].",
+        de: "Arbeiten bei offener Tür oder mit überbrückten oder manipulierten Verriegelungen ist verboten [§ 1.4].\n• Die Tür bleibt verriegelt, bis Spindel und Achsen stillstehen [§ 2.1].\n• Bei offener Tür nur im Einrichtbetrieb arbeiten: Achsen höchstens 2 m/min bei gedrücktem Zustimmtaster, Spindel auf 50 min⁻¹ begrenzt [§ 2.1].\n• Bei einer manipulierten Schutzeinrichtung die Maschine stillsetzen und den Vorgesetzten informieren [§ 2.1].",
+        fr: "Il est interdit de travailler porte ouverte ou avec des verrouillages shuntés ou modifiés [§ 1.4].\n• La porte reste verrouillée jusqu'à l'arrêt de la broche et des axes [§ 2.1].\n• Porte ouverte, seul le mode Réglage est autorisé : axes à 2 m/min maximum avec le dispositif de validation enfoncé, broche limitée à 50 tr/min [§ 2.1].\n• Si vous trouvez une protection modifiée, arrêtez la machine et prévenez le responsable [§ 2.1].",
+        es: "Está prohibido trabajar con la puerta abierta o con los enclavamientos puenteados o manipulados [§ 1.4].\n• La puerta permanece bloqueada hasta que el husillo y los ejes se detienen [§ 2.1].\n• Con la puerta abierta solo se trabaja en modo Ajuste: ejes a 2 m/min como máximo con el dispositivo de validación pulsado, husillo limitado a 50 rpm [§ 2.1].\n• Si encuentra una protección manipulada, detenga la máquina y avise al responsable [§ 2.1].",
+        pl: "Praca przy otwartych drzwiach albo z obejściem lub zmianą blokad jest zabroniona [§ 1.4].\n• Drzwi pozostają zablokowane, dopóki wrzeciono i osie się nie zatrzymają [§ 2.1].\n• Przy otwartych drzwiach wolno pracować tylko w trybie ustawiania: osie maks. 2 m/min przy wciśniętym przycisku zezwolenia, wrzeciono ograniczone do 50 obr./min [§ 2.1].\n• Jeśli znajdziesz osłonę, przy której ktoś majstrował, zatrzymaj maszynę i powiadom przełożonego [§ 2.1].",
+        uk: "Заборонено працювати з відчиненими дверима або з вимкненим чи зміненим блокуванням [§ 1.4].\n• Двері залишаються заблокованими, доки шпиндель і осі не зупиняться [§ 2.1].\n• З відчиненими дверима можна працювати лише в режимі налагодження: осі не швидше 2 м/хв при натиснутій кнопці дозволу, шпиндель обмежено до 50 об/хв [§ 2.1].\n• Якщо помітите, що захисний пристрій змінено, зупиніть верстат і повідомте керівника [§ 2.1]."
+      } },
+    { id: "conv", kw: {
+      it: ["convogliat*2", "truciol", "blocc", "incastr"],
+      en: ["conveyor*2", "chip", "jam", "stuck", "blocked"],
+      de: ["förderer*2", "foerderer*2", "späne", "spaene", "blockiert", "klemmt", "verstopft"],
+      fr: ["convoyeur*2", "copeau", "bloqu", "coinc"],
+      es: ["transportador*2", "viruta", "atasc", "bloquead", "trabad"],
+      pl: ["przenośnik*2", "wiór", "zablok", "zaciął", "zaciet", "zatkan"],
+      uk: ["конвеєр*2", "конвейєр*2", "конвейер*2", "стружк", "заблок", "застряг", "забив"] },
+      a: {
+        it: "Convogliatore trucioli bloccato [§ 10.2]:\n• Premi STOP CICLO e aspetta l'arresto del mandrino.\n• Metti in sicurezza la macchina: interruttore generale su 0, bloccato con il tuo lucchetto [§ 9.2].\n• Togli i trucioli con il gancio in dotazione, mai con le mani.\n• Togli il lucchetto, riaccendi e fai girare il convogliatore all'indietro per 5 secondi, poi in avanti.",
+        en: "Chip conveyor jammed [§ 10.2]:\n• Press STOP CICLO (cycle stop) and wait for the spindle to stop.\n• Make the machine safe: main switch to 0, locked with your padlock [§ 9.2].\n• Remove the chips with the hook supplied, never with your hands.\n• Remove the padlock, switch back on and run the conveyor in reverse for 5 seconds, then forward.",
+        de: "Späneförderer blockiert [§ 10.2]:\n• STOP CICLO (Zyklus-Stopp) drücken und warten, bis die Spindel steht.\n• Maschine sichern: Hauptschalter auf 0 und mit dem persönlichen Vorhängeschloss sperren [§ 9.2].\n• Späne mit dem mitgelieferten Haken entfernen, nie mit den Händen.\n• Schloss entfernen, wieder einschalten und den Förderer 5 Sekunden rückwärts, dann vorwärts laufen lassen.",
+        fr: "Convoyeur à copeaux bloqué [§ 10.2] :\n• Appuyez sur STOP CICLO (arrêt cycle) et attendez l'arrêt de la broche.\n• Mettez la machine en sécurité : interrupteur général sur 0, verrouillé avec votre cadenas [§ 9.2].\n• Retirez les copeaux avec le crochet fourni, jamais à la main.\n• Retirez le cadenas, remettez sous tension et faites tourner le convoyeur en arrière pendant 5 secondes, puis en avant.",
+        es: "Transportador de virutas atascado [§ 10.2]:\n• Pulse STOP CICLO (parada de ciclo) y espere a que el husillo se detenga.\n• Ponga la máquina en condiciones seguras: interruptor general en 0, bloqueado con su candado [§ 9.2].\n• Retire las virutas con el gancho suministrado, nunca con las manos.\n• Quite el candado, vuelva a encender y haga girar el transportador hacia atrás 5 segundos y luego hacia delante.",
+        pl: "Zablokowany przenośnik wiórów [§ 10.2]:\n• Naciśnij STOP CICLO (stop cyklu) i poczekaj, aż wrzeciono się zatrzyma.\n• Zabezpiecz maszynę: wyłącznik główny w pozycji 0, zamknięty swoją kłódką [§ 9.2].\n• Usuń wióry dostarczonym hakiem, nigdy rękami.\n• Zdejmij kłódkę, włącz maszynę i uruchom przenośnik do tyłu na 5 sekund, a potem do przodu.",
+        uk: "Конвеєр для стружки заблокований [§ 10.2]:\n• Натисніть STOP CICLO (зупинка циклу) і зачекайте, доки шпиндель зупиниться.\n• Убезпечте верстат: головний вимикач у положення 0, замкніть його своїм замком [§ 9.2].\n• Видаліть стружку гачком із комплекту, ніколи не руками.\n• Зніміть замок, увімкніть верстат і запустіть конвеєр назад на 5 секунд, потім уперед."
+      } },
+    { id: "lockout", kw: {
+      it: ["messa in sicurezza*3", "mettere in sicurezza*3", "metto in sicurezza*3", "lucchett*2", "cartello", "manutenzion"],
+      en: ["lockout*3", "lock out*3", "padlock*2", "make safe*3", "make the machine safe*3", "isolate", "maintenance"],
+      de: ["vorhängeschloss*2", "gegen wiedereinschalten*3", "sichern*2", "freischalten*2", "wartung"],
+      fr: ["consignation*3", "consigner*3", "cadenas*2", "mise en sécurité*3", "mettre en sécurité*3", "maintenance"],
+      es: ["candado*2", "bloqueo*2", "consignación*3", "condiciones seguras*3", "poner en seguridad*3", "mantenimiento"],
+      pl: ["kłódk*2", "zabezpiecz*2", "lockout*3", "konserwac"],
+      uk: ["замок*2", "замком*2", "убезпеч*3", "знеструм*2", "обслуговуван"] },
+      a: {
+        it: "Prima di intervenire dentro la cabina o sui gruppi della macchina [§ 9.2]:\n• Ferma il ciclo e aspetta l'arresto completo del mandrino.\n• Porta l'interruttore generale su 0 e bloccalo con il tuo lucchetto personale.\n• Appendi il cartello «Manutenzione in corso – non avviare».\n• Chiudi e scarica l'aria compressa.\n• Verifica che la macchina non parta premendo START.\nSolo chi ha messo il lucchetto può toglierlo.",
+        en: "Before working inside the enclosure or on any unit of the machine [§ 9.2]:\n• Stop the cycle and wait for the spindle to stop completely.\n• Turn the main switch to 0 and lock it with your personal padlock.\n• Hang the sign “Maintenance in progress – do not start”.\n• Shut off and vent the compressed air.\n• Check that the machine does not start by pressing START.\nOnly the person who fitted the padlock may remove it.",
+        de: "Vor jedem Eingriff im Arbeitsraum oder an Baugruppen der Maschine [§ 9.2]:\n• Zyklus stoppen und warten, bis die Spindel vollständig steht.\n• Hauptschalter auf 0 stellen und mit dem persönlichen Vorhängeschloss sichern.\n• Schild „Wartungsarbeiten – nicht einschalten“ anbringen.\n• Druckluft absperren und entlüften.\n• Mit START prüfen, dass die Maschine nicht anläuft.\nNur wer das Schloss angebracht hat, darf es entfernen.",
+        fr: "Avant toute intervention dans la cabine ou sur les groupes de la machine [§ 9.2] :\n• Arrêtez le cycle et attendez l'arrêt complet de la broche.\n• Mettez l'interrupteur général sur 0 et verrouillez-le avec votre cadenas personnel.\n• Accrochez le panneau « Maintenance en cours – ne pas démarrer ».\n• Fermez et purgez l'air comprimé.\n• Vérifiez que la machine ne démarre pas en appuyant sur START.\nSeule la personne qui a posé le cadenas peut le retirer.",
+        es: "Antes de intervenir dentro de la cabina o en los grupos de la máquina [§ 9.2]:\n• Detenga el ciclo y espere a que el husillo se pare por completo.\n• Ponga el interruptor general en 0 y bloquéelo con su candado personal.\n• Cuelgue el cartel «Mantenimiento en curso – no arrancar».\n• Cierre y descargue el aire comprimido.\n• Compruebe que la máquina no arranca pulsando START.\nSolo quien puso el candado puede quitarlo.",
+        pl: "Przed każdą pracą w kabinie lub przy zespołach maszyny [§ 9.2]:\n• Zatrzymaj cykl i poczekaj, aż wrzeciono całkowicie stanie.\n• Ustaw wyłącznik główny w pozycji 0 i zamknij go osobistą kłódką.\n• Zawieś tabliczkę „Trwa konserwacja – nie uruchamiać”.\n• Odetnij dopływ sprężonego powietrza i spuść ciśnienie.\n• Naciśnij START i sprawdź, że maszyna się nie uruchamia.\nKłódkę może zdjąć tylko osoba, która ją założyła.",
+        uk: "Перед будь-якими роботами всередині кабіни або на вузлах верстата [§ 9.2]:\n• Зупиніть цикл і зачекайте повної зупинки шпинделя.\n• Переведіть головний вимикач у положення 0 і замкніть його особистим замком.\n• Повісьте табличку «Ведеться обслуговування – не вмикати».\n• Перекрийте подачу стисненого повітря та скиньте тиск.\n• Натисніть START і переконайтеся, що верстат не запускається.\nЗняти замок може лише той, хто його повісив."
+      } },
+    { id: "ppe", kw: {
+      it: ["=dpi*3", "protezione individuale*3", "occhiali", "guanti", "scarpe", "indossare", "abbigliamento"],
+      en: ["=ppe*3", "protective equipment*3", "glasses", "gloves", "shoes", "wear"],
+      de: ["=psa*3", "schutzausrüstung*3", "schutzbrille", "handschuh", "schuhe", "tragen"],
+      fr: ["=epi*3", "protection individuelle*3", "lunettes", "gants", "chaussures", "porter"],
+      es: ["=epi*3", "protección individual*3", "gafas", "guantes", "calzado", "llevar"],
+      pl: ["=śoi*3", "ochrony indywidualnej*3", "okulary", "rękawic", "obuwie", "nosić"],
+      uk: ["=зіз*3", "засоби захисту*3", "окуляр", "рукавиц", "взутт"] },
+      a: {
+        it: "DPI per lavorare alla macchina [§ 2.3]:\n• Occhiali di protezione: sempre.\n• Scarpe antinfortunistiche: sempre.\n• Guanti antitaglio: solo per maneggiare utensili e pezzi a macchina ferma.\n• Protezione dell'udito: secondo la valutazione del rumore fatta dal datore di lavoro.\nMai guanti vicino a parti in rotazione. Niente abiti larghi, braccialetti o collane; raccogli i capelli lunghi.",
+        en: "PPE for working at the machine [§ 2.3]:\n• Safety glasses: always.\n• Safety shoes: always.\n• Cut-resistant gloves: only for handling tools and parts with the machine stopped.\n• Hearing protection: as required by your employer's noise assessment.\nNever wear gloves near rotating parts. No loose clothing, bracelets or necklaces; tie back long hair.",
+        de: "PSA für die Arbeit an der Maschine [§ 2.3]:\n• Schutzbrille: immer.\n• Sicherheitsschuhe: immer.\n• Schnittschutzhandschuhe: nur zum Handhaben von Werkzeugen und Werkstücken bei stehender Maschine.\n• Gehörschutz: gemäß der Lärmbeurteilung des Arbeitgebers.\nNie Handschuhe in der Nähe rotierender Teile. Keine weite Kleidung, keine Armbänder oder Ketten; lange Haare zusammenbinden.",
+        fr: "EPI pour travailler sur la machine [§ 2.3] :\n• Lunettes de protection : toujours.\n• Chaussures de sécurité : toujours.\n• Gants anti-coupure : uniquement pour manipuler outils et pièces, machine à l'arrêt.\n• Protection auditive : selon l'évaluation du bruit réalisée par l'employeur.\nJamais de gants près des pièces en rotation. Pas de vêtements amples, de bracelets ni de colliers ; attachez les cheveux longs.",
+        es: "EPI para trabajar en la máquina [§ 2.3]:\n• Gafas de protección: siempre.\n• Calzado de seguridad: siempre.\n• Guantes anticorte: solo para manipular herramientas y piezas con la máquina parada.\n• Protección auditiva: según la evaluación de ruido hecha por el empresario.\nNunca guantes cerca de piezas en rotación. Nada de ropa holgada, pulseras ni collares; recójase el pelo largo.",
+        pl: "ŚOI do pracy przy maszynie [§ 2.3]:\n• Okulary ochronne: zawsze.\n• Obuwie ochronne: zawsze.\n• Rękawice odporne na przecięcie: tylko do przenoszenia narzędzi i detali przy zatrzymanej maszynie.\n• Ochronniki słuchu: zgodnie z oceną hałasu wykonaną przez pracodawcę.\nNigdy nie używaj rękawic w pobliżu obracających się części. Bez luźnej odzieży, bransoletek i łańcuszków; zwiąż długie włosy.",
+        uk: "ЗІЗ для роботи на верстаті [§ 2.3]:\n• Захисні окуляри: завжди.\n• Захисне взуття: завжди.\n• Порізостійкі рукавиці: лише для роботи з інструментом і деталями, коли верстат зупинений.\n• Засоби захисту органів слуху: згідно з оцінкою шуму, яку проводить роботодавець.\nНіколи не працюйте в рукавицях біля деталей, що обертаються. Без вільного одягу, браслетів і ланцюжків; довге волосся зберіть."
+      } },
+    { id: "zero", kw: {
+      it: ["azzer*2", "=zero*2", "origine", "tastat", "=g54*2", "cercaspigol"],
+      en: ["work zero*3", "=zero*2", "work offset*3", "offset", "probe", "datum", "=g54*2"],
+      de: ["nullpunkt*3", "=null*2", "antast", "messtaster", "=g54*2"],
+      fr: ["origine pièce*3", "prise d'origine*3", "origine*2", "=zéro*2", "palp", "=g54*2"],
+      es: ["cero pieza*3", "puesta a cero*3", "=cero*2", "origen*2", "palpad", "=g54*2"],
+      pl: ["punkt zerowy*3", "=zero*2", "zerow*2", "sond", "=g54*2"],
+      uk: ["нуль*2", "нуля*2", "нул", "щуп", "=g54*2", "прив'яз"] },
+      a: {
+        it: "Azzeramento del pezzo [§ 7.3]:\n• Blocca il pezzo sulla tavola con morsa o staffe [§ 8.2].\n• Monta il tastatore nel mandrino.\n• A porta chiusa, in modalità Automatico, lancia il ciclo di tastatura dello spigolo o del centro foro.\n• Il controllo salva il valore nell'origine scelta, da G54 a G59.\n• Prima di lavorare controlla l'origine con la simulazione grafica.\nSenza tastatore: volantino in modalità Regolazione con un cercaspigoli.",
+        en: "Setting the work zero [§ 7.3]:\n• Clamp the part on the table with a vice or clamps [§ 8.2].\n• Fit the probe in the spindle.\n• With the door closed, in Automatic mode, run the edge or bore-centre probing cycle.\n• The control saves the value in the chosen offset, G54 to G59.\n• Before machining, check the offset with the graphic simulation.\nWithout a probe: use the handwheel in Setup mode with an edge finder.",
+        de: "Werkstücknullpunkt setzen [§ 7.3]:\n• Werkstück mit Schraubstock oder Spannpratzen auf dem Tisch spannen [§ 8.2].\n• Messtaster in die Spindel einsetzen.\n• Bei geschlossener Tür im Automatikbetrieb den Antastzyklus für Kante oder Bohrungsmitte starten.\n• Die Steuerung speichert den Wert im gewählten Nullpunkt G54 bis G59.\n• Vor der Bearbeitung den Nullpunkt in der Grafiksimulation prüfen.\nOhne Messtaster: Handrad im Einrichtbetrieb mit einem Kantentaster.",
+        fr: "Prise d'origine pièce [§ 7.3] :\n• Bridez la pièce sur la table avec un étau ou des brides [§ 8.2].\n• Montez le palpeur dans la broche.\n• Porte fermée, en mode Automatique, lancez le cycle de palpage d'arête ou de centre d'alésage.\n• La commande enregistre la valeur dans l'origine choisie, de G54 à G59.\n• Avant d'usiner, vérifiez l'origine avec la simulation graphique.\nSans palpeur : manivelle en mode Réglage avec un détecteur d'arête.",
+        es: "Puesta a cero de la pieza [§ 7.3]:\n• Sujete la pieza en la mesa con mordaza o bridas [§ 8.2].\n• Monte el palpador en el husillo.\n• Con la puerta cerrada, en modo Automático, lance el ciclo de palpado de arista o de centro de agujero.\n• El control guarda el valor en el origen elegido, de G54 a G59.\n• Antes de mecanizar, compruebe el origen con la simulación gráfica.\nSin palpador: volante en modo Ajuste con un buscador de bordes.",
+        pl: "Ustawianie zera przedmiotu [§ 7.3]:\n• Zamocuj przedmiot na stole w imadle lub łapami dociskowymi [§ 8.2].\n• Załóż sondę pomiarową do wrzeciona.\n• Przy zamkniętych drzwiach, w trybie automatycznym, uruchom cykl pomiaru krawędzi lub środka otworu.\n• Sterowanie zapisze wartość w wybranym punkcie zerowym, od G54 do G59.\n• Przed obróbką sprawdź punkt zerowy w symulacji graficznej.\nBez sondy: pokrętło ręczne w trybie ustawiania i czujnik krawędzi.",
+        uk: "Налаштування нуля деталі [§ 7.3]:\n• Закріпіть деталь на столі в лещатах або притискними планками [§ 8.2].\n• Встановіть вимірювальний щуп у шпиндель.\n• При зачинених дверях в автоматичному режимі запустіть цикл вимірювання кромки або центру отвору.\n• Система ЧПК збереже значення у вибраній нульовій точці, від G54 до G59.\n• Перед обробкою перевірте нуль у графічній симуляції.\nБез щупа: маховичок у режимі налагодження та шукач кромки."
+      } },
+    { id: "window", kw: {
+      it: ["finestr*2", "policarbonat*3", "vetro", "oblò"],
+      en: ["window*2", "polycarbonate*3", "glass", "viewing"],
+      de: ["scheibe*2", "polycarbonat*3", "fenster*2", "glas"],
+      fr: ["vitre*2", "hublot*2", "polycarbonate*3", "fenêtre*2"],
+      es: ["visor*2", "ventana*2", "policarbonato*3", "vidrio", "cristal"],
+      pl: ["szyb*2", "poliwęglan*3", "okno*2", "okienk*2"],
+      uk: ["вікн*2", "полікарбонат*3", "скло"] },
+      a: {
+        it: "La finestra in policarbonato va sostituita ogni 2 anni, anche se sembra integra: il fluido da taglio la indebolisce nel tempo [§ 9.1].\n• Controllala ogni anno [§ 9.1].\n• Sostituiscila subito se è incrinata od opaca [§ 2.1].\n• Usa solo ricambi originali o approvati dal costruttore [§ 12.1].",
+        en: "Replace the polycarbonate window every 2 years, even if it looks intact: coolant weakens it over time [§ 9.1].\n• Inspect it every year [§ 9.1].\n• Replace it at once if it is cracked or cloudy [§ 2.1].\n• Use only original or manufacturer-approved spare parts [§ 12.1].",
+        de: "Die Polycarbonat-Sichtscheibe alle 2 Jahre tauschen, auch wenn sie unbeschädigt aussieht: Kühlschmierstoff schwächt sie mit der Zeit [§ 9.1].\n• Jährlich prüfen [§ 9.1].\n• Sofort tauschen, wenn sie gerissen oder trüb ist [§ 2.1].\n• Nur Original- oder vom Hersteller freigegebene Ersatzteile verwenden [§ 12.1].",
+        fr: "La vitre en polycarbonate se remplace tous les 2 ans, même si elle semble intacte : le fluide de coupe la fragilise avec le temps [§ 9.1].\n• Contrôlez-la chaque année [§ 9.1].\n• Remplacez-la immédiatement si elle est fissurée ou opaque [§ 2.1].\n• Utilisez uniquement des pièces d'origine ou approuvées par le constructeur [§ 12.1].",
+        es: "El visor de policarbonato se cambia cada 2 años, aunque parezca intacto: el fluido de corte lo debilita con el tiempo [§ 9.1].\n• Revíselo cada año [§ 9.1].\n• Cámbielo enseguida si está agrietado u opaco [§ 2.1].\n• Use solo recambios originales o aprobados por el fabricante [§ 12.1].",
+        pl: "Szybę z poliwęglanu wymieniaj co 2 lata, nawet jeśli wygląda na nieuszkodzoną: chłodziwo z czasem ją osłabia [§ 9.1].\n• Sprawdzaj ją co roku [§ 9.1].\n• Wymień ją od razu, jeśli jest pęknięta lub zmętniała [§ 2.1].\n• Używaj tylko części oryginalnych lub zatwierdzonych przez producenta [§ 12.1].",
+        uk: "Оглядове вікно з полікарбонату треба міняти кожні 2 роки, навіть якщо воно здається цілим: МОР із часом його послаблює [§ 9.1].\n• Перевіряйте його щороку [§ 9.1].\n• Негайно замініть, якщо воно тріснуло або помутніло [§ 2.1].\n• Використовуйте лише оригінальні запчастини або схвалені виробником [§ 12.1]."
+      } },
+    { id: "start", kw: {
+      it: ["avvio*2", "accend*2", "inizio turno*3", "riscaldamento", "mattina"],
+      en: ["start-up*3", "startup*3", "start up*3", "switch on*2", "turn on*2", "=start*2", "morning", "warm-up"],
+      de: ["einschalten*2", "inbetriebnahme*2", "starten*2", "morgens", "warmlauf"],
+      fr: ["démarr*2", "allumer*2", "mise en marche*3", "matin", "préchauff"],
+      es: ["arranc*2", "encender*2", "poner en marcha*3", "mañana", "calentamiento"],
+      pl: ["uruchom*2", "włącz*2", "rano", "rozgrzew"],
+      uk: ["запуск*2", "запустит*2", "увімкн*2", "вмикат*2", "вранці", "прогрів"] },
+      a: {
+        it: "Avvio giornaliero [§ 7.2]:\n• Controlla i livelli di olio e fluido e la pressione dell'aria.\n• Accendi l'interruttore generale e premi RESET.\n• Esegui HOME su tutti gli assi.\n• Se la macchina è rimasta ferma più di 2 giorni, esegui il riscaldamento del mandrino, programma O9000.",
+        en: "Daily start-up [§ 7.2]:\n• Check the oil and coolant levels and the air pressure.\n• Turn on the main switch and press RESET.\n• Run HOME on all axes.\n• If the machine has been idle for more than 2 days, run the spindle warm-up, program O9000.",
+        de: "Tägliches Einschalten [§ 7.2]:\n• Öl- und Kühlschmierstoffstand sowie den Luftdruck prüfen.\n• Hauptschalter einschalten und RESET drücken.\n• HOME für alle Achsen ausführen.\n• Stand die Maschine länger als 2 Tage still, das Spindel-Warmlaufprogramm O9000 ausführen.",
+        fr: "Démarrage quotidien [§ 7.2] :\n• Contrôlez les niveaux d'huile et de fluide et la pression d'air.\n• Mettez l'interrupteur général en marche et appuyez sur RESET.\n• Effectuez HOME sur tous les axes.\n• Si la machine est restée arrêtée plus de 2 jours, lancez le préchauffage de la broche, programme O9000.",
+        es: "Arranque diario [§ 7.2]:\n• Compruebe los niveles de aceite y fluido y la presión del aire.\n• Encienda el interruptor general y pulse RESET.\n• Ejecute HOME en todos los ejes.\n• Si la máquina ha estado parada más de 2 días, ejecute el calentamiento del husillo, programa O9000.",
+        pl: "Codzienne uruchomienie [§ 7.2]:\n• Sprawdź poziom oleju i chłodziwa oraz ciśnienie powietrza.\n• Włącz wyłącznik główny i naciśnij RESET.\n• Wykonaj HOME dla wszystkich osi.\n• Jeśli maszyna stała dłużej niż 2 dni, uruchom rozgrzewanie wrzeciona, program O9000.",
+        uk: "Щоденний запуск [§ 7.2]:\n• Перевірте рівень оливи та МОР і тиск повітря.\n• Увімкніть головний вимикач і натисніть RESET.\n• Виконайте HOME для всіх осей.\n• Якщо верстат простояв понад 2 дні, запустіть прогрів шпинделя, програма O9000."
+      } },
+    { id: "oil", kw: {
+      it: ["olio*2", "lubrific*2", "guide"],
+      en: ["=oil*2", "slideway*2", "lubric*2", "way oil*3"],
+      de: ["=öl*2", "=oel*2", "gleitbahnöl*3", "schmier*2"],
+      fr: ["huile*2", "lubrif*2", "glissière*2"],
+      es: ["aceite*2", "lubric*2", "guías"],
+      pl: ["olej*2", "smar*2", "prowadnic*2"],
+      uk: ["олив*2", "мастил*2", "масл*2", "напрямн*2"] },
+      a: {
+        it: "Olio delle guide [§ 9.3]:\n• Serbatoio da 2 L sul retro della macchina, olio per guide ISO VG 68.\n• Rabbocca quando il livello scende sotto la tacca MIN.\n• Consumo tipico: 0,3 L a settimana su un turno.\n• Il livello si controlla ogni giorno [§ 9.1].",
+        en: "Slideway oil [§ 9.3]:\n• 2 L tank at the back of the machine, ISO VG 68 slideway oil.\n• Top up when the level drops below the MIN mark.\n• Typical use: 0.3 L a week on one shift.\n• Check the level every day [§ 9.1].",
+        de: "Gleitbahnöl [§ 9.3]:\n• 2-l-Behälter auf der Rückseite der Maschine, Gleitbahnöl ISO VG 68.\n• Nachfüllen, wenn der Stand unter die MIN-Marke fällt.\n• Typischer Verbrauch: 0,3 l pro Woche im Einschichtbetrieb.\n• Den Stand täglich prüfen [§ 9.1].",
+        fr: "Huile de glissières [§ 9.3] :\n• Réservoir de 2 L à l'arrière de la machine, huile de glissières ISO VG 68.\n• Faites l'appoint quand le niveau passe sous le repère MIN.\n• Consommation typique : 0,3 L par semaine en un poste.\n• Contrôlez le niveau chaque jour [§ 9.1].",
+        es: "Aceite de guías [§ 9.3]:\n• Depósito de 2 L en la parte trasera de la máquina, aceite de guías ISO VG 68.\n• Rellene cuando el nivel baje de la marca MIN.\n• Consumo típico: 0,3 L por semana a un turno.\n• Compruebe el nivel cada día [§ 9.1].",
+        pl: "Olej do prowadnic [§ 9.3]:\n• Zbiornik 2 l z tyłu maszyny, olej do prowadnic ISO VG 68.\n• Uzupełnij, gdy poziom spadnie poniżej znaku MIN.\n• Typowe zużycie: 0,3 l na tydzień przy pracy na jedną zmianę.\n• Sprawdzaj poziom codziennie [§ 9.1].",
+        uk: "Олива для напрямних [§ 9.3]:\n• Бак на 2 л ззаду верстата, олива для напрямних ISO VG 68.\n• Доливайте, коли рівень опускається нижче позначки MIN.\n• Типова витрата: 0,3 л на тиждень при роботі в одну зміну.\n• Перевіряйте рівень щодня [§ 9.1]."
+      } },
+    { id: "coolant", kw: {
+      it: ["fluido*2", "emulsion*2", "refrigerante*2", "lubrorefrigerante*2", "concentrazion", "rifrattometr*2"],
+      en: ["coolant*2", "emulsion*2", "cutting fluid*3", "concentration", "refractometer*2"],
+      de: ["kühlschmier*2", "kühlmittel*2", "=kss*2", "emulsion*2", "konzentration", "refraktometer*2"],
+      fr: ["fluide de coupe*3", "fluide*2", "émulsion*2", "liquide de coupe*3", "concentration", "réfractomètre*2"],
+      es: ["fluido*2", "emulsión*2", "taladrina*2", "refrigerante*2", "concentración", "refractómetro*2"],
+      pl: ["chłodziw*2", "emulsj*2", "stężen", "refraktometr*2"],
+      uk: ["=мор*2", "емульс*2", "охолоджув*2", "концентрац", "рефрактометр*2", "=сож*2"] },
+      a: {
+        it: "Fluido da taglio [§ 9.4]:\n• Emulsione al 5–8 %.\n• Controlla la concentrazione ogni giorno con il rifrattometro.\n• Rabbocca con emulsione già miscelata, mai con sola acqua.\n• Ogni anno sostituisci tutto il fluido e pulisci il serbatoio [§ 9.1].",
+        en: "Coolant [§ 9.4]:\n• Emulsion at 5–8 %.\n• Check the concentration every day with the refractometer.\n• Top up with pre-mixed emulsion, never with water alone.\n• Once a year, replace all the coolant and clean the tank [§ 9.1].",
+        de: "Kühlschmierstoff [§ 9.4]:\n• Emulsion mit 5–8 %.\n• Konzentration täglich mit dem Refraktometer prüfen.\n• Mit fertig gemischter Emulsion nachfüllen, nie nur mit Wasser.\n• Einmal im Jahr den gesamten Kühlschmierstoff wechseln und den Tank reinigen [§ 9.1].",
+        fr: "Fluide de coupe [§ 9.4] :\n• Émulsion à 5–8 %.\n• Contrôlez la concentration chaque jour au réfractomètre.\n• Faites l'appoint avec de l'émulsion déjà mélangée, jamais avec de l'eau seule.\n• Une fois par an, remplacez tout le fluide et nettoyez le réservoir [§ 9.1].",
+        es: "Fluido de corte [§ 9.4]:\n• Emulsión al 5–8 %.\n• Compruebe la concentración cada día con el refractómetro.\n• Rellene con emulsión ya mezclada, nunca solo con agua.\n• Una vez al año, sustituya todo el fluido y limpie el depósito [§ 9.1].",
+        pl: "Chłodziwo [§ 9.4]:\n• Emulsja o stężeniu 5–8 %.\n• Sprawdzaj stężenie codziennie refraktometrem.\n• Uzupełniaj gotową emulsją, nigdy samą wodą.\n• Raz w roku wymień całe chłodziwo i wyczyść zbiornik [§ 9.1].",
+        uk: "МОР (мастильно-охолоджувальна рідина) [§ 9.4]:\n• Емульсія концентрацією 5–8 %.\n• Щодня перевіряйте концентрацію рефрактометром.\n• Доливайте готову емульсію, ніколи лише воду.\n• Раз на рік повністю замінюйте рідину й чистьте бак [§ 9.1]."
+      } },
+    { id: "accident", kw: {
+      it: ["incident*2", "infortun*2", "ferit*2", "guasto grave*3", "soccorso", "emergenza"],
+      en: ["accident*2", "injur*2", "first aid*3", "serious fault*3", "emergency", "hurt"],
+      de: ["unfall*2", "verletz*2", "erste hilfe*3", "notfall*2", "schwerer defekt*3"],
+      fr: ["accident*2", "bless*2", "panne grave*3", "secours", "urgence"],
+      es: ["accidente*2", "herid*2", "avería grave*3", "primeros auxilios*3", "emergencia"],
+      pl: ["wypad*2", "rann*2", "obrażen*2", "poważnej awarii*3", "pierwszej pomocy*3"],
+      uk: ["нещасн*2", "травм*2", "поранен*2", "першу допомогу*3", "серйозн"] },
+      a: {
+        it: "In caso di incidente o guasto grave [§ 10.3]:\n• Premi l'arresto di emergenza.\n• Presta soccorso o chiama il 112.\n• Avvisa il responsabile.\n• Non riavviare la macchina finché la causa non è chiarita.",
+        en: "In case of an accident or serious fault [§ 10.3]:\n• Press the emergency stop.\n• Give first aid or call 112.\n• Inform your supervisor.\n• Do not restart the machine until the cause is clear.",
+        de: "Bei einem Unfall oder schweren Defekt [§ 10.3]:\n• Not-Halt drücken.\n• Erste Hilfe leisten oder 112 anrufen.\n• Den Vorgesetzten informieren.\n• Die Maschine erst wieder einschalten, wenn die Ursache geklärt ist.",
+        fr: "En cas d'accident ou de panne grave [§ 10.3] :\n• Appuyez sur l'arrêt d'urgence.\n• Portez secours ou appelez le 112.\n• Prévenez le responsable.\n• Ne redémarrez pas la machine tant que la cause n'est pas établie.",
+        es: "En caso de accidente o avería grave [§ 10.3]:\n• Pulse la parada de emergencia.\n• Preste primeros auxilios o llame al 112.\n• Avise al responsable.\n• No vuelva a arrancar la máquina hasta aclarar la causa.",
+        pl: "W razie wypadku lub poważnej awarii [§ 10.3]:\n• Naciśnij wyłącznik awaryjny.\n• Udziel pierwszej pomocy lub zadzwoń pod 112.\n• Powiadom przełożonego.\n• Nie uruchamiaj maszyny, dopóki przyczyna nie zostanie wyjaśniona.",
+        uk: "У разі нещасного випадку або серйозної несправності [§ 10.3]:\n• Натисніть кнопку аварійної зупинки.\n• Надайте першу допомогу або телефонуйте 112.\n• Повідомте керівника.\n• Не запускайте верстат, доки причину не з'ясовано."
+      } },
+    { id: "service", kw: {
+      it: ["assistenza*2", "telefono", "chiamare", "contatt", "numero"],
+      en: ["service*2", "support*2", "phone", "contact", "technician", "call"],
+      de: ["kundendienst*2", "service*2", "telefon", "anrufen", "kontakt", "techniker"],
+      fr: ["assistance*2", "=sav*2", "téléphone", "appeler", "contact", "technicien"],
+      es: ["asistencia*2", "servicio técnico*3", "teléfono", "llamar", "contacto", "técnico"],
+      pl: ["serwis*2", "telefon", "zadzwoń", "kontakt", "technik"],
+      uk: ["сервіс*2", "підтримк*2", "телефон", "зателефон", "контакт", "технік"] },
+      a: {
+        it: "Assistenza tecnica di Costruttore Esempio S.r.l. [§ 1.1]:\n• Telefono +39 0434 000000\n• Email assistenza@costruttore-esempio.example\n• Dal lunedì al venerdì, 8:00–17:00.\nTieni a portata di mano modello (VMC-850) e matricola (SN 2027-0042), scritti sulla targhetta [§ 1.2].",
+        en: "Costruttore Esempio S.r.l. technical service [§ 1.1]:\n• Phone +39 0434 000000\n• Email assistenza@costruttore-esempio.example\n• Monday to Friday, 8:00–17:00.\nHave the model (VMC-850) and serial number (SN 2027-0042) from the nameplate ready [§ 1.2].",
+        de: "Technischer Kundendienst von Costruttore Esempio S.r.l. [§ 1.1]:\n• Telefon +39 0434 000000\n• E-Mail assistenza@costruttore-esempio.example\n• Montag bis Freitag, 8:00–17:00 Uhr.\nModell (VMC-850) und Seriennummer (SN 2027-0042) vom Typenschild bereithalten [§ 1.2].",
+        fr: "Assistance technique de Costruttore Esempio S.r.l. [§ 1.1] :\n• Téléphone +39 0434 000000\n• E-mail assistenza@costruttore-esempio.example\n• Du lundi au vendredi, de 8 h à 17 h.\nAyez sous la main le modèle (VMC-850) et le numéro de série (SN 2027-0042) indiqués sur la plaque [§ 1.2].",
+        es: "Asistencia técnica de Costruttore Esempio S.r.l. [§ 1.1]:\n• Teléfono +39 0434 000000\n• Correo assistenza@costruttore-esempio.example\n• De lunes a viernes, de 8:00 a 17:00.\nTenga a mano el modelo (VMC-850) y el número de serie (SN 2027-0042) que figuran en la placa [§ 1.2].",
+        pl: "Serwis techniczny Costruttore Esempio S.r.l. [§ 1.1]:\n• Telefon +39 0434 000000\n• E-mail assistenza@costruttore-esempio.example\n• Od poniedziałku do piątku, 8:00–17:00.\nPrzygotuj model (VMC-850) i numer seryjny (SN 2027-0042) z tabliczki znamionowej [§ 1.2].",
+        uk: "Технічний сервіс Costruttore Esempio S.r.l. [§ 1.1]:\n• Телефон +39 0434 000000\n• Ел. пошта assistenza@costruttore-esempio.example\n• З понеділка по п'ятницю, 8:00–17:00.\nМайте під рукою модель (VMC-850) і серійний номер (SN 2027-0042) із заводської таблички [§ 1.2]."
+      } },
+    { id: "limits", kw: {
+      it: ["carico*2", "peso", "massim*2", "giri", "limit*2", "diametr", "lunghezz", "corse"],
+      en: ["load*2", "weight", "maximum*2", "=max*2", "rpm", "limit*2", "diameter", "length", "travel"],
+      de: ["belastung*2", "gewicht", "maximal*2", "drehzahl", "grenz*2", "durchmesser", "verfahrweg*2"],
+      fr: ["charge*2", "poids", "maxim*2", "tr/min", "limite*2", "diamètre", "longueur", "course"],
+      es: ["carga*2", "peso", "máxim*2", "rpm", "límite*2", "diámetro", "longitud", "recorrido"],
+      pl: ["obciążen*2", "masa", "maksym*2", "obrot", "limit*2", "średnic", "długość", "przesuw"],
+      uk: ["навантаж*2", "маса", "вага", "максим*2", "оберт", "обмежен*2", "діаметр", "довжин"] },
+      a: {
+        it: "Limiti principali [§ 3.1]:\n• Carico massimo sulla tavola, attrezzature comprese: 500 kg [§ 1.3].\n• Utensile: Ø 80 mm (Ø 125 mm con le posizioni vicine libere), lunghezza 300 mm, peso 7 kg [§ 7.4].\n• Mandrino: cono ISO 40, 12.000 giri/min.\n• Corse X/Y/Z: 850/510/560 mm.",
+        en: "Main limits [§ 3.1]:\n• Maximum table load, fixtures included: 500 kg [§ 1.3].\n• Tool: Ø 80 mm (Ø 125 mm with the adjacent pockets empty), length 300 mm, weight 7 kg [§ 7.4].\n• Spindle: ISO 40 taper, 12,000 rpm.\n• X/Y/Z travels: 850/510/560 mm.",
+        de: "Wichtigste Grenzwerte [§ 3.1]:\n• Maximale Tischbelastung inklusive Vorrichtungen: 500 kg [§ 1.3].\n• Werkzeug: Ø 80 mm (Ø 125 mm bei freien Nachbarplätzen), Länge 300 mm, Gewicht 7 kg [§ 7.4].\n• Spindel: Steilkegel ISO 40, 12.000 min⁻¹.\n• Verfahrwege X/Y/Z: 850/510/560 mm.",
+        fr: "Principales limites [§ 3.1] :\n• Charge maximale sur la table, montages compris : 500 kg [§ 1.3].\n• Outil : Ø 80 mm (Ø 125 mm avec les emplacements voisins libres), longueur 300 mm, poids 7 kg [§ 7.4].\n• Broche : cône ISO 40, 12 000 tr/min.\n• Courses X/Y/Z : 850/510/560 mm.",
+        es: "Límites principales [§ 3.1]:\n• Carga máxima sobre la mesa, utillajes incluidos: 500 kg [§ 1.3].\n• Herramienta: Ø 80 mm (Ø 125 mm con las posiciones contiguas libres), longitud 300 mm, peso 7 kg [§ 7.4].\n• Husillo: cono ISO 40, 12.000 rpm.\n• Recorridos X/Y/Z: 850/510/560 mm.",
+        pl: "Najważniejsze limity [§ 3.1]:\n• Maksymalne obciążenie stołu razem z oprzyrządowaniem: 500 kg [§ 1.3].\n• Narzędzie: Ø 80 mm (Ø 125 mm przy wolnych sąsiednich gniazdach), długość 300 mm, masa 7 kg [§ 7.4].\n• Wrzeciono: stożek ISO 40, 12 000 obr./min.\n• Przesuwy X/Y/Z: 850/510/560 mm.",
+        uk: "Основні обмеження [§ 3.1]:\n• Максимальне навантаження на стіл разом з оснащенням: 500 кг [§ 1.3].\n• Інструмент: Ø 80 мм (Ø 125 мм, якщо сусідні гнізда вільні), довжина 300 мм, маса 7 кг [§ 7.4].\n• Шпиндель: конус ISO 40, 12 000 об/хв.\n• Переміщення X/Y/Z: 850/510/560 мм."
+      } },
+    { id: "maint", kw: {
+      it: ["manutenzion*2", "ogni giorno", "ogni settimana", "pulizia", "programma di manutenzione*3"],
+      en: ["maintenance*2", "daily", "weekly", "clean"],
+      de: ["wartung*2", "wartungsplan*3", "täglich", "wöchentlich", "reinig"],
+      fr: ["maintenance*2", "entretien*2", "quotidien", "hebdomadaire", "nettoy"],
+      es: ["mantenimiento*2", "diario", "semanal", "limpieza"],
+      pl: ["konserwac*2", "przegląd*2", "codzien", "tygodn", "czyszcz"],
+      uk: ["обслуговуван*2", "техобслуговуван*3", "щодня", "щотижня", "чищен"] },
+      a: {
+        it: "Manutenzione ordinaria [§ 9.1]:\n• Ogni giorno: pulizia trucioli, livello olio guide, livello e concentrazione del fluido (5–8 %), scarico della condensa dal filtro dell'aria.\n• Ogni settimana: filtro del fluido, pinze del magazzino, cono mandrino.\n• Ogni mese: prova degli arresti di emergenza e dell'interblocco porta.\nPrima di ogni intervento metti in sicurezza la macchina [§ 9.2].",
+        en: "Routine maintenance [§ 9.1]:\n• Daily: clear chips, check slideway oil, coolant level and concentration (5–8 %), drain the air filter condensate.\n• Weekly: coolant filter, magazine grippers, spindle taper.\n• Monthly: test the emergency stops and the door interlock.\nMake the machine safe before every job [§ 9.2].",
+        de: "Regelmäßige Wartung [§ 9.1]:\n• Täglich: Späne entfernen, Gleitbahnöl sowie Stand und Konzentration des Kühlschmierstoffs (5–8 %) prüfen, Kondensat am Luftfilter ablassen.\n• Wöchentlich: Kühlschmierstofffilter, Magazingreifer, Spindelkegel.\n• Monatlich: Not-Halt-Taster und Türverriegelung prüfen.\nVor jedem Eingriff die Maschine sichern [§ 9.2].",
+        fr: "Maintenance courante [§ 9.1] :\n• Chaque jour : nettoyage des copeaux, huile de glissières, niveau et concentration du fluide (5–8 %), purge du filtre à air.\n• Chaque semaine : filtre du fluide, pinces du magasin, cône de broche.\n• Chaque mois : test des arrêts d'urgence et du verrouillage de porte.\nAvant toute intervention, mettez la machine en sécurité [§ 9.2].",
+        es: "Mantenimiento ordinario [§ 9.1]:\n• Cada día: limpieza de virutas, aceite de guías, nivel y concentración del fluido (5–8 %), purga del filtro de aire.\n• Cada semana: filtro del fluido, pinzas del almacén, cono del husillo.\n• Cada mes: prueba de las paradas de emergencia y del enclavamiento de la puerta.\nAntes de cada intervención, ponga la máquina en condiciones seguras [§ 9.2].",
+        pl: "Konserwacja bieżąca [§ 9.1]:\n• Codziennie: usuwanie wiórów, olej do prowadnic, poziom i stężenie chłodziwa (5–8 %), spust kondensatu z filtra powietrza.\n• Co tydzień: filtr chłodziwa, chwytaki magazynu, stożek wrzeciona.\n• Co miesiąc: test wyłączników awaryjnych i blokady drzwi.\nPrzed każdą czynnością zabezpiecz maszynę [§ 9.2].",
+        uk: "Планове обслуговування [§ 9.1]:\n• Щодня: прибирання стружки, олива для напрямних, рівень і концентрація МОР (5–8 %), злив конденсату з повітряного фільтра.\n• Щотижня: фільтр МОР, захвати магазину, конус шпинделя.\n• Щомісяця: перевірка кнопок аварійної зупинки та блокування дверей.\nПеред кожним втручанням убезпечте верстат [§ 9.2]."
+      } }
+  ];
+
+  // Language hints: words already without accents; characters typical of one language.
+  const HINTS = {
+    it: { c: /[ìò]/, w: "come cosa che devo il gli della del quando perche macchina allarme errore ogni quale posso significa faccio si cambia porta non sono" },
+    en: { c: null, w: "what how the is do does mean means my should can when which machine error alarm with often i replace door run work jammed" },
+    de: { c: /[äöüß]/, w: "wie was ich die der das ist bedeutet mein meine muss kann soll wann welche welches nicht und mit maschine fehler oft darf tun wird arbeiten" },
+    fr: { c: /[çêëîôûœ]/, w: "comment que quoi est le les je dois faire quand quelle quel une des erreur alarme signifie avec souvent puis porte faut" },
+    es: { c: /[ñ¿¡]/, w: "como que el los las hago hacer debo cuando cual maquina alarma significa cada puedo puerta esta" },
+    pl: { c: /[ąęłńśźż]/, w: "jak co czy sie mam musze robic maszyna maszyny blad oznacza kiedy ktory jaki czesto nie przy moge drzwi jest robi w z na" }
+  };
+  Object.keys(HINTS).forEach(L => { HINTS[L].ws = new Set(HINTS[L].w.split(" ")); });
+
+  const normX = s => norm(s).replace(/ł/g, "l").replace(/ß/g, "ss").replace(/[’`´ʼ]/g, "'");
+  const wordsOf = s => normX(s).split(/[^a-z0-9Ѐ-ӿ]+/).filter(Boolean);
+  function parseKw(k) {
+    let s = k, w = 1, whole = false;
+    const star = s.lastIndexOf("*");
+    if (star > 0) { w = Number(s.slice(star + 1)) || 1; s = s.slice(0, star); }
+    if (s[0] === "=") { whole = true; s = s.slice(1); }
+    return { s: normX(s), w, whole };
+  }
+  TOPICS.forEach(t => { t.k = {}; Object.keys(t.kw).forEach(L => { t.k[L] = t.kw[L].map(parseKw); }); });
+
+  function detectLang(q) {
+    if (/[Ѐ-ӿ]/.test(q)) return { lang: "uk", sure: true };
+    const raw = q.toLowerCase(), ws = new Set(wordsOf(q));
+    let lang = "it", best = 0;
+    ["it", "en", "de", "fr", "es", "pl"].forEach(L => {
+      const h = HINTS[L];
+      let s = h.c && h.c.test(raw) ? 2 : 0;
+      ws.forEach(w => { if (h.ws.has(w)) s += 1; });
+      if (s > best) { best = s; lang = L; }
+    });
+    return { lang, sure: best > 0 };
+  }
+  function topicScore(t, L, nq, ws) {
+    let s = 0;
+    (t.k[L] || []).forEach(k => { if (k.whole ? ws.has(k.s) : nq.includes(k.s)) s += k.w; });
+    return s;
+  }
+  function findTopic(nq, ws, det) {
+    let best = null, bestS = 0, bestL = det.lang;
+    const scan = langs => TOPICS.forEach(t => langs.forEach(L => {
+      const s = topicScore(t, L, nq, ws);
+      if (s > bestS) { bestS = s; best = t; bestL = L; }
+    }));
+    if (det.sure) scan([det.lang]);
+    if (!best) scan(LANGS);
+    return best ? { t: best, lang: det.sure ? det.lang : bestL } : null;
+  }
+  function alarmCard(code, L) {
+    const a = ALARMS[code][L];
+    return { lang: L, topic: "alarm-" + code, text: ALARM_WORD[L] + " " + code + ": " + a[0] + " [§ 10.1]\n• " + a[1] };
+  }
+  const ALARM_HINT = /allarm|errore|codice|alarm|error|code|fault|fehler|meldung|erreur|defaut|codigo|blad|kod|помилк|тривог|код/;
+  // Returns the answer in the asker's language, or null for an Italian question the cards do not cover (the manual search answers it).
+  function translatedAnswer(q) {
+    const nq = normX(q), ws = new Set(wordsOf(q)), det = detectLang(q);
+    const code = (nq.match(/\b(\d{4})\b/) || [])[1];
+    if (code && ALARMS[code]) return alarmCard(code, det.lang);
+    if (code && ALARM_HINT.test(nq)) return { lang: det.lang, topic: "unknown-code", text: UNKNOWN_CODE[det.lang](code) };
+    const f = findTopic(nq, ws, det);
+    if (f) return f.t.alarm ? alarmCard(f.t.alarm, f.lang) : { lang: f.lang, topic: f.t.id, text: f.t.a[f.lang] };
+    if (det.lang === "it") return null;
+    return { lang: det.lang, topic: "none", text: NOT_FOUND[det.lang] };
+  }
+  /* ==== multilingual-answers:end ==== */
+
+  function cardLabel(r) { return r.lang === "it" ? "Dal manuale" : "Dal manuale · " + LANG_NAME[r.lang]; }
+  function renderCard(m, r, label) {
+    m.classList.remove("thinking");
+    let tag = $(".tag", m);
+    if (!tag) { tag = document.createElement("span"); m.prepend(tag); }
+    tag.className = "tag";
+    tag.textContent = label || cardLabel(r);
+    const body = $(".body", m);
+    body.setAttribute("lang", r.lang);
+    fillWithCites(body, r.text);
+  }
+  function renderOffline(m, q) {
+    const r = translatedAnswer(q);
+    if (r) renderCard(m, r); else renderLocal(m, q);
+  }
+  function renderSuggest(L) {
+    const host = $("#suggest");
+    host.textContent = "";
+    host.setAttribute("lang", L);
+    DEMO_Q[L].forEach(q => {
+      const b = document.createElement("button");
+      b.type = "button"; b.className = "chip"; b.setAttribute("data-q", q); b.textContent = q;
+      host.appendChild(b);
+    });
+    $$("#langs .lang").forEach(b => b.setAttribute("aria-pressed", b.getAttribute("data-lang") === L ? "true" : "false"));
+    $("#ask-input").placeholder = PH[L];
+  }
+  $("#langs").addEventListener("click", e => { const b = e.target.closest(".lang[data-lang]"); if (b) renderSuggest(b.getAttribute("data-lang")); });
+  $("#suggest").addEventListener("click", e => { const c = e.target.closest(".chip[data-q]"); if (c) ask(c.getAttribute("data-q")); });
+
+  // AI via the viewer's Claude (sample capability), with the local search as fallback
+  const samplePromise = (window.claude && typeof window.claude.use === "function")
+    ? window.claude.use("sample").catch(() => null) : Promise.resolve(null);
+  let aiOff = false, busy = false, ctl = null;
+  const turns = [];
+  const HIDE = new Set(["not_granted", "sampling_disabled", "not_declared", "capability_disabled", "capability_removed"]);
+  function setStatus() {
+    $("#ai-status").textContent = aiOff
+      ? "Demo pubblica: le risposte arrivano dal manuale e dalle sue traduzioni in 7 lingue (IT, EN, DE, FR, ES, PL, UA). Nel servizio attivo risponde l'assistente AI, sempre e solo da questo manuale."
+      : "Risponde l'assistente AI usando solo questo manuale. Alla prima domanda ti viene chiesto il consenso. Se l'AI non è raggiungibile, rispondo con il manuale tradotto.";
+  }
+  samplePromise.then(s => { if (!s) aiOff = true; setStatus(); });
+
+  const RULES = () => "Sei l'assistente del manuale digitale del centro di lavoro VMC-850 di Costruttore Esempio S.r.l. (esempio dimostrativo con dati inventati).\n" +
+    "Rispondi solo con le informazioni del MANUALE qui sotto. Regole:\n" +
+    "1. Rispondi nella lingua in cui è scritta la domanda.\n" +
+    "2. Al massimo 110 parole. Testo semplice, senza markdown e senza asterischi. Per i passaggi usa righe che iniziano con \"• \".\n" +
+    "3. Dopo ogni informazione presa dal manuale indica la sezione in questo formato esatto: [§ 9.2].\n" +
+    "4. Se il manuale non contiene la risposta, dillo chiaramente e consiglia di contattare l'assistenza del costruttore [§ 1.1]. Non inventare valori, codici o procedure.\n" +
+    "5. Per manutenzione, pulizia o sblocchi ricorda la messa in sicurezza [§ 9.2].\n" +
+    "6. Non suggerire mai di escludere protezioni o interblocchi.\n\nMANUALE:\n" + manualAsText();
+
+  async function ask(q) {
+    q = q.trim();
+    if (!q || busy) return;
+    busy = true;
+    $("#ask-send").disabled = true;
+    addUser(q);
+    const m = addMsg("bot", "");
+    m.classList.add("thinking");
+    $(".body", m).textContent = "Sto leggendo il manuale…";
+    m.scrollIntoView({ block: "nearest", behavior: reduce() ? "auto" : "smooth" });
+    const sample = await samplePromise;
+    if (!sample || aiOff) { renderOffline(m, q); done(); return; }
+    ctl = new AbortController();
+    $("#ask-stop").hidden = false;
+    const body = $(".body", m);
+    const tag = document.createElement("span"); tag.className = "tag"; tag.textContent = "Assistente AI"; m.prepend(tag);
+    try {
+      const input = [{ role: "user", content: RULES() }].concat(turns.slice(-6), [{ role: "user", content: q }]);
+      const res = await sample(input, {
+        signal: ctl.signal, modelTier: "quick",
+        onText: ({ text }) => { m.classList.remove("thinking"); fillWithCites(body, text); }
+      });
+      m.classList.remove("thinking");
+      fillWithCites(body, res.text);
+      turns.push({ role: "user", content: q }, { role: "assistant", content: res.text });
+      if (res.truncated) appendErr(m, "Risposta tagliata: fai una domanda più precisa.");
+    } catch (e) {
+      const code = (e && e.code) || "upstream_error";
+      m.classList.remove("thinking");
+      if (code === "cancelled") { if (e.text) fillWithCites(body, e.text); else body.textContent = "Domanda annullata."; }
+      else if (HIDE.has(code)) { aiOff = true; setStatus(); tag.remove(); renderOffline(m, q); }
+      else {
+        const fb = !e.text && code !== "refused" ? translatedAnswer(q) : null;
+        if (code === "prompt_too_large") turns.length = 0;
+        if (fb) { renderCard(m, fb, "AI non raggiungibile · risposta dal manuale" + (fb.lang === "it" ? "" : " · " + LANG_NAME[fb.lang])); done(); return; }
+        if (e.text) fillWithCites(body, e.text); else body.textContent = "";
+        const copy = {
+          rate_limited: "Troppe domande in poco tempo. Riprova tra qualche minuto.",
+          session_expired: "Accedi di nuovo a Claude per usare l'assistente.",
+          refused: "Non posso rispondere a questa domanda. Prova a riformularla.",
+          empty_completion: "Non ho una risposta per questa domanda. Prova a riformularla.",
+          prompt_too_large: "La conversazione è diventata troppo lunga: l'ho azzerata, ripeti la domanda."
+        }[code] || "La risposta si è interrotta per un problema di collegamento. Riprova.";
+        if (code === "prompt_too_large") turns.length = 0;
+        appendErr(m, copy);
+      }
+    }
+    done();
+  }
+  function appendErr(m, text) { const s = document.createElement("span"); s.className = "err"; s.textContent = text; m.appendChild(s); }
+  function done() { busy = false; ctl = null; $("#ask-send").disabled = false; $("#ask-stop").hidden = true; }
+  $("#ask-stop").addEventListener("click", () => { if (ctl) ctl.abort(); });
+  $("#ask-form").addEventListener("submit", e => { e.preventDefault(); const v = $("#ask-input").value; $("#ask-input").value = ""; ask(v); });
+
+  /* ---------- documents ---------- */
+  const DOCS = [
+    { t: "Dichiarazione UE di conformità", s: "Regolamento (UE) 2023/1230", d: "01/02/2027", f: "PDF firmato · 1 pagina", on: true, open: true },
+    { t: "Manuale di istruzioni, italiano", s: "Versione 1.1", d: "15/03/2027", f: "PDF · 64 pagine", on: true },
+    { t: "Manuale di istruzioni, italiano", s: "Versione 1.0", d: "01/02/2027", f: "PDF · 62 pagine", on: false },
+    { t: "Schema elettrico", s: "Revisione B", d: "01/02/2027", f: "PDF · 38 pagine", on: true },
+    { t: "Rapporto di collaudo finale", s: "Matricola SN 2027-0042", d: "28/01/2027", f: "PDF · 6 pagine", on: true },
+    { t: "Elenco ricambi", s: "Versione 1.0", d: "01/02/2027", f: "PDF · 12 pagine", on: true }
+  ];
+  function renderDocs() {
+    const host = $("#doclist");
+    DOCS.forEach((d, i) => {
+      const row = document.createElement("div"); row.className = "doc";
+      row.innerHTML = '<div class="ft" aria-hidden="true">PDF</div><div><h4></h4><p class="dmeta"></p><span class="state ' + (d.on ? "on" : "old") + '">' + (d.on ? "In vigore" : "Sostituito, in archivio") + '</span></div>' +
+        '<button type="button" class="open" id="doc-open-' + i + '">' + (d.open ? "Apri" : "Scarica") + '</button>';
+      $("h4", row).textContent = d.t;
+      $(".dmeta", row).textContent = d.s + " · " + d.d + " · " + d.f;
+      host.appendChild(row);
+      $("button", row).addEventListener("click", () => {
+        if (d.open) {
+          const det = $("#doc-ce"); det.open = true;
+          det.scrollIntoView({ block: "start", behavior: reduce() ? "auto" : "smooth" });
+          return;
+        }
+        if (!$(".dnote", row)) {
+          const n = document.createElement("p"); n.className = "dnote";
+          n.textContent = "Nel servizio reale qui scarichi il PDF. In questa demo i download sono disattivati.";
+          row.appendChild(n);
+        }
+      });
+    });
+  }
+
+  /* ---------- paper copy ---------- */
+  const fmt = dt => String(dt.getDate()).padStart(2, "0") + "/" + String(dt.getMonth() + 1).padStart(2, "0") + "/" + dt.getFullYear();
+  (function initPaper() {
+    const today = new Date();
+    $("#pf-date").value = today.getFullYear() + "-" + String(today.getMonth() + 1).padStart(2, "0") + "-" + String(today.getDate()).padStart(2, "0");
+    let n = 0;
+    $("#paper-form").addEventListener("submit", e => {
+      e.preventDefault();
+      const form = e.currentTarget;
+      const missing = $$("[required]", form).filter(el => !el.value.trim() || (el.type === "email" && !el.checkValidity()));
+      if (missing.length) {
+        $("#pf-error").textContent = "Compila " + missing.map(el => $('label[for="' + el.id + '"]').textContent.toLowerCase()).join(", ") + ".";
+        missing[0].focus();
+        return;
+      }
+      $("#pf-error").textContent = "";
+      n += 1;
+      const due = new Date(); due.setMonth(due.getMonth() + 1);
+      const free = $("#pf-atpurchase").checked;
+      $("#paper-done-text").textContent = "Richiesta CC-2027-0042-" + String(n).padStart(3, "0") + " registrata per " + $("#pf-name").value.trim() + ". " +
+        (free ? "Copia gratuita, in spedizione entro il " + fmt(due) + "." : "Ti contatteremo con il preventivo della copia cartacea.");
+      $("#paper-done").hidden = false;
+      $("#paper-done").scrollIntoView({ block: "nearest", behavior: reduce() ? "auto" : "smooth" });
+    });
+  })();
+
+  /* ---------- boot ---------- */
+  renderManual();
+  renderDocs();
+  drawQR();
+  setStatus();
+  renderSuggest("it");
+  const start = location.hash.slice(1);
+  setTab(TABS.includes(start) ? start : "manuale", { hash: false });
+
+  // exposed for a local check only
+  window.__demo = { localAnswer, stems, manualAsText, translatedAnswer, detectLang };
+})();
+</script>
+</body>
+</html>
