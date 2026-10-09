@@ -5,8 +5,7 @@ Contiene il sito Targa10 (copia dell'artifact "Targa10 · Targa QR, archivio 10 
 | Percorso | Indirizzo pubblico | Cos'è |
 |---|---|---|
 | `index.html` | `https://targa10.it/` | home con i servizi (QR sul retro del flyer) |
-| `demo/index.html` | `https://targa10.it/demo/` | pagina della matricola di esempio VMC-850, copia dell'artifact "Manuale digitale VMC-850". Il QR sulla targa del flyer la apre sulla scheda Chiedi (`/demo/#chiedi`) |
-| `demo/api/chiedi.php` | `https://targa10.it/demo/api/chiedi.php` | assistente AI della scheda Chiedi (PHP sul server, vedi sotto) |
+| `demo/index.html` | `https://targa10.it/demo/` | pagina della matricola di esempio VMC-850 (QR sulla targa del flyer): manuale con ricerca, documenti, dichiarazione UE, copia cartacea e la voce "Assistenza AI · su richiesta". Pagina statica, senza AI che risponde |
 | `checkup.html`, `faq.html`, `esempio.html`, `en.html`, `privacy.html` | stesse pagine del sito | |
 
 **Non togliere `demo/`**: senza quella cartella il QR sul fronte del flyer dà errore 404.
@@ -22,23 +21,10 @@ Una volta sola, in GitHub: **Settings › Secrets and variables › Actions › 
 | `FTP_SERVER` | di solito `ftp.targa10.it` (pannello Aruba o mail di attivazione dell'hosting) |
 | `FTP_USERNAME` | utente FTP dell'hosting |
 | `FTP_PASSWORD` | password FTP |
-| `ANTHROPIC_API_KEY` | facoltativo: chiave API di Anthropic per l'assistente AI della scheda Chiedi |
 
 Se la cartella pubblica non è quella in cui si entra via FTP, aggiungi nella scheda **Variables** `FTP_DIR` con il percorso giusto (per esempio `./www.targa10.it/`).
 
-Nel riepilogo del workflow (scheda Actions) compare l'esito: "QR del flyer OK" quando la demo si apre, altrimenti il motivo (SSL non attivo, dominio che non punta all'hosting, cartella sbagliata). Sotto c'è lo stato dell'assistente AI.
-
-## Assistente AI della scheda Chiedi
-
-Nell'artifact la scheda Chiedi usa il Claude di chi guarda. Sul sito la domanda va a `demo/api/chiedi.php`, che chiama l'API di Anthropic con la chiave salvata sul server. Il manuale (`demo/api/manuale.txt`) e le regole stanno sul server, quindi l'assistente risponde solo sulla VMC-850 e non diventa una chat generica.
-
-- **Serve:** il secret `ANTHROPIC_API_KEY` e PHP 8.1 o superiore sull'hosting (si sceglie nel pannello Aruba). Le librerie PHP (`vendor/`) le installa il workflow.
-- **Senza chiave**, o se il server non risponde, la pagina risponde con il manuale e le sue traduzioni in 7 lingue, come prima.
-- **Modello:** Claude Opus 5.5 con sforzo basso. Regole e manuale stanno in cache e la risposta è di 110 parole al massimo. Se il modello declina una domanda per motivi di sicurezza, l'API riprova sul modello di riserva.
-- **Costo:** circa 1 centesimo a domanda; 200 domande in fiera costano circa 2 €.
-- **Limiti contro gli abusi:** 15 domande l'ora per indirizzo IP, 200 al giorno in tutto, domande di 400 caratteri al massimo. In più, nella Console di Anthropic imposta un tetto di spesa mensile.
-- Se cambi il manuale dentro `demo/index.html`, rigenera `demo/api/manuale.txt` con `node sito/demo/api/strumenti/estrai-manuale.mjs`.
-- La privacy (`privacy.html`) dice già che le domande della demo passano da Anthropic e che Targa10 non le salva.
+Nel riepilogo del workflow (scheda Actions) compare l'esito: "QR del flyer OK" quando la demo si apre, altrimenti il motivo (SSL non attivo, dominio che non punta all'hosting, cartella sbagliata).
 
 ## Pubblicazione a mano su Aruba (hosting Linux)
 
@@ -49,8 +35,6 @@ Nell'artifact la scheda Chiedi usa il Claude di chi guarda. Sul sito la domanda 
    - `https://targa10.it/`
    - `https://targa10.it/demo/`
    - `https://www.targa10.it/demo/`
-
-Caricata a mano, la scheda Chiedi risponde con il manuale tradotto: per l'AI servono le librerie e la chiave, che mette il workflow.
 
 ## Se l'hosting Aruba non è pronto in tempo
 

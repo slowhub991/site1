@@ -1,15 +1,13 @@
 # Pubblica la cartella sito/ sull'hosting Aruba di targa10.it via FTP,
-# poi controlla da internet che il QR del flyer (https://targa10.it/demo/) apra la demo
-# e che l'assistente AI della scheda Chiedi risponda.
+# poi controlla da internet che il QR del flyer (https://targa10.it/demo/) apra la demo.
 #
 # Da fare una volta sola in GitHub: Settings > Secrets and variables > Actions > New repository secret
-#   FTP_SERVER         di solito ftp.targa10.it (è nel pannello Aruba o nella mail di attivazione dell'hosting)
-#   FTP_USERNAME       utente FTP dell'hosting
-#   FTP_PASSWORD       password FTP
-#   ANTHROPIC_API_KEY  facoltativo: chiave API di Anthropic per l'assistente AI della demo
+#   FTP_SERVER    di solito ftp.targa10.it (è nel pannello Aruba o nella mail di attivazione dell'hosting)
+#   FTP_USERNAME  utente FTP dell'hosting
+#   FTP_PASSWORD  password FTP
 # Facoltativo, nella scheda Variables: FTP_DIR = cartella pubblica sul server, se non è quella di accesso (predefinita ./)
 #
-# Senza i secrets FTP il workflow non carica nulla e lo scrive nel riepilogo.
+# Senza i secrets il workflow non carica nulla e lo scrive nel riepilogo.
 
 name: Pubblica sito su Aruba
 
@@ -31,8 +29,7 @@ concurrency:
 jobs:
   pubblica:
     runs-on: ubuntu-latest
-    # la prima volta si caricano anche le librerie PHP (qualche migliaio di file piccoli)
-    timeout-minutes: 45
+    timeout-minutes: 20
     env:
       HA_FTP: ${{ secrets.FTP_SERVER != '' && secrets.FTP_USERNAME != '' && secrets.FTP_PASSWORD != '' }}
     steps:
@@ -42,33 +39,6 @@ jobs:
 
       - uses: actions/checkout@v4
         if: env.HA_FTP == 'true'
-
-      - name: Librerie PHP dell'assistente AI
-        if: env.HA_FTP == 'true'
-        working-directory: sito/demo/api
-        run: |
-          composer install --no-dev --prefer-dist --optimize-autoloader --no-interaction --no-progress
-          cat > vendor/.htaccess <<'EOF'
-          <IfModule mod_authz_core.c>
-            Require all denied
-          </IfModule>
-          <IfModule !mod_authz_core.c>
-            Order allow,deny
-            Deny from all
-          </IfModule>
-          EOF
-
-      - name: Chiave dell'assistente AI
-        if: env.HA_FTP == 'true'
-        env:
-          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
-        run: |
-          if [ -n "$ANTHROPIC_API_KEY" ]; then
-            php -r 'file_put_contents("sito/demo/api/config.php", "<?php\nreturn " . var_export(["anthropic_api_key" => getenv("ANTHROPIC_API_KEY")], true) . ";\n");'
-            echo "Chiave dell'assistente AI presente."
-          else
-            echo "::notice title=Assistente AI spento::Senza il secret ANTHROPIC_API_KEY la scheda Chiedi risponde con il manuale tradotto."
-          fi
 
       # FTP su TLS esplicito (porta 21). Se Aruba lo rifiuta si prova il TLS implicito sulla porta 990.
       - name: Carica sito/ (FTPS, porta 21)
@@ -89,10 +59,6 @@ jobs:
             **/.git*
             **/.git*/**
             **/*.md
-            **/strumenti/**
-            **/composer.json
-            **/composer.lock
-            **/config.example.php
 
       - name: Carica sito/ (FTPS implicito, porta 990)
         if: env.HA_FTP == 'true' && steps.ftps.outcome == 'failure'
@@ -110,10 +76,6 @@ jobs:
             **/.git*
             **/.git*/**
             **/*.md
-            **/strumenti/**
-            **/composer.json
-            **/composer.lock
-            **/config.example.php
 
       - name: Il QR del flyer apre la demo?
         if: env.HA_FTP == 'true'
@@ -143,10 +105,3 @@ jobs:
             exit 1
           fi
           echo "::notice title=QR del flyer OK::https://targa10.it/demo/ apre la demo."
-
-          ai=$(curl -sS --max-time 20 "https://targa10.it/demo/api/chiedi.php" 2>&1 || true)
-          case "$ai" in
-            *'"attivo":true'*) echo "::notice title=Assistente AI attivo::La scheda Chiedi risponde con l'AI." ;;
-            *'"attivo":false'*) echo "::notice title=Assistente AI spento::Manca la chiave ANTHROPIC_API_KEY: la scheda Chiedi risponde con il manuale tradotto." ;;
-            *) echo "::warning title=Assistente AI::chiedi.php non risponde come previsto. Nel pannello Aruba imposta PHP 8.1 o superiore. Risposta: ${ai:0:200}" ;;
-          esac
