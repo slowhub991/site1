@@ -27,6 +27,29 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
+  # Fotografia di targa10.it vista da internet: gira sempre, anche senza i secrets FTP.
+  stato-dominio:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Dominio, DNS, web e FTP di targa10.it
+        continue-on-error: true
+        run: |
+          sudo apt-get -qq install -y whois > /dev/null 2>&1 || true
+          echo "== Registro .it (whois.nic.it)"
+          whois -h whois.nic.it targa10.it 2>&1 | grep -iE "^(Domain|Status|Created|Expire Date|Registrar|  Organization|  Name|Nameservers)|^  [a-z0-9.-]+\.[a-z]+$" | head -20 || true
+          echo "== DNS"
+          for h in targa10.it www.targa10.it ftp.targa10.it; do echo "$h  A: $(dig +short A "$h" | tr '\n' ' ')"; done
+          echo "targa10.it  NS: $(dig +short NS targa10.it | tr '\n' ' ')"
+          echo "== Web"
+          for u in https://targa10.it/ http://targa10.it/ https://www.targa10.it/ https://targa10.it/demo/; do
+            echo "$u -> $(curl -sS -o /dev/null -L --max-time 15 -w '%{http_code} %{url_effective}' "$u" 2>&1 | head -c 200)"
+          done
+          echo "== Pagina iniziale"
+          curl -sSL --max-time 15 https://targa10.it/ 2>/dev/null | grep -io "<title>[^<]*</title>" | head -1 || true
+          echo "== FTP"
+          timeout 10 bash -c "echo > /dev/tcp/ftp.targa10.it/21" 2>/dev/null && echo "ftp.targa10.it porta 21 aperta" || echo "ftp.targa10.it porta 21 non raggiungibile"
+
   pubblica:
     runs-on: ubuntu-latest
     timeout-minutes: 20
