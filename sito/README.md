@@ -12,7 +12,9 @@ Contiene il sito Targa10 (copia dell'artifact "Targa10 · Targa QR, archivio 10 
 
 ## Pubblicazione automatica (consigliata)
 
-Il workflow `.github/workflows/pubblica-sito.yml` carica questa cartella sull'hosting Aruba via FTP ogni volta che cambia, poi apre `https://targa10.it/demo/` da internet e controlla che si veda la demo.
+Il workflow `.github/workflows/pubblica-sito.yml` carica `demo/` nella cartella `demo/` dell'hosting Aruba via FTP ogni volta che cambia, poi apre `https://targa10.it/demo/` da internet e controlla che si veda la demo. La home e le altre pagine già online su targa10.it non vengono toccate.
+
+Per sostituire anche la home con le pagine di questa cartella: scheda **Actions › Pubblica sito su Aruba › Run workflow**, con "Carica tutto il sito" attivo.
 
 Una volta sola, in GitHub: **Settings › Secrets and variables › Actions › New repository secret**:
 
@@ -29,7 +31,7 @@ Nel riepilogo del workflow (scheda Actions) compare l'esito: "QR del flyer OK" q
 ## Pubblicazione a mano su Aruba (hosting Linux)
 
 1. Apri il File Manager del pannello Aruba, oppure collegati via FTP (`ftp.targa10.it`, con utente e password FTP del pannello).
-2. Carica il **contenuto** di questa cartella nella cartella pubblica del dominio, quella dove Aruba mette la pagina di benvenuto. Ci devono finire direttamente `index.html` e la cartella `demo/`, non una cartella `sito/`.
+2. Nella cartella pubblica del dominio (quella dove c'è già l'`index.html` della home) crea la cartella `demo` e caricaci dentro `demo/index.html`. Basta questo perché funzioni il QR della targa. Carica il resto della cartella solo se vuoi sostituire la home online.
 3. Attiva il certificato SSL dal pannello e il reindirizzamento da http a https.
 4. Prova dal telefono, con il Wi-Fi spento:
    - `https://targa10.it/`

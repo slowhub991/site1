@@ -1,5 +1,7 @@
-# Pubblica la cartella sito/ sull'hosting Aruba di targa10.it via FTP,
+# Pubblica la pagina demo (sito/demo/) sull'hosting Aruba di targa10.it via FTP,
 # poi controlla da internet che il QR del flyer (https://targa10.it/demo/) apra la demo.
+# Il resto del sito online non viene toccato: per caricare tutta la cartella sito/
+# lancia il workflow a mano con "Carica tutto il sito" attivo (sostituisce la home online).
 #
 # Da fare una volta sola in GitHub: Settings > Secrets and variables > Actions > New repository secret
 #   FTP_SERVER    di solito ftp.targa10.it (è nel pannello Aruba o nella mail di attivazione dell'hosting)
@@ -18,6 +20,11 @@ on:
       - "sito/**"
       - ".github/workflows/pubblica-sito.yml"
   workflow_dispatch:
+    inputs:
+      tutto_il_sito:
+        description: "Carica tutta la cartella sito/ (sostituisce la home online). Spento = solo /demo/"
+        type: boolean
+        default: false
 
 permissions:
   contents: read
@@ -49,6 +56,16 @@ jobs:
           curl -sSL --max-time 15 https://targa10.it/ 2>/dev/null | grep -io "<title>[^<]*</title>" | head -1 || true
           echo "== FTP"
           timeout 10 bash -c "echo > /dev/tcp/ftp.targa10.it/21" 2>/dev/null && echo "ftp.targa10.it porta 21 aperta" || echo "ftp.targa10.it porta 21 non raggiungibile"
+          echo "== Link interni della home online"
+          curl -sSL --max-time 15 https://www.targa10.it/ -o home.html 2>/dev/null || true
+          grep -oE 'href="[^"#]+' home.html | sed 's/^href="//' | grep -vE '^(mailto:|tel:|javascript:)' | sort -u | while read -r l; do
+            case "$l" in http*) u="$l" ;; /*) u="https://www.targa10.it$l" ;; *) u="https://www.targa10.it/$l" ;; esac
+            case "$u" in *targa10.it*) echo "$(curl -sS -o /dev/null -L --max-time 15 -w '%{http_code}' "$u" 2>/dev/null) $u" ;; esac
+          done
+          echo "== Pagine linkate dalla demo"
+          for u in https://targa10.it/checkup.html https://targa10.it/; do
+            echo "$(curl -sS -o /dev/null -L --max-time 15 -w '%{http_code}' "$u" 2>/dev/null) $u"
+          done
 
   pubblica:
     runs-on: ubuntu-latest
@@ -64,7 +81,7 @@ jobs:
         if: env.HA_FTP == 'true'
 
       # FTP su TLS esplicito (porta 21). Se Aruba lo rifiuta si prova il TLS implicito sulla porta 990.
-      - name: Carica sito/ (FTPS, porta 21)
+      - name: Carica su Aruba (FTPS, porta 21)
         id: ftps
         if: env.HA_FTP == 'true'
         continue-on-error: true
@@ -76,14 +93,14 @@ jobs:
           protocol: ftps
           port: 21
           security: loose
-          local-dir: ./sito/
-          server-dir: ${{ vars.FTP_DIR || './' }}
+          local-dir: ${{ inputs.tutto_il_sito && './sito/' || './sito/demo/' }}
+          server-dir: ${{ format('{0}{1}', vars.FTP_DIR || './', !inputs.tutto_il_sito && 'demo/' || '') }}
           exclude: |
             **/.git*
             **/.git*/**
             **/*.md
 
-      - name: Carica sito/ (FTPS implicito, porta 990)
+      - name: Carica su Aruba (FTPS implicito, porta 990)
         if: env.HA_FTP == 'true' && steps.ftps.outcome == 'failure'
         uses: SamKirkland/FTP-Deploy-Action@v4.3.5
         with:
@@ -93,8 +110,8 @@ jobs:
           protocol: ftps-legacy
           port: 990
           security: loose
-          local-dir: ./sito/
-          server-dir: ${{ vars.FTP_DIR || './' }}
+          local-dir: ${{ inputs.tutto_il_sito && './sito/' || './sito/demo/' }}
+          server-dir: ${{ format('{0}{1}', vars.FTP_DIR || './', !inputs.tutto_il_sito && 'demo/' || '') }}
           exclude: |
             **/.git*
             **/.git*/**
