@@ -10,7 +10,23 @@ Contiene il sito Targa10 (copia dell'artifact "Targa10 · Targa QR, archivio 10 
 
 **Non togliere `demo/`**: senza quella cartella il QR sul fronte del flyer dà errore 404.
 
-## Pubblicazione su Aruba (hosting Linux)
+## Pubblicazione automatica (consigliata)
+
+Il workflow `.github/workflows/pubblica-sito.yml` carica questa cartella sull'hosting Aruba via FTP ogni volta che cambia, poi apre `https://targa10.it/demo/` da internet e controlla che si veda la demo.
+
+Una volta sola, in GitHub: **Settings › Secrets and variables › Actions › New repository secret**:
+
+| Secret | Valore |
+|---|---|
+| `FTP_SERVER` | di solito `ftp.targa10.it` (pannello Aruba o mail di attivazione dell'hosting) |
+| `FTP_USERNAME` | utente FTP dell'hosting |
+| `FTP_PASSWORD` | password FTP |
+
+Se la cartella pubblica non è quella in cui si entra via FTP, aggiungi nella scheda **Variables** `FTP_DIR` con il percorso giusto (per esempio `./www.targa10.it/`).
+
+Nel riepilogo del workflow (scheda Actions) compare l'esito: "QR del flyer OK" quando la demo si apre, altrimenti il motivo (SSL non attivo, dominio che non punta all'hosting, cartella sbagliata).
+
+## Pubblicazione a mano su Aruba (hosting Linux)
 
 1. Apri il File Manager del pannello Aruba, oppure collegati via FTP (`ftp.targa10.it`, con utente e password FTP del pannello).
 2. Carica il **contenuto** di questa cartella nella cartella pubblica del dominio, quella dove Aruba mette la pagina di benvenuto. Ci devono finire direttamente `index.html` e la cartella `demo/`, non una cartella `sito/`.

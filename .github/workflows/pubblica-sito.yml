@@ -1,0 +1,107 @@
+# Pubblica la cartella sito/ sull'hosting Aruba di targa10.it via FTP,
+# poi controlla da internet che il QR del flyer (https://targa10.it/demo/) apra la demo.
+#
+# Da fare una volta sola in GitHub: Settings > Secrets and variables > Actions > New repository secret
+#   FTP_SERVER    di solito ftp.targa10.it (è nel pannello Aruba o nella mail di attivazione dell'hosting)
+#   FTP_USERNAME  utente FTP dell'hosting
+#   FTP_PASSWORD  password FTP
+# Facoltativo, nella scheda Variables: FTP_DIR = cartella pubblica sul server, se non è quella di accesso (predefinita ./)
+#
+# Senza i secrets il workflow non carica nulla e lo scrive nel riepilogo.
+
+name: Pubblica sito su Aruba
+
+on:
+  push:
+    branches: [claude/nice-knuth-rwtg0h]
+    paths:
+      - "sito/**"
+      - ".github/workflows/pubblica-sito.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: pubblica-sito
+  cancel-in-progress: false
+
+jobs:
+  pubblica:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    env:
+      HA_FTP: ${{ secrets.FTP_SERVER != '' && secrets.FTP_USERNAME != '' && secrets.FTP_PASSWORD != '' }}
+    steps:
+      - name: Credenziali FTP mancanti
+        if: env.HA_FTP != 'true'
+        run: echo "::warning title=Sito non pubblicato::Aggiungi i secrets FTP_SERVER, FTP_USERNAME e FTP_PASSWORD in Settings > Secrets and variables > Actions, poi rilancia questo workflow."
+
+      - uses: actions/checkout@v4
+        if: env.HA_FTP == 'true'
+
+      # FTP su TLS esplicito (porta 21). Se Aruba lo rifiuta si prova il TLS implicito sulla porta 990.
+      - name: Carica sito/ (FTPS, porta 21)
+        id: ftps
+        if: env.HA_FTP == 'true'
+        continue-on-error: true
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
+          server: ${{ secrets.FTP_SERVER }}
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          protocol: ftps
+          port: 21
+          security: loose
+          local-dir: ./sito/
+          server-dir: ${{ vars.FTP_DIR || './' }}
+          exclude: |
+            **/.git*
+            **/.git*/**
+            README.md
+
+      - name: Carica sito/ (FTPS implicito, porta 990)
+        if: env.HA_FTP == 'true' && steps.ftps.outcome == 'failure'
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
+          server: ${{ secrets.FTP_SERVER }}
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          protocol: ftps-legacy
+          port: 990
+          security: loose
+          local-dir: ./sito/
+          server-dir: ${{ vars.FTP_DIR || './' }}
+          exclude: |
+            **/.git*
+            **/.git*/**
+            README.md
+
+      - name: Il QR del flyer apre la demo?
+        if: env.HA_FTP == 'true'
+        run: |
+          prova() {
+            local url="$1" atteso="$2" codice
+            codice=$(curl -sSL --max-time 20 -o pagina.html -w '%{http_code}' "$url" 2>errore.txt) \
+              || codice="nessuna risposta: $(head -c 200 errore.txt)"
+            if [ "$codice" = "200" ] && grep -q "$atteso" pagina.html; then
+              echo "OK  $url"
+              return 0
+            fi
+            echo "NO  $url -> $codice"
+            return 1
+          }
+          esito=0
+          prova "https://targa10.it/demo/" "VMC-850" || esito=1
+          prova "https://targa10.it/" "Targa10" || esito=1
+          prova "https://www.targa10.it/demo/" "VMC-850" \
+            || echo "::warning title=www::www.targa10.it non apre la demo: controlla il record www nel DNS di Aruba."
+          if [ "$esito" != 0 ]; then
+            if prova "http://targa10.it/demo/" "VMC-850"; then
+              echo "::error title=SSL non attivo::Il sito risponde in http ma non in https. Attiva il certificato SSL DV gratuito dal pannello Aruba."
+            else
+              echo "::error title=Demo non raggiungibile::https://targa10.it/demo/ non apre la demo. Controlla che il dominio punti all'hosting, la cartella FTP (variabile FTP_DIR) e il certificato SSL."
+            fi
+            exit 1
+          fi
+          echo "::notice title=QR del flyer OK::https://targa10.it/demo/ apre la demo."
