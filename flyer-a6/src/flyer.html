@@ -76,85 +76,66 @@ svg { display: block; }
 .kicker { font-family: var(--mono); font-weight: 600; font-size: 5.6pt; letter-spacing: 0.14em; text-transform: uppercase; }
 .on-dark .kicker { color: var(--yellow); }
 
-/* =====================================================================
-   FRONTE
-   ===================================================================== */
-.front { background: radial-gradient(ellipse 100mm 80mm at 65% 55%, #2E363D 0%, #1A1F24 52%, #0E1114 100%); color: var(--on-dark); }
-.front .glow { position: absolute; left: 46mm; width: 108mm; top: 25mm; height: 72mm;
-  background: radial-gradient(ellipse 54mm 34mm at 50% 50%, rgba(255,194,14,0.30) 0%, rgba(255,194,14,0.10) 55%, rgba(255,194,14,0) 100%); }
-.front .hazard { top: 102mm; bottom: 0; }
-.front .hazard::before { content: ""; position: absolute; left: 0; right: 0; top: 0; height: 0.5mm; background: var(--ink); }
-
+/* riga del logo sul retro */
 .brand-row { position: absolute; left: 6mm; right: 6mm; top: 5.5mm; display: flex; align-items: center; justify-content: space-between; }
-.reg { font-family: var(--mono); font-weight: 600; font-size: 5.8pt; letter-spacing: 0.12em; text-transform: uppercase; color: var(--on-dark-2); display: flex; align-items: center; gap: 1.6mm; }
-.reg::before { content: ""; width: 1.6mm; height: 1.6mm; background: var(--yellow); }
 
-.headline { position: absolute; left: 6mm; top: 14.2mm; font-family: var(--cond); font-weight: 800; font-size: 29pt; line-height: 1; letter-spacing: -0.005em; color: #FFFFFF; white-space: nowrap; }
+/* =====================================================================
+   FRONTE: la targa occupa quasi tutta la facciata (136 × 80 mm)
+   ===================================================================== */
+.front { background: radial-gradient(ellipse 120mm 85mm at 50% 52%, #2E363D 0%, #1A1F24 55%, #0E1114 100%); color: var(--on-dark); }
+.front .glow { position: absolute; inset: 0;
+  background: radial-gradient(ellipse 92mm 62mm at 50% 52%, rgba(255,194,14,0.28) 0%, rgba(255,194,14,0.09) 62%, rgba(255,194,14,0) 100%); }
+
+.front-head { position: absolute; left: 6mm; right: 6mm; top: 4.6mm; display: flex; align-items: center; justify-content: space-between; }
+.headline { font-family: var(--cond); font-weight: 800; font-size: 18pt; line-height: 1; letter-spacing: -0.005em; color: #FFFFFF; white-space: nowrap; }
 .headline span { color: var(--yellow); }
 
-.lede { position: absolute; left: 6mm; width: 41mm; top: 31mm; font-size: 7.2pt; line-height: 12px; font-weight: 500; color: var(--on-dark-2); }
-.lede b { color: #FFFFFF; font-weight: 600; }
-
-/* cosa si apre: elenco a sinistra della targa */
-.opens { position: absolute; left: 6mm; width: 41mm; top: 49.4mm; }
-.opens ul { margin-top: 1.6mm; }
-.opens li { display: flex; align-items: center; gap: 2mm; padding: 1.45mm 0; border-top: 0.22mm solid var(--line-dark); }
-.opens li:last-child { border-bottom: 0.22mm solid var(--line-dark); }
-.opens svg { flex-shrink: 0; width: 4.4mm; height: 4.4mm; fill: none; stroke: var(--yellow); stroke-width: 1.7; stroke-linecap: round; stroke-linejoin: round; }
-.opens span { font-family: var(--cond); font-weight: 600; font-size: 7.8pt; line-height: 1; color: #FFFFFF; white-space: nowrap; }
-
-/* quota tecnica sopra la targa */
-.dim { position: absolute; left: 52mm; width: 90mm; top: 26.6mm; height: 3mm; color: var(--yellow); }
-.dim::before { content: ""; position: absolute; left: 0; right: 0; top: 1.5mm; border-top: 0.18mm solid currentColor; }
-.dim i { position: absolute; top: 0.3mm; width: 0; height: 2.4mm; border-left: 0.18mm solid currentColor; }
-.dim i.l { left: 0; } .dim i.r { right: 0; }
-.dim b { position: absolute; left: 50%; top: 0; transform: translateX(-50%); padding: 0 2mm; background: #232A30; font-family: var(--mono); font-weight: 600; font-size: 5.5pt; line-height: 3mm; letter-spacing: 0.14em; white-space: nowrap; }
-
-/* ---------- la targa (90 × 54 mm) ---------- */
-.plate { position: absolute; left: 52mm; top: 31.2mm; width: 90mm; height: 54mm; border-radius: 2.6mm; color: var(--plate-ink);
+.plate { position: absolute; left: 6mm; top: 13.4mm; width: 136mm; height: 80mm; border-radius: 3.6mm; color: var(--plate-ink);
   background-image:
     linear-gradient(115deg, rgba(255,255,255,0) 22%, rgba(255,255,255,0.34) 38%, rgba(255,255,255,0.06) 50%, rgba(255,255,255,0) 58%, rgba(255,255,255,0.18) 74%, rgba(255,255,255,0) 86%),
     linear-gradient(180deg, rgba(255,255,255,0.20) 0%, rgba(255,255,255,0) 30%, rgba(0,0,0,0.06) 70%, rgba(0,0,0,0.14) 100%),
     url("img/alluminio.jpg");
   background-size: 100% 100%, 100% 100%, 100% 100%;
-  box-shadow: 0 0 0 0.25mm #7D878F, 0 2.4mm 5mm rgba(0,0,0,0.55), 0 0.6mm 1.2mm rgba(0,0,0,0.45);
+  box-shadow: 0 0 0 0.3mm #7D878F, 0 3mm 7mm rgba(0,0,0,0.6), 0 0.8mm 1.6mm rgba(0,0,0,0.45);
 }
 .plate::before { content: ""; position: absolute; inset: 0; border-radius: inherit;
-  box-shadow: inset 0.35mm 0.35mm 0 rgba(255,255,255,0.75), inset -0.35mm -0.35mm 0 rgba(60,70,78,0.45); }
-.engr { text-shadow: 0 0.13mm 0 rgba(255,255,255,0.55); }
-.screw { position: absolute; width: 3.6mm; height: 3.6mm; }
-.screw.tl { left: 1.8mm; top: 1.8mm; } .screw.tr { right: 1.8mm; top: 1.8mm; }
-.screw.bl { left: 1.8mm; bottom: 1.8mm; } .screw.br { right: 1.8mm; bottom: 1.8mm; }
+  box-shadow: inset 0.45mm 0.45mm 0 rgba(255,255,255,0.75), inset -0.45mm -0.45mm 0 rgba(60,70,78,0.45); }
+.engr { text-shadow: 0 0.18mm 0 rgba(255,255,255,0.55); }
+.screw { position: absolute; width: 5.2mm; height: 5.2mm; }
+.screw.tl { left: 2.6mm; top: 2.6mm; } .screw.tr { right: 2.6mm; top: 2.6mm; }
+.screw.bl { left: 2.6mm; bottom: 2.6mm; } .screw.br { right: 2.6mm; bottom: 2.6mm; }
 
-.p-head { position: absolute; left: 7mm; right: 7mm; top: 4.3mm; display: flex; justify-content: space-between; align-items: flex-start; gap: 3mm; }
-.maker { font-family: var(--cond); font-weight: 700; font-size: 9.6pt; line-height: 1; letter-spacing: 0.035em; text-transform: uppercase; }
-.maker small { display: block; margin-top: 0.9mm; font-family: var(--sans); font-weight: 500; font-size: 5.2pt; letter-spacing: 0; text-transform: none; }
-.ce { width: 12.4mm; height: 6.2mm; margin-top: 0.1mm; flex-shrink: 0; }
-.p-rule { position: absolute; left: 7mm; right: 7mm; top: 13.2mm; height: 0.32mm; background: rgba(26,32,38,0.85); box-shadow: 0 0.18mm 0 rgba(255,255,255,0.6); }
+.p-head { position: absolute; left: 11mm; right: 11mm; top: 6.4mm; display: flex; justify-content: space-between; align-items: flex-start; gap: 4mm; }
+.maker { font-family: var(--cond); font-weight: 700; font-size: 14.5pt; line-height: 1; letter-spacing: 0.035em; text-transform: uppercase; }
+.maker small { display: block; margin-top: 1.4mm; font-family: var(--sans); font-weight: 500; font-size: 7.6pt; letter-spacing: 0; text-transform: none; }
+.ce { width: 18.6mm; height: 9.3mm; margin-top: 0.2mm; flex-shrink: 0; }
+.p-rule { position: absolute; left: 11mm; right: 11mm; top: 20mm; height: 0.45mm; background: rgba(26,32,38,0.85); box-shadow: 0 0.25mm 0 rgba(255,255,255,0.6); }
 
-.fields { position: absolute; left: 7mm; width: 46mm; top: 15.6mm; display: grid; grid-template-columns: 24mm 22mm; row-gap: 1.6mm; }
-.fields dt { font-family: var(--mono); font-weight: 600; font-size: 4.7pt; letter-spacing: 0.1em; text-transform: uppercase; opacity: 0.82; }
-.fields dd { margin: 0.35mm 0 0; font-family: var(--cond); font-weight: 600; font-size: 8.6pt; line-height: 1.05; white-space: nowrap; }
-.p-go { position: absolute; left: 7mm; width: 46mm; top: 38.6mm; padding-top: 1.6mm; border-top: 0.22mm solid rgba(26,32,38,0.55); display: flex; align-items: center; gap: 1.6mm; }
-.p-go .lbl { font-family: var(--mono); font-weight: 600; font-size: 4.7pt; letter-spacing: 0.1em; text-transform: uppercase; opacity: 0.82; }
-.p-go .val { font-family: var(--cond); font-weight: 600; font-size: 8.6pt; line-height: 1; }
-.p-go svg { width: 7mm; height: 3mm; margin-left: auto; }
+.fields { position: absolute; left: 11mm; width: 68mm; top: 23.4mm; display: grid; grid-template-columns: 36mm 32mm; row-gap: 1.9mm; }
+.fields dt { font-family: var(--mono); font-weight: 600; font-size: 6.6pt; line-height: 10px; letter-spacing: 0.1em; text-transform: uppercase; opacity: 0.82; }
+.fields dd { margin: 0.5mm 0 0; font-family: var(--cond); font-weight: 600; font-size: 12.5pt; line-height: 17px; white-space: nowrap; }
+.p-go { position: absolute; left: 11mm; width: 68mm; top: 53.8mm; padding-top: 2.2mm; border-top: 0.3mm solid rgba(26,32,38,0.55);
+  display: grid; grid-template-columns: minmax(0, 1fr) auto; column-gap: 3mm; align-items: center; }
+.p-go .lbl { font-family: var(--mono); font-weight: 600; font-size: 6.6pt; line-height: 10px; letter-spacing: 0.1em; text-transform: uppercase; opacity: 0.82; }
+.p-go .val { margin-top: 0.5mm; font-family: var(--cond); font-weight: 600; font-size: 12.5pt; line-height: 17px; }
+.p-go svg { width: 11mm; height: 4.6mm; }
+.p-go .what { grid-column: 1 / -1; margin-top: 1.4mm; font-family: var(--sans); font-weight: 500; font-size: 7pt; line-height: 12px; }
 
-.qr-win { position: absolute; left: 57mm; top: 15.4mm; width: 26mm; height: 26mm; border-radius: 0.9mm; background: #F5F7F8;
-  box-shadow: inset 0 0.25mm 0.5mm rgba(0,0,0,0.28), 0 0.15mm 0 rgba(255,255,255,0.8); }
+.qr-win { position: absolute; left: 87mm; top: 23.4mm; width: 38.6mm; height: 38.6mm; border-radius: 1.3mm; background: #F5F7F8;
+  box-shadow: inset 0 0.35mm 0.7mm rgba(0,0,0,0.28), 0 0.2mm 0 rgba(255,255,255,0.8); }
 .qr-win svg { position: absolute; inset: 0; width: 100%; height: 100%; }
-.qr-url { position: absolute; left: 55mm; width: 30mm; top: 43.2mm; text-align: center; font-family: var(--mono); font-weight: 600; font-size: 5.9pt; letter-spacing: 0.02em; }
-.finder { position: absolute; left: 55.6mm; top: 14mm; width: 28.8mm; height: 28.8mm; }
-.finder i { position: absolute; width: 3.4mm; height: 3.4mm; border: 0 solid var(--yellow); }
-.finder .a { left: 0; top: 0; border-left-width: 0.6mm; border-top-width: 0.6mm; border-top-left-radius: 0.8mm; }
-.finder .b { right: 0; top: 0; border-right-width: 0.6mm; border-top-width: 0.6mm; border-top-right-radius: 0.8mm; }
-.finder .c { left: 0; bottom: 0; border-left-width: 0.6mm; border-bottom-width: 0.6mm; border-bottom-left-radius: 0.8mm; }
-.finder .d { right: 0; bottom: 0; border-right-width: 0.6mm; border-bottom-width: 0.6mm; border-bottom-right-radius: 0.8mm; }
+.qr-url { position: absolute; left: 84.8mm; width: 43mm; top: 65.4mm; text-align: center; font-family: var(--mono); font-weight: 600; font-size: 9pt; letter-spacing: 0.02em; }
+.finder { position: absolute; left: 84.8mm; top: 21.2mm; width: 43mm; height: 43mm; }
+.finder i { position: absolute; width: 5mm; height: 5mm; border: 0 solid var(--yellow); }
+.finder .a { left: 0; top: 0; border-left-width: 0.8mm; border-top-width: 0.8mm; border-top-left-radius: 1.1mm; }
+.finder .b { right: 0; top: 0; border-right-width: 0.8mm; border-top-width: 0.8mm; border-top-right-radius: 1.1mm; }
+.finder .c { left: 0; bottom: 0; border-left-width: 0.8mm; border-bottom-width: 0.8mm; border-bottom-left-radius: 1.1mm; }
+.finder .d { right: 0; bottom: 0; border-right-width: 0.8mm; border-bottom-width: 0.8mm; border-bottom-right-radius: 1.1mm; }
 
-.front-foot { position: absolute; left: 6mm; right: 6mm; top: 89.4mm; display: flex; align-items: flex-end; justify-content: space-between; }
-.front-foot .when { font-family: var(--mono); font-weight: 600; font-size: 6.8pt; letter-spacing: 0.04em; color: var(--yellow); line-height: 1.25; }
-.front-foot .when small { display: block; font-family: var(--sans); font-weight: 500; font-size: 6pt; letter-spacing: 0; color: var(--on-dark-2); }
-.front-foot .url { font-family: var(--cond); font-weight: 800; font-size: 15pt; line-height: 0.9; color: #FFFFFF; }
+.front-foot { position: absolute; left: 6mm; right: 6mm; top: 95.7mm; display: flex; align-items: baseline; justify-content: space-between; gap: 4mm; }
+.front-foot .note { font-family: var(--mono); font-weight: 600; font-size: 5.8pt; letter-spacing: 0.1em; text-transform: uppercase; color: var(--yellow); white-space: nowrap; }
+.front-foot .note span { color: var(--on-dark-2); }
+.front-foot .url { font-family: var(--cond); font-weight: 800; font-size: 12.5pt; line-height: 1; color: #FFFFFF; }
 
 /* =====================================================================
    RETRO
@@ -222,29 +203,12 @@ svg { display: block; }
   <div class="sheet front on-dark">
     <div class="grid"></div>
     <div class="glow"></div>
-    <div class="hazard"></div>
 
     <div class="trim">
-      <div class="brand-row">
+      <div class="front-head">
         <div class="logo" aria-label="Targa10"><span class="t">TARGA</span><span class="n">10</span></div>
-        <div class="reg">Reg. (UE) 2023/1230</div>
+        <h1 class="headline">Inquadra il QR. <span>Apri la macchina.</span></h1>
       </div>
-
-      <h1 class="headline">Inquadra il QR. <span>Apri la macchina.</span></h1>
-
-      <p class="lede">Il QR funziona davvero: apre la pagina di questa matricola con <b>manuale, documenti e assistente AI</b>. Come la vedrà il tecnico del tuo cliente.</p>
-
-      <div class="opens">
-        <div class="kicker">Cosa si apre sul telefono</div>
-        <ul>
-          <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 4.5h10.5a3 3 0 0 1 3 3V20H8a3 3 0 0 1-3-3z"/><path d="M5 17a3 3 0 0 1 3-3h10.5"/></svg><span>Manuale d’istruzioni</span></li>
-          <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6.5 3h8l4 4v14h-12z"/><path d="M14.5 3v4h4"/><path d="M9.3 14.2l2 2 3.8-4"/></svg><span>Dichiarazione UE e allegati</span></li>
-          <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5h16v11H10l-5 4v-4H4z"/><path d="M12 7.6l.8 1.8 1.8.8-1.8.8-.8 1.8-.8-1.8-1.8-.8 1.8-.8z"/></svg><span>Assistente AI, 7 lingue</span></li>
-          <li><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8.5"/><path d="M12 7.5V12l3.2 2"/></svg><span>Online almeno 10 anni</span></li>
-        </ul>
-      </div>
-
-      <div class="dim"><i class="l"></i><i class="r"></i><b>TARGA DI ESEMPIO · QR ATTIVO</b></div>
 
       <div class="plate">
         <svg class="screw tl" viewBox="0 0 20 20" aria-hidden="true"><use href="#vite"/></svg>
@@ -267,8 +231,9 @@ svg { display: block; }
           <div><dt>Potenza</dt><dd>25 kVA</dd></div>
         </dl>
         <div class="p-go engr">
-          <div><div class="lbl">Istruzioni e documenti</div><div class="val">Inquadra il QR</div></div>
+          <div><div class="lbl">Istruzioni digitali</div><div class="val">Inquadra il QR</div></div>
           <svg viewBox="0 0 28 12" aria-hidden="true"><path d="M1 6h24M19 1l6 5-6 5" fill="none" stroke="#1A2026" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <p class="what">Manuale d’istruzioni, dichiarazione UE e assistente AI di questa matricola, online almeno 10 anni.</p>
         </div>
 
         <div class="qr-win">{{QR_FRONTE}}</div>
@@ -277,7 +242,7 @@ svg { display: block; }
       </div>
 
       <div class="front-foot">
-        <div class="when">DAL 20.01.2027<small>Regolamento Macchine (UE) 2023/1230</small></div>
+        <div class="note">Targa di esempio · QR attivo <span>· Reg. (UE) 2023/1230, dal 20.01.2027</span></div>
         <div class="url">targa10.it</div>
       </div>
     </div>

@@ -1,6 +1,6 @@
 # Flyer A6 orizzontale Targa10, fronte e retro
 
-Fronte: la targa di esempio con il QR attivo, che apre la pagina della matricola con manuale e documenti.
+Fronte: la targa di esempio, grande quasi quanto la facciata (136 × 80 mm), con il QR attivo che apre la pagina della matricola con manuale e documenti.
 Retro: i sei servizi e il QR verso il sito.
 
 ![Fronte](anteprima/fronte.png) ![Retro](anteprima/retro.png)
