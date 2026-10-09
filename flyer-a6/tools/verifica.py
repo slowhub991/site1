@@ -16,7 +16,7 @@ import zxingcpp
 from PIL import Image, ImageFilter
 
 ROOT = Path(__file__).resolve().parent.parent
-ATTESI = {0: "https://targa10.it/demo/", 1: "https://targa10.it/"}
+ATTESI = {0: "https://targa10.it/demo/#chiedi", 1: "https://targa10.it/"}
 FORMATI = {
     "Targa10_flyer_A6_orizzontale_abbondanza-3mm.pdf": (154, 111),
     "Targa10_flyer_A6_orizzontale_con-crocini.pdf": (174, 131),

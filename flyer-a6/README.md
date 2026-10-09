@@ -26,7 +26,7 @@ Pagina 1 = fronte, pagina 2 = retro. Nei PDF sono impostati TrimBox 148 × 105 m
 
 | Lato | Indirizzo | Cosa apre |
 |---|---|---|
-| Fronte, sulla targa | `https://targa10.it/demo/` | `../sito/demo/index.html`: pagina della matricola VMC-850 con manuale, documenti, dichiarazione UE e risposte in 7 lingue |
+| Fronte, sulla targa | `https://targa10.it/demo/#chiedi` | `../sito/demo/index.html`, aperta sulla scheda Chiedi: pagina della matricola VMC-850 con assistente AI, manuale, documenti e dichiarazione UE |
 | Retro | `https://targa10.it/` | home del sito con tutti i servizi |
 
 I QR funzionano solo quando targa10.it è online in HTTPS con la cartella `demo/` caricata (vedi `../sito/README.md`).

@@ -16,7 +16,7 @@ import { PDFDocument } from "pdf-lib";
 import { chromium } from "playwright";
 
 // ---- indirizzi dei QR: cambiarli qui e rilanciare la build ----
-const URL_FRONTE = "https://targa10.it/demo/";   // pagina della matricola di esempio (sito/demo/index.html)
+const URL_FRONTE = "https://targa10.it/demo/#chiedi"; // pagina della matricola di esempio, aperta sulla scheda Chiedi
 const URL_FRONTE_TESTO = "targa10.it/demo";      // testo inciso sotto il QR della targa
 const URL_RETRO = "https://targa10.it/";         // home del sito con tutti i servizi
 

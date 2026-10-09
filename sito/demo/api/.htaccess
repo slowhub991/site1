@@ -1,0 +1,12 @@
+# Di questa cartella si raggiunge dal web solo chiedi.php.
+<IfModule mod_authz_core.c>
+  <FilesMatch "^(config(\.example)?\.php|composer\.(json|lock)|manuale\.txt)$">
+    Require all denied
+  </FilesMatch>
+</IfModule>
+<IfModule !mod_authz_core.c>
+  <FilesMatch "^(config(\.example)?\.php|composer\.(json|lock)|manuale\.txt)$">
+    Order allow,deny
+    Deny from all
+  </FilesMatch>
+</IfModule>

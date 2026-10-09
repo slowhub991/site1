@@ -1281,18 +1281,43 @@ footer.foot a { color: var(--signal); }
   $("#langs").addEventListener("click", e => { const b = e.target.closest(".lang[data-lang]"); if (b) renderSuggest(b.getAttribute("data-lang")); });
   $("#suggest").addEventListener("click", e => { const c = e.target.closest(".chip[data-q]"); if (c) ask(c.getAttribute("data-q")); });
 
-  // AI via the viewer's Claude (sample capability), with the local search as fallback
+  // AI: nell'artifact usa il Claude di chi guarda (capability sample); sul sito targa10.it usa
+  // l'endpoint api/chiedi.php, che tiene manuale e chiave sul server. Senza nessuno dei due
+  // risponde con il manuale e le sue traduzioni.
   const samplePromise = (window.claude && typeof window.claude.use === "function")
     ? window.claude.use("sample").catch(() => null) : Promise.resolve(null);
-  let aiOff = false, busy = false, ctl = null;
+  // sempre /demo/api/chiedi.php, anche se la pagina è aperta come /demo senza barra finale
+  const SERVER_AI = location.pathname.replace(/\/?(index\.html)?$/, "/") + "api/chiedi.php";
+  const serverPromise = samplePromise.then(s => s ? false
+    : fetch(SERVER_AI, { cache: "no-store" }).then(r => (r.ok ? r.json() : null)).then(j => !!(j && j.attivo)).catch(() => false));
+  let aiOff = false, serverOn = false, busy = false, ctl = null;
   const turns = [];
   const HIDE = new Set(["not_granted", "sampling_disabled", "not_declared", "capability_disabled", "capability_removed"]);
   function setStatus() {
     $("#ai-status").textContent = aiOff
       ? "Demo pubblica: le risposte arrivano dal manuale e dalle sue traduzioni in 7 lingue (IT, EN, DE, FR, ES, PL, UA). Nel servizio attivo risponde l'assistente AI, sempre e solo da questo manuale."
-      : "Risponde l'assistente AI usando solo questo manuale. Alla prima domanda ti viene chiesto il consenso. Se l'AI non è raggiungibile, rispondo con il manuale tradotto.";
+      : serverOn
+        ? "Risponde l'assistente AI usando solo questo manuale. La domanda passa dall'AI per costruire la risposta: non scrivere dati personali."
+        : "Risponde l'assistente AI usando solo questo manuale. Alla prima domanda ti viene chiesto il consenso. Se l'AI non è raggiungibile, rispondo con il manuale tradotto.";
   }
-  samplePromise.then(s => { if (!s) aiOff = true; setStatus(); });
+  Promise.all([samplePromise, serverPromise]).then(([s, srv]) => { serverOn = srv; if (!s && !srv) aiOff = true; setStatus(); });
+
+  // Domanda all'endpoint del sito. Gli errori hanno gli stessi codici della capability sample.
+  const SERVER_ERR = { limite: "rate_limited", occupato: "rate_limited", rifiuto: "refused", vuota: "empty_completion", non_configurato: "not_declared" };
+  async function askServer(q, signal) {
+    let r, j = {};
+    try {
+      r = await fetch(SERVER_AI, {
+        method: "POST", headers: { "Content-Type": "application/json" }, signal,
+        body: JSON.stringify({ domanda: q, storia: turns.slice(-6) })
+      });
+      j = await r.json().catch(() => ({}));
+    } catch (e) {
+      const err = new Error("rete"); err.code = e && e.name === "AbortError" ? "cancelled" : "upstream_error"; throw err;
+    }
+    if (typeof j.testo === "string") return { text: j.testo, truncated: !!j.troncata };
+    const err = new Error(j.errore || "rete"); err.code = SERVER_ERR[j.errore] || "upstream_error"; throw err;
+  }
 
   const RULES = () => "Sei l'assistente del manuale digitale del centro di lavoro VMC-850 di Costruttore Esempio S.r.l. (esempio dimostrativo con dati inventati).\n" +
     "Rispondi solo con le informazioni del MANUALE qui sotto. Regole:\n" +
@@ -1314,17 +1339,20 @@ footer.foot a { color: var(--signal); }
     $(".body", m).textContent = "Sto leggendo il manuale…";
     m.scrollIntoView({ block: "nearest", behavior: reduce() ? "auto" : "smooth" });
     const sample = await samplePromise;
-    if (!sample || aiOff) { renderOffline(m, q); done(); return; }
+    const server = !sample && await serverPromise;
+    if ((!sample && !server) || aiOff) { renderOffline(m, q); done(); return; }
     ctl = new AbortController();
     $("#ask-stop").hidden = false;
     const body = $(".body", m);
     const tag = document.createElement("span"); tag.className = "tag"; tag.textContent = "Assistente AI"; m.prepend(tag);
     try {
       const input = [{ role: "user", content: RULES() }].concat(turns.slice(-6), [{ role: "user", content: q }]);
-      const res = await sample(input, {
-        signal: ctl.signal, modelTier: "quick",
-        onText: ({ text }) => { m.classList.remove("thinking"); fillWithCites(body, text); }
-      });
+      const res = sample
+        ? await sample(input, {
+          signal: ctl.signal, modelTier: "quick",
+          onText: ({ text }) => { m.classList.remove("thinking"); fillWithCites(body, text); }
+        })
+        : await askServer(q, ctl.signal);
       m.classList.remove("thinking");
       fillWithCites(body, res.text);
       turns.push({ role: "user", content: q }, { role: "assistant", content: res.text });

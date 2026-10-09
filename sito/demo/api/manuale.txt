@@ -1,0 +1,269 @@
+§ 1 INFORMAZIONI GENERALI
+§ 1.1 Costruttore e assistenza
+Costruttore Esempio S.r.l.
+Via dell'Esempio 1, 33100 Pordenone (PN), Italia
+Assistenza tecnica: +39 0434 000000 · assistenza@costruttore-esempio.example
+Dal lunedì al venerdì, 8:00–17:00.
+Quando chiami l'assistenza, tieni a portata di mano modello e matricola scritti sulla targhetta.
+
+§ 1.2 Identificazione della macchina
+Centro di lavoro verticale a 3 assi, modello VMC-850. La targhetta è sul fianco sinistro del basamento.
+La dichiarazione UE di conformità è nella scheda Documenti di questa pagina, raggiungibile anche dal codice QR sulla targhetta.
+
+§ 1.3 Uso previsto
+La macchina serve per fresare, forare, alesare e maschiare pezzi in acciaio, ghisa, alluminio, ottone e materie plastiche tecniche, bloccati sulla tavola con attrezzature adatte.
+- Uso in ambiente industriale chiuso, tra 10 e 40 °C.
+- Solo da parte di operatori formati e autorizzati dal datore di lavoro.
+- Carico massimo sulla tavola, attrezzature comprese: 500 kg.
+
+§ 1.4 Usi scorretti prevedibili
+PERICOLO:
+È vietato:
+- lavorare con la porta aperta o con gli interblocchi esclusi o manomessi;
+- lavorare legno o magnesio: i trucioli possono prendere fuoco;
+- usare oli da taglio interi infiammabili senza un impianto di estinzione;
+- superare la velocità massima indicata sull'utensile o sul portautensile;
+- lavorare pezzi non bloccati o bloccati con attrezzature non adatte;
+- usare la macchina in atmosfera potenzialmente esplosiva.
+
+§ 1.5 Simboli usati nel manuale
+PERICOLO:
+Rischio di lesioni gravi o mortali.
+ATTENZIONE:
+Rischio di lesioni lievi o di danni alla macchina.
+NOTA:
+Informazione utile per lavorare meglio.
+
+§ 2 SICUREZZA
+§ 2.1 Dispositivi di sicurezza
+- Cabina chiusa con porta interbloccata: la porta resta bloccata finché mandrino e assi non sono fermi.
+- Arresto di emergenza: pulsanti a fungo rossi sul pannello operatore e sulla pulsantiera portatile.
+- Modalità Regolazione: con la porta aperta gli assi si muovono solo a velocità ridotta (massimo 2 m/min) e con il dispositivo di abilitazione premuto; il mandrino è limitato a 50 giri/min.
+- Finestra in policarbonato antiurto: va sostituita secondo il programma § 9.1 o subito se è incrinata od opaca.
+- Interruttore generale lucchettabile per mettere in sicurezza la macchina § 9.2.
+PERICOLO:
+Non escludere mai gli interblocchi. Se trovi una protezione manomessa, ferma la macchina e avvisa il responsabile.
+
+§ 2.2 Rischi residui
+Anche con tutte le protezioni restano questi rischi:
+- tagli durante il carico e la pulizia degli utensili, che hanno spigoli affilati;
+- schiacciamento delle mani durante il carico di pezzi pesanti;
+- proiezione di trucioli e fluido quando si apre la porta;
+- scivolamento sul pavimento bagnato di fluido da taglio;
+- inalazione di nebbie di fluido: si consiglia un aspiratore di nebbie;
+- rumore: 76 dB(A) al posto di lavoro § 3.2.
+
+§ 2.3 Dispositivi di protezione individuale (DPI)
+- Occhiali di protezione: sempre.
+- Scarpe antinfortunistiche: sempre.
+- Guanti antitaglio: solo per maneggiare utensili e pezzi a macchina ferma.
+- Protezione dell'udito: secondo la valutazione del rumore fatta dal datore di lavoro.
+PERICOLO:
+Mai guanti vicino a parti in rotazione. Niente abiti larghi, braccialetti o collane; raccogli i capelli lunghi.
+
+§ 2.4 Chi può usare la macchina
+- Operatore: formato sull'uso e sulle procedure di questo manuale.
+- Manutentore meccanico: manutenzione ordinaria § 9.1.
+- Elettricista qualificato: l'unico che può aprire il quadro elettrico.
+
+§ 3 DATI TECNICI
+§ 3.1 Caratteristiche principali
+Voce | Valore |
+Corse X / Y / Z | 850 / 510 / 560 mm |
+Tavola | 1000 × 500 mm, 5 cave a T da 18 mm |
+Carico massimo tavola | 500 kg |
+Mandrino | cono ISO 40, 12.000 giri/min |
+Potenza mandrino | 11 kW continua (S1), 15 kW (S6 40 %) |
+Magazzino utensili | 24 posizioni |
+Utensile massimo | Ø 80 mm (Ø 125 mm con le posizioni vicine libere), lunghezza 300 mm, peso 7 kg |
+Avanzamento rapido | 36 m/min |
+Alimentazione elettrica | 400 V ±10 %, trifase, 50 Hz, 25 kVA |
+Aria compressa | 6 bar, 200 Nl/min, aria secca e filtrata |
+Serbatoio fluido da taglio | 300 L |
+Massa | 5.200 kg |
+Ingombro L × P × H | 2.600 × 2.400 × 2.800 mm |
+
+§ 3.2 Rumore
+Livello di pressione acustica di emissione ponderato A al posto di lavoro: 76 dB(A), incertezza K = 2,5 dB, misurato durante una lavorazione di riferimento a 8.000 giri/min.
+Il valore è sotto 80 dB(A): il livello di potenza acustica non è richiesto.
+
+§ 4 TRASPORTO, SOLLEVAMENTO E STOCCAGGIO
+§ 4.1 Prima del trasporto
+- Porta assi e mandrino in posizione di trasporto con il programma O9001.
+- Monta le staffe di bloccaggio rosse su tavola e testa.
+- Svuota il serbatoio del fluido da taglio e il convogliatore trucioli.
+
+§ 4.2 Sollevamento
+Massa della macchina: 5.200 kg.
+- Con gru: 4 funi da almeno 2.000 kg ciascuna, agganciate alle barre di sollevamento in dotazione inserite nei fori del basamento. Angolo tra le funi non oltre 60°.
+- Con carrello elevatore: portata minima 7.000 kg, forche lunghe almeno 1.800 mm, nei punti segnati in giallo sul basamento.
+PERICOLO:
+Non stare sotto il carico sospeso e non sollevare la macchina con le staffe di trasporto smontate.
+
+§ 4.3 Stoccaggio
+Al coperto, tra 5 e 40 °C, umidità relativa sotto l'80 %, con le superfici lavorate protette da olio antiruggine.
+
+§ 5 INSTALLAZIONE E COLLEGAMENTI
+§ 5.1 Pavimento e spazi
+- Soletta in calcestruzzo di almeno 200 mm, senza giunti sotto la macchina.
+- Spazio libero di almeno 800 mm sui lati e 1.000 mm sul retro, per la manutenzione.
+- Livellamento con i piedini regolabili: tolleranza 0,02 mm/m.
+
+§ 5.2 Collegamento elettrico
+PERICOLO:
+Il collegamento lo fa solo un elettricista qualificato.
+- Linea 400 V trifase con conduttore di protezione (PE), conduttori da almeno 10 mm².
+- A monte, interruttore magnetotermico da 40 A.
+- Dopo il collegamento controlla il senso delle fasi: il convogliatore trucioli deve girare nel verso della freccia.
+
+§ 5.3 Aria compressa
+6 bar, aria secca e filtrata (filtro 5 µm). Collega il tubo all'innesto rapido sul retro e controlla la pressione sul manometro del gruppo aria.
+
+§ 6 MESSA IN SERVIZIO
+§ 6.1 Controlli prima della prima accensione
+- Staffe di trasporto rosse rimosse § 4.1.
+- Olio di lubrificazione delle guide al livello massimo § 9.3.
+- Serbatoio riempito con emulsione al 6 % § 9.4.
+- Pressione dell'aria a 6 bar.
+- Nessun attrezzo od oggetto dentro la cabina.
+
+§ 6.2 Prima accensione
+- Porta l'interruttore generale su I.
+- Sblocca gli arresti di emergenza e premi RESET.
+- Prova ogni arresto di emergenza: la macchina deve fermarsi subito.
+- Prova l'interblocco: con la porta aperta il ciclo non deve partire.
+- Esegui la ricerca dello zero degli assi con HOME.
+- Esegui il riscaldamento del mandrino, programma O9000 (15 minuti).
+
+§ 7 USO DELLA MACCHINA
+§ 7.1 Comandi principali
+- Pannello operatore: schermo del controllo numerico, tastiera, override di avanzamento e velocità.
+- Pulsantiera portatile: volantino elettronico, scelta dell'asse, dispositivo di abilitazione a tre posizioni, arresto di emergenza.
+- Selettore di modalità a chiave: Automatico (porta chiusa) o Regolazione (porta aperta, velocità ridotte § 2.1).
+
+§ 7.2 Avvio giornaliero
+- Controlla i livelli di olio e fluido e la pressione dell'aria.
+- Accendi l'interruttore generale e premi RESET.
+- Esegui HOME su tutti gli assi.
+- Se la macchina è rimasta ferma più di 2 giorni, esegui il riscaldamento O9000.
+
+§ 7.3 Azzeramento del pezzo
+- Blocca il pezzo sulla tavola con morsa o staffe § 8.2.
+- Monta il tastatore nel mandrino.
+- A porta chiusa, in modalità Automatico, lancia il ciclo di tastatura dello spigolo o del centro foro.
+- Il controllo salva il valore nell'origine scelta, da G54 a G59.
+- Prima di lavorare, controlla l'origine con la simulazione grafica.
+NOTA:
+Senza tastatore puoi azzerare con il volantino in modalità Regolazione, usando un cercaspigoli.
+
+§ 7.4 Carico degli utensili nel magazzino
+- In modalità Regolazione apri lo sportello di carico del magazzino.
+- Pulisci il cono del portautensile e il naso del mandrino: polvere e trucioli causano vibrazioni.
+- Inserisci il portautensile con la chiavetta allineata alla tacca della pinza.
+- Scrivi nella tabella utensili numero, lunghezza e raggio.
+ATTENZIONE:
+Rispetta i limiti: Ø 80 mm (125 mm con le posizioni vicine libere), lunghezza 300 mm, peso 7 kg § 3.1.
+
+§ 7.5 Esecuzione di un programma
+- Carica il programma e controllalo con la simulazione grafica.
+- Prima esecuzione: blocco singolo e avanzamento rapido al 25 %.
+- Durante il primo pezzo tieni la mano vicino a STOP CICLO.
+- Quando il primo pezzo è controllato, lavora in continuo.
+
+§ 7.6 Fine turno e spegnimento
+- Togli i trucioli da tavola e cabina con lo scovolo e la pistola del fluido.
+- Porta gli assi a metà corsa.
+- Porta l'interruttore generale su 0.
+ATTENZIONE:
+Non pulire con l'aria compressa: proietta trucioli e nebbie verso di te.
+
+§ 8 UTENSILI E BLOCCAGGIO DEI PEZZI
+§ 8.1 Utensili ammessi
+- Portautensili con cono ISO 40 e tirante del tipo indicato nell'elenco ricambi.
+- Utensili equilibrati se usati sopra 8.000 giri/min.
+- Velocità massima dell'utensile almeno pari a quella programmata.
+
+§ 8.2 Bloccaggio dei pezzi
+- Usa morse, staffe o attrezzature adatte alle forze di taglio.
+- Coppia di serraggio delle viti M16 delle staffe: 120 Nm.
+- Pezzo e attrezzatura insieme non devono superare 500 kg, distribuiti sulla tavola.
+
+§ 9 MANUTENZIONE
+§ 9.1 Programma di manutenzione
+Quando | Cosa fare |
+Ogni giorno | Pulizia trucioli da tavola e cabina · livello olio guide · livello e concentrazione del fluido (5–8 %) · scarico della condensa dal filtro dell'aria |
+Ogni settimana | Pulizia del filtro del fluido · controllo delle pinze del magazzino · pulizia del cono mandrino |
+Ogni mese | Prova degli arresti di emergenza e dell'interblocco porta · pulizia dei filtri del quadro elettrico |
+Ogni 6 mesi | Controllo del gioco degli assi e della tensione della catena del convogliatore · tenuta di tubi aria e fluido |
+Ogni anno | Sostituzione completa del fluido e pulizia del serbatoio · controllo della finestra in policarbonato |
+Ogni 2 anni | Sostituzione della finestra in policarbonato, anche se sembra integra: il fluido la indebolisce nel tempo |
+NOTA:
+Prima di ogni intervento metti in sicurezza la macchina § 9.2.
+
+§ 9.2 Messa in sicurezza per la manutenzione
+PERICOLO:
+Prima di qualsiasi intervento dentro la cabina o sui gruppi della macchina:
+- ferma il ciclo e aspetta l'arresto completo del mandrino;
+- porta l'interruttore generale su 0 e bloccalo con il tuo lucchetto personale;
+- appendi il cartello «Manutenzione in corso – non avviare»;
+- chiudi e scarica l'aria compressa;
+- verifica che la macchina non parta premendo START.
+Solo chi ha messo il lucchetto può toglierlo.
+
+§ 9.3 Lubrificazione delle guide
+Serbatoio da 2 L sul retro della macchina, olio per guide ISO VG 68. Rabbocca quando il livello scende sotto la tacca MIN. Consumo tipico: 0,3 L a settimana su un turno.
+
+§ 9.4 Fluido da taglio
+Emulsione al 5–8 %. Controlla la concentrazione ogni giorno con il rifrattometro. Rabbocca con emulsione già miscelata, mai con sola acqua.
+
+§ 10 ALLARMI E ANOMALIE
+§ 10.1 Allarmi principali
+Codice | Messaggio | Cosa fare |
+1001 | Arresto di emergenza premuto | Elimina la causa, ruota il pulsante per sbloccarlo e premi RESET. |
+2051 | Porta aperta o interblocco non chiuso | Chiudi la porta e premi RESET. Se l'allarme resta, ferma la macchina e chiama l'assistenza § 1.1: non escludere l'interblocco. |
+3010 | Livello olio guide basso | Rabbocca l'olio § 9.3, poi RESET. |
+3020 | Pressione aria insufficiente | Controlla l'alimentazione a 6 bar e il filtro § 5.3. |
+4102 | Sovraccarico mandrino | Riduci avanzamento o profondità di passata e controlla l'usura dell'utensile. |
+5003 | Utensile non trovato nel magazzino | Controlla la tabella utensili e la posizione nel magazzino § 7.4. |
+6001 | Livello fluido da taglio basso | Rabbocca con emulsione già miscelata § 9.4. |
+
+§ 10.2 Convogliatore trucioli bloccato
+- Premi STOP CICLO e aspetta l'arresto del mandrino.
+- Metti in sicurezza la macchina § 9.2.
+- Togli i trucioli con il gancio in dotazione, mai con le mani.
+- Togli il lucchetto, riaccendi e fai girare il convogliatore all'indietro per 5 secondi, poi in avanti.
+
+§ 10.3 In caso di incidente o guasto grave
+- Premi l'arresto di emergenza.
+- Presta soccorso o chiama il 112.
+- Avvisa il responsabile.
+- Non riavviare la macchina finché la causa non è chiarita.
+
+§ 11 SOFTWARE, RETE E PROTEZIONE DALLE MANOMISSIONI
+§ 11.1 Versione del software
+Software del controllo: versione 3.2.1. La versione installata si legge in Sistema › Informazioni.
+Gli aggiornamenti li fornisce solo il costruttore, con file firmato digitalmente. Ogni aggiornamento è registrato nella scheda Documenti.
+
+§ 11.2 Collegamento in rete
+- La porta Ethernet serve solo a trasferire i programmi pezzo.
+- Collega la macchina solo alla rete d'officina, dietro un firewall, mai direttamente a internet.
+- Arresti di emergenza e interblocchi funzionano anche senza rete.
+
+§ 11.3 Manomissioni
+Parametri di sicurezza e software sono protetti da una password del costruttore.
+ATTENZIONE:
+Se trovi sigilli rotti sul quadro elettrico o un avviso di modifica dei parametri di sicurezza, ferma la macchina e chiama l'assistenza § 1.1.
+
+§ 12 RICAMBI E SMALTIMENTO
+§ 12.1 Ricambi importanti per la sicurezza
+Usa solo ricambi originali o equivalenti approvati dal costruttore per:
+- interruttore di interblocco della porta;
+- pulsanti di arresto di emergenza;
+- finestra in policarbonato;
+- pulsantiera portatile e dispositivo di abilitazione.
+I codici sono nell'elenco ricambi, scheda Documenti.
+
+§ 12.2 Dismissione
+- Svuota fluido e olio e consegnali a un raccoglitore autorizzato.
+- Separa metalli, plastiche e componenti elettrici ed elettronici.
+- Smaltisci tutto secondo le norme sui rifiuti in vigore.
