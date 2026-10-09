@@ -2,9 +2,9 @@
 <html lang="it">
 <head>
 <meta charset="utf-8">
-<title>Targa10 · Flyer A6 fronte e retro</title>
+<title>Targa10 · Flyer A6 orizzontale, fronte e retro</title>
 <!--
-  Flyer A6 (105 × 148 mm) con 3 mm di abbondanza per lato: ogni facciata è 111 × 154 mm.
+  Flyer A6 orizzontale (148 × 105 mm) con 3 mm di abbondanza per lato: ogni facciata è 154 × 111 mm.
   Tutte le misure sono in millimetri. Le coordinate dei blocchi sono riferite al formato
   finito (.trim), gli sfondi escono nell'abbondanza (.sheet).
   I segnaposto tra doppie graffe li riempie build.mjs (QR vettoriali, URL, crocini).
@@ -25,13 +25,10 @@
 :root {
   --yellow: #FFC20E;
   --ink: #14171B;
-  --ink-2: #2B3238;
   --muted: #4A535B;
-  --graphite: #121518;
   --on-dark: #F4F6F7;
   --on-dark-2: #BEC6CC;
   --line-dark: #3A424A;
-  --line-light: #D3D9DE;
   --plate-ink: #1A2026;
   --cond: "Barlow Condensed", "Arial Narrow", sans-serif;
   --sans: "Barlow", "Segoe UI", sans-serif;
@@ -45,22 +42,21 @@ body { background: #6B737A; font-family: var(--sans); color: var(--ink); -webkit
 @media print { body { background: none; } }
 
 /* pagina = facciata con abbondanza; con i crocini la pagina cresce di 10 mm per lato */
-.page { position: relative; width: 111mm; height: 154mm; overflow: hidden; break-after: page; }
+.page { position: relative; width: 154mm; height: 111mm; overflow: hidden; break-after: page; }
 .page:last-of-type { break-after: auto; }
-.crocini .page { width: 131mm; height: 174mm; background: #FFFFFF; }
-.sheet { position: absolute; left: 0; top: 0; width: 111mm; height: 154mm; overflow: hidden; }
+.crocini .page { width: 174mm; height: 131mm; background: #FFFFFF; }
+.sheet { position: absolute; left: 0; top: 0; width: 154mm; height: 111mm; overflow: hidden; }
 .crocini .sheet { left: 10mm; top: 10mm; }
-.trim { position: absolute; left: 3mm; top: 3mm; width: 105mm; height: 148mm; }
+.trim { position: absolute; left: 3mm; top: 3mm; width: 148mm; height: 105mm; }
 .marks { display: none; position: absolute; inset: 0; }
 .crocini .marks { display: block; }
-.marks svg { display: block; width: 131mm; height: 174mm; }
+.marks svg { display: block; width: 174mm; height: 131mm; }
 .guides .trim { outline: 0.1mm dashed #FF00FF; }
 .guides .trim::after { content: ""; position: absolute; inset: 4mm; outline: 0.1mm dashed #00C8FF; }
 
 p, h1, h2, h3, ul, dl, dd { margin: 0; padding: 0; }
 ul { list-style: none; }
 svg { display: block; }
-.mono { font-family: var(--mono); }
 
 /* ---------- logo ---------- */
 .logo { display: flex; align-items: stretch; height: 6.2mm; font-family: var(--cond); font-weight: 700; font-size: 10.5pt; line-height: 1; }
@@ -70,41 +66,52 @@ svg { display: block; }
 .on-dark .logo { color: var(--on-dark); }
 .on-dark .logo .n { border-color: var(--on-dark); }
 
-/* ---------- strisce di sicurezza ---------- */
+/* ---------- strisce di sicurezza e griglia tecnica ---------- */
 .hazard { position: absolute; left: 0; right: 0; background: repeating-linear-gradient(135deg, var(--yellow) 0 2.6mm, var(--ink) 2.6mm 5.2mm); }
-
-/* =====================================================================
-   FRONTE
-   ===================================================================== */
-.front { background: radial-gradient(ellipse 80mm 95mm at 50% 54%, #2E363D 0%, #1A1F24 52%, #0E1114 100%); color: var(--on-dark); }
-.front .grid { position: absolute; inset: 0;
+.grid { position: absolute; inset: 0;
   background:
     repeating-linear-gradient(0deg, rgba(255,255,255,0.055) 0 0.12mm, transparent 0.12mm 5mm),
     repeating-linear-gradient(90deg, rgba(255,255,255,0.055) 0 0.12mm, transparent 0.12mm 5mm);
   background-position: 3mm 3mm; }
-.front .glow { position: absolute; left: -10mm; right: -10mm; top: 45.6mm; height: 80mm;
-  background: radial-gradient(ellipse 52mm 34mm at 50% 50%, rgba(255,194,14,0.30) 0%, rgba(255,194,14,0.10) 55%, rgba(255,194,14,0) 100%); }
-.front .hazard { top: 145mm; bottom: 0; }
+.kicker { font-family: var(--mono); font-weight: 600; font-size: 5.6pt; letter-spacing: 0.14em; text-transform: uppercase; }
+.on-dark .kicker { color: var(--yellow); }
+
+/* =====================================================================
+   FRONTE
+   ===================================================================== */
+.front { background: radial-gradient(ellipse 100mm 80mm at 65% 55%, #2E363D 0%, #1A1F24 52%, #0E1114 100%); color: var(--on-dark); }
+.front .glow { position: absolute; left: 46mm; width: 108mm; top: 25mm; height: 72mm;
+  background: radial-gradient(ellipse 54mm 34mm at 50% 50%, rgba(255,194,14,0.30) 0%, rgba(255,194,14,0.10) 55%, rgba(255,194,14,0) 100%); }
+.front .hazard { top: 102mm; bottom: 0; }
 .front .hazard::before { content: ""; position: absolute; left: 0; right: 0; top: 0; height: 0.5mm; background: var(--ink); }
 
-.brand-row { position: absolute; left: 6mm; right: 6mm; top: 6mm; display: flex; align-items: center; justify-content: space-between; }
+.brand-row { position: absolute; left: 6mm; right: 6mm; top: 5.5mm; display: flex; align-items: center; justify-content: space-between; }
 .reg { font-family: var(--mono); font-weight: 600; font-size: 5.8pt; letter-spacing: 0.12em; text-transform: uppercase; color: var(--on-dark-2); display: flex; align-items: center; gap: 1.6mm; }
 .reg::before { content: ""; width: 1.6mm; height: 1.6mm; background: var(--yellow); }
 
-.headline { position: absolute; left: 6mm; right: 6mm; top: 15.4mm; font-family: var(--cond); font-weight: 800; font-size: 29pt; line-height: 0.94; letter-spacing: -0.005em; color: #FFFFFF; }
-.headline span { display: block; color: var(--yellow); }
-.lede { position: absolute; left: 6mm; width: 91mm; top: 36.2mm; font-size: 7.9pt; line-height: 14px; font-weight: 500; color: var(--on-dark-2); }
+.headline { position: absolute; left: 6mm; top: 14.2mm; font-family: var(--cond); font-weight: 800; font-size: 29pt; line-height: 1; letter-spacing: -0.005em; color: #FFFFFF; white-space: nowrap; }
+.headline span { color: var(--yellow); }
+
+.lede { position: absolute; left: 6mm; width: 41mm; top: 31mm; font-size: 7.2pt; line-height: 12px; font-weight: 500; color: var(--on-dark-2); }
 .lede b { color: #FFFFFF; font-weight: 600; }
 
+/* cosa si apre: elenco a sinistra della targa */
+.opens { position: absolute; left: 6mm; width: 41mm; top: 49.4mm; }
+.opens ul { margin-top: 1.6mm; }
+.opens li { display: flex; align-items: center; gap: 2mm; padding: 1.45mm 0; border-top: 0.22mm solid var(--line-dark); }
+.opens li:last-child { border-bottom: 0.22mm solid var(--line-dark); }
+.opens svg { flex-shrink: 0; width: 4.4mm; height: 4.4mm; fill: none; stroke: var(--yellow); stroke-width: 1.7; stroke-linecap: round; stroke-linejoin: round; }
+.opens span { font-family: var(--cond); font-weight: 600; font-size: 7.8pt; line-height: 1; color: #FFFFFF; white-space: nowrap; }
+
 /* quota tecnica sopra la targa */
-.dim { position: absolute; left: 7.5mm; width: 90mm; top: 46.8mm; height: 3mm; color: var(--yellow); }
+.dim { position: absolute; left: 52mm; width: 90mm; top: 26.6mm; height: 3mm; color: var(--yellow); }
 .dim::before { content: ""; position: absolute; left: 0; right: 0; top: 1.5mm; border-top: 0.18mm solid currentColor; }
 .dim i { position: absolute; top: 0.3mm; width: 0; height: 2.4mm; border-left: 0.18mm solid currentColor; }
 .dim i.l { left: 0; } .dim i.r { right: 0; }
-.dim b { position: absolute; left: 50%; top: 0; transform: translateX(-50%); padding: 0 2mm; background: #1F252A; font-family: var(--mono); font-weight: 600; font-size: 5.5pt; line-height: 3mm; letter-spacing: 0.14em; white-space: nowrap; }
+.dim b { position: absolute; left: 50%; top: 0; transform: translateX(-50%); padding: 0 2mm; background: #232A30; font-family: var(--mono); font-weight: 600; font-size: 5.5pt; line-height: 3mm; letter-spacing: 0.14em; white-space: nowrap; }
 
-/* ---------- la targa ---------- */
-.plate { position: absolute; left: 7.5mm; top: 52.6mm; width: 90mm; height: 54mm; border-radius: 2.6mm; color: var(--plate-ink);
+/* ---------- la targa (90 × 54 mm) ---------- */
+.plate { position: absolute; left: 52mm; top: 31.2mm; width: 90mm; height: 54mm; border-radius: 2.6mm; color: var(--plate-ink);
   background-image:
     linear-gradient(115deg, rgba(255,255,255,0) 22%, rgba(255,255,255,0.34) 38%, rgba(255,255,255,0.06) 50%, rgba(255,255,255,0) 58%, rgba(255,255,255,0.18) 74%, rgba(255,255,255,0) 86%),
     linear-gradient(180deg, rgba(255,255,255,0.20) 0%, rgba(255,255,255,0) 30%, rgba(0,0,0,0.06) 70%, rgba(0,0,0,0.14) 100%),
@@ -144,16 +151,7 @@ svg { display: block; }
 .finder .c { left: 0; bottom: 0; border-left-width: 0.6mm; border-bottom-width: 0.6mm; border-bottom-left-radius: 0.8mm; }
 .finder .d { right: 0; bottom: 0; border-right-width: 0.6mm; border-bottom-width: 0.6mm; border-bottom-right-radius: 0.8mm; }
 
-/* ---------- cosa si apre ---------- */
-.opens { position: absolute; left: 6mm; right: 6mm; top: 111.2mm; }
-.kicker { font-family: var(--mono); font-weight: 600; font-size: 5.6pt; letter-spacing: 0.14em; text-transform: uppercase; }
-.on-dark .kicker { color: var(--yellow); }
-.opens ul { margin-top: 1.7mm; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 1.4mm; }
-.opens li { display: flex; align-items: center; gap: 1.3mm; min-height: 9.6mm; padding: 1.3mm 1.4mm; border: 0.22mm solid var(--line-dark); border-radius: 1.2mm; background: rgba(255,255,255,0.045); }
-.opens svg { flex-shrink: 0; width: 4.2mm; height: 4.2mm; fill: none; stroke: var(--yellow); stroke-width: 1.7; stroke-linecap: round; stroke-linejoin: round; }
-.opens span { font-family: var(--cond); font-weight: 600; font-size: 7pt; line-height: 10px; color: #FFFFFF; }
-
-.front-foot { position: absolute; left: 6mm; right: 6mm; top: 129.2mm; display: flex; align-items: flex-end; justify-content: space-between; }
+.front-foot { position: absolute; left: 6mm; right: 6mm; top: 89.4mm; display: flex; align-items: flex-end; justify-content: space-between; }
 .front-foot .when { font-family: var(--mono); font-weight: 600; font-size: 6.8pt; letter-spacing: 0.04em; color: var(--yellow); line-height: 1.25; }
 .front-foot .when small { display: block; font-family: var(--sans); font-weight: 500; font-size: 6pt; letter-spacing: 0; color: var(--on-dark-2); }
 .front-foot .url { font-family: var(--cond); font-weight: 800; font-size: 15pt; line-height: 0.9; color: #FFFFFF; }
@@ -162,44 +160,43 @@ svg { display: block; }
    RETRO
    ===================================================================== */
 .back { background: #FFFFFF; color: var(--ink); }
-.back .band { position: absolute; left: 0; right: 0; top: 0; height: 47mm; overflow: hidden;
-  background: radial-gradient(ellipse 90mm 60mm at 85% 10%, #2B3238 0%, #171B1F 60%, #101316 100%); }
-.back .band .grid { position: absolute; inset: 0;
-  background:
+.back .band { position: absolute; left: 0; right: 0; top: 0; height: 40mm; overflow: hidden;
+  background: radial-gradient(ellipse 110mm 60mm at 88% 20%, #2B3238 0%, #171B1F 60%, #101316 100%); }
+.back .band .grid { background:
     repeating-linear-gradient(0deg, rgba(255,255,255,0.05) 0 0.12mm, transparent 0.12mm 5mm),
     repeating-linear-gradient(90deg, rgba(255,255,255,0.05) 0 0.12mm, transparent 0.12mm 5mm);
   background-position: 3mm 3mm; }
-.back .big10 { position: absolute; left: 75mm; top: 7mm; width: 40mm; height: 44mm; }
-.back .hazard { top: 47mm; height: 2.6mm; }
+.back .big10 { position: absolute; left: 108mm; top: -2mm; width: 40mm; height: 44mm; }
+.back .hazard { top: 40mm; height: 2.6mm; }
 
-.back .brand-row { color: var(--on-dark); }
-.back h2 { position: absolute; left: 6mm; width: 68mm; top: 15.2mm; font-family: var(--cond); font-weight: 800; font-size: 20.5pt; line-height: 0.96; color: #FFFFFF; }
+.back h2 { position: absolute; left: 6mm; top: 14.2mm; font-family: var(--cond); font-weight: 800; font-size: 17.5pt; line-height: 0.96; color: #FFFFFF; white-space: nowrap; }
 .back h2 span { display: block; color: var(--yellow); }
-.back .sub { position: absolute; left: 6mm; width: 66mm; top: 31.2mm; font-size: 7.2pt; line-height: 13px; font-weight: 500; color: var(--on-dark-2); }
+.back .sub { position: absolute; left: 6mm; width: 96mm; top: 27.4mm; font-size: 6.9pt; line-height: 12px; font-weight: 500; color: var(--on-dark-2); }
 .back .sub b { color: #FFFFFF; font-weight: 600; }
 
-.services { position: absolute; left: 6mm; right: 6mm; top: 53.2mm; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: 4mm; row-gap: 3.2mm; }
-.svc { display: grid; grid-template-columns: 7.6mm minmax(0, 1fr); column-gap: 2.4mm; align-items: start; }
-.svc .ic { width: 7.6mm; height: 7.6mm; border-radius: 1.3mm; background: var(--yellow); border: 0.25mm solid var(--ink); display: flex; align-items: center; justify-content: center; }
-.svc .ic svg { width: 5mm; height: 5mm; fill: none; stroke: var(--ink); stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
-.svc h3 { font-family: var(--cond); font-weight: 700; font-size: 9.6pt; line-height: 1.02; margin-top: 0.2mm; }
-.svc h3 em { font-style: normal; font-family: var(--mono); font-weight: 600; font-size: 5.2pt; letter-spacing: 0.08em; color: var(--muted); margin-right: 1.2mm; vertical-align: 0.35mm; }
-.svc p { margin-top: 0.9mm; font-size: 6.7pt; line-height: 12px; color: var(--muted); }
+.services { position: absolute; left: 6mm; width: 92mm; top: 44mm; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: 4mm; row-gap: 2.6mm; }
+.svc { display: grid; grid-template-columns: 7mm minmax(0, 1fr); column-gap: 2.2mm; align-items: start; }
+.svc .ic { width: 7mm; height: 7mm; border-radius: 1.2mm; background: var(--yellow); border: 0.25mm solid var(--ink); display: flex; align-items: center; justify-content: center; }
+.svc .ic svg { width: 4.6mm; height: 4.6mm; fill: none; stroke: var(--ink); stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+.svc h3 { font-family: var(--cond); font-weight: 700; font-size: 9pt; line-height: 1.02; margin-top: 0.1mm; white-space: nowrap; }
+.svc h3 em { font-style: normal; font-family: var(--mono); font-weight: 600; font-size: 5pt; letter-spacing: 0.08em; color: var(--muted); margin-right: 1.1mm; vertical-align: 0.35mm; }
+.svc p { margin-top: 0.8mm; font-size: 6.4pt; line-height: 11px; color: var(--muted); }
 
-.trust { position: absolute; left: 6mm; right: 6mm; top: 106.4mm; display: flex; flex-wrap: wrap; gap: 1.4mm; }
-.trust span { font-family: var(--mono); font-weight: 600; font-size: 5.2pt; letter-spacing: 0.06em; text-transform: uppercase; padding: 0.9mm 1.6mm; border: 0.22mm solid var(--ink); border-radius: 0.8mm; display: flex; align-items: center; gap: 1mm; }
+.trust { position: absolute; left: 6mm; width: 92mm; top: 88.6mm; display: flex; gap: 1.4mm; }
+.trust span { font-family: var(--mono); font-weight: 600; font-size: 5.2pt; letter-spacing: 0.06em; text-transform: uppercase; padding: 0.9mm 1.6mm; border: 0.22mm solid var(--ink); border-radius: 0.8mm; display: flex; align-items: center; gap: 1mm; white-space: nowrap; }
 .trust svg { width: 2.4mm; height: 2.4mm; fill: none; stroke: var(--ink); stroke-width: 2.4; stroke-linecap: round; stroke-linejoin: round; }
 
-.cta { position: absolute; left: 6mm; right: 6mm; top: 113.4mm; height: 26.6mm; border-radius: 2mm; background: var(--yellow); border: 0.3mm solid var(--ink);
-  display: grid; grid-template-columns: 24.6mm minmax(0, 1fr); column-gap: 3.6mm; align-items: center; padding: 0 3.4mm 0 1.4mm; }
-.cta .qr-card { width: 24.6mm; height: 24.6mm; background: #FFFFFF; border-radius: 1.2mm; border: 0.25mm solid var(--ink); position: relative; }
-.cta .qr-card svg { position: absolute; inset: 0; width: 100%; height: 100%; }
-.cta .kicker { color: var(--ink); }
-.cta .site { font-family: var(--cond); font-weight: 800; font-size: 23pt; line-height: 0.92; margin-top: 0.8mm; }
-.cta .line { margin-top: 1.3mm; font-size: 6.9pt; line-height: 12px; font-weight: 500; color: #241F0A; }
-.cta .line b { font-weight: 700; color: var(--ink); }
+.fine { position: absolute; left: 6mm; width: 92mm; top: 95.2mm; font-size: 5.4pt; line-height: 9px; color: #5B636B; }
 
-.fine { position: absolute; left: 6mm; right: 6mm; top: 141.5mm; font-size: 5.4pt; line-height: 9px; color: #5B636B; }
+/* colonna gialla con il QR del sito */
+.cta { position: absolute; left: 102mm; width: 40mm; top: 44mm; height: 53.6mm; border-radius: 2mm; background: var(--yellow); border: 0.3mm solid var(--ink);
+  display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 2.6mm; }
+.cta .kicker { color: var(--ink); }
+.cta .qr-card { margin-top: 1.8mm; width: 27.4mm; height: 27.4mm; background: #FFFFFF; border-radius: 1.2mm; border: 0.25mm solid var(--ink); position: relative; flex-shrink: 0; }
+.cta .qr-card svg { position: absolute; inset: 0; width: 100%; height: 100%; }
+.cta .site { margin-top: 2.2mm; font-family: var(--cond); font-weight: 800; font-size: 19pt; line-height: 0.92; }
+.cta .line { margin-top: 1.3mm; font-size: 6.4pt; line-height: 10.5px; font-weight: 500; color: #241F0A; }
+.cta .line b { font-weight: 700; color: var(--ink); }
 </style>
 </head>
 <body>
@@ -233,8 +230,19 @@ svg { display: block; }
         <div class="reg">Reg. (UE) 2023/1230</div>
       </div>
 
-      <h1 class="headline">Inquadra il QR.<span>Apri la macchina.</span></h1>
+      <h1 class="headline">Inquadra il QR. <span>Apri la macchina.</span></h1>
+
       <p class="lede">Il QR funziona davvero: apre la pagina di questa matricola con <b>manuale, documenti e assistente AI</b>. Come la vedrà il tecnico del tuo cliente.</p>
+
+      <div class="opens">
+        <div class="kicker">Cosa si apre sul telefono</div>
+        <ul>
+          <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 4.5h10.5a3 3 0 0 1 3 3V20H8a3 3 0 0 1-3-3z"/><path d="M5 17a3 3 0 0 1 3-3h10.5"/></svg><span>Manuale d’istruzioni</span></li>
+          <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6.5 3h8l4 4v14h-12z"/><path d="M14.5 3v4h4"/><path d="M9.3 14.2l2 2 3.8-4"/></svg><span>Dichiarazione UE e allegati</span></li>
+          <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5h16v11H10l-5 4v-4H4z"/><path d="M12 7.6l.8 1.8 1.8.8-1.8.8-.8 1.8-.8-1.8-1.8-.8 1.8-.8z"/></svg><span>Assistente AI, 7 lingue</span></li>
+          <li><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8.5"/><path d="M12 7.5V12l3.2 2"/></svg><span>Online almeno 10 anni</span></li>
+        </ul>
+      </div>
 
       <div class="dim"><i class="l"></i><i class="r"></i><b>TARGA DI ESEMPIO · QR ATTIVO</b></div>
 
@@ -268,16 +276,6 @@ svg { display: block; }
         <div class="qr-url engr">{{URL_FRONTE_TESTO}}</div>
       </div>
 
-      <div class="opens">
-        <div class="kicker">Cosa si apre sul telefono</div>
-        <ul>
-          <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 4.5h10.5a3 3 0 0 1 3 3V20H8a3 3 0 0 1-3-3z"/><path d="M5 17a3 3 0 0 1 3-3h10.5"/></svg><span>Manuale d’istruzioni</span></li>
-          <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6.5 3h8l4 4v14h-12z"/><path d="M14.5 3v4h4"/><path d="M9.3 14.2l2 2 3.8-4"/></svg><span>Dichiarazione UE e allegati</span></li>
-          <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5h16v11H10l-5 4v-4H4z"/><path d="M12 7.6l.8 1.8 1.8.8-1.8.8-.8 1.8-.8-1.8-1.8-.8 1.8-.8z"/></svg><span>Assistente AI, 7 lingue</span></li>
-          <li><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8.5"/><path d="M12 7.5V12l3.2 2"/></svg><span>Online almeno 10 anni</span></li>
-        </ul>
-      </div>
-
       <div class="front-foot">
         <div class="when">DAL 20.01.2027<small>Regolamento Macchine (UE) 2023/1230</small></div>
         <div class="url">targa10.it</div>
@@ -299,7 +297,7 @@ svg { display: block; }
     <div class="trim">
       <div class="brand-row on-dark">
         <div class="logo" aria-label="Targa10"><span class="t">TARGA</span><span class="n">10</span></div>
-              </div>
+      </div>
 
       <h2>Pronti per il 20.01.2027.<span>Dal manuale alla targa.</span></h2>
       <p class="sub">Per chi costruisce macchine CNC. Il manuale può essere digitale se <b>la macchina dice come aprirlo</b> e resta <b>online almeno 10 anni</b>.</p>
@@ -307,19 +305,19 @@ svg { display: block; }
       <div class="services">
         <div class="svc">
           <div class="ic"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="2.5" y="5" width="19" height="14" rx="2"/><path d="M13 9h4.5v4.5H13z"/><path d="M6 9.5h4.5M6 12.5h3"/></svg></div>
-          <div><h3><em>01</em>Targa con QR</h3><p>Alluminio inciso al laser, QR e indirizzo in chiaro. Oppure il QR sulla targa che usi già.</p></div>
+          <div><h3><em>01</em>Targa con QR</h3><p>Alluminio inciso al laser, QR e indirizzo in chiaro. O il QR sulla tua targa.</p></div>
         </div>
         <div class="svc">
           <div class="ic"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="4.5" width="17" height="16" rx="2"/><path d="M3.5 9.5h17M8 2.5v4M16 2.5v4"/><path d="M8.5 13.5h7M8.5 16.5h4.5"/></svg></div>
-          <div><h3><em>02</em>Archivio 10 anni</h3><p>Una pagina per matricola con manuale e dichiarazione UE. Versione bloccata alla consegna.</p></div>
+          <div><h3><em>02</em>Archivio 10 anni</h3><p>Una pagina per matricola con manuale e dichiarazione UE, bloccati alla consegna.</p></div>
         </div>
         <div class="svc">
           <div class="ic"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5h16v11H10l-5 4v-4H4z"/><path d="M12 7.6l.8 1.8 1.8.8-1.8.8-.8 1.8-.8-1.8-1.8-.8 1.8-.8z"/></svg></div>
-          <div><h3><em>03</em>Assistente AI</h3><p>Risponde solo dal manuale di quella matricola, nella lingua del tecnico, con il paragrafo citato.</p></div>
+          <div><h3><em>03</em>Assistente AI</h3><p>Risponde solo dal manuale, nella lingua del tecnico, e cita il paragrafo.</p></div>
         </div>
         <div class="svc">
           <div class="ic"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6.5 3h8l4 4v14h-12z"/><path d="M14.5 3v4h4"/><path d="M9.3 14.2l2 2 3.8-4"/></svg></div>
-          <div><h3><em>04</em>Revisione del manuale</h3><p>Allineata al Regolamento (UE) 2023/1230, pronta per web e PDF. Il contenuto lo approvi tu.</p></div>
+          <div><h3><em>04</em>Revisione del manuale</h3><p>Allineata al Regolamento (UE) 2023/1230, per web e PDF. Il testo lo approvi tu.</p></div>
         </div>
         <div class="svc">
           <div class="ic"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8.5"/><path d="M3.5 12h17M12 3.5c2.3 2.5 3.5 5.3 3.5 8.5s-1.2 6-3.5 8.5c-2.3-2.5-3.5-5.3-3.5-8.5S9.7 6 12 3.5z"/></svg></div>
@@ -337,21 +335,17 @@ svg { display: block; }
         <span><svg viewBox="0 0 12 12" aria-hidden="true"><path d="M2 6.3l2.5 2.4L10 3.2"/></svg>Prezzo chiuso</span>
       </div>
 
-      <div class="cta">
-        <div class="qr-card">{{QR_RETRO}}</div>
-        <div>
-          <div class="kicker">Tutti i servizi e il check-up</div>
-          <div class="site">targa10.it</div>
-          <p class="line"><b>Inquadra il QR</b> e prenota il check-up gratuito.<br>Oppure scrivi a <b>info@targa10.it</b></p>
-        </div>
-      </div>
-
       <p class="fine">Valutazione di conformità, dichiarazione UE e marcatura CE restano del fabbricante.</p>
+
+      <div class="cta">
+        <div class="kicker">Tutti i servizi</div>
+        <div class="qr-card">{{QR_RETRO}}</div>
+        <div class="site">targa10.it</div>
+        <p class="line"><b>Check-up gratuito</b> in 48 ore<br>info@targa10.it</p>
+      </div>
     </div>
   </div>
   <div class="marks">{{CROCINI}}</div>
 </section>
-
-
 </body>
 </html>

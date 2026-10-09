@@ -1,4 +1,4 @@
-# Flyer A6 Targa10, fronte e retro
+# Flyer A6 orizzontale Targa10, fronte e retro
 
 Fronte: la targa di esempio con il QR attivo, che apre la pagina della matricola con manuale e documenti.
 Retro: i sei servizi e il QR verso il sito.
@@ -9,15 +9,15 @@ Retro: i sei servizi e il QR verso il sito.
 
 | File | Per chi | Formato pagina |
 |---|---|---|
-| `stampa/Targa10_flyer_A6_fronte-retro_abbondanza-3mm.pdf` | stampa online, copisteria digitale | 111 × 154 mm (A6 + 3 mm di abbondanza), senza crocini |
-| `stampa/Targa10_flyer_A6_fronte-retro_con-crocini.pdf` | tipografia che vuole i segni di taglio | 131 × 174 mm, crocini fuori dall'abbondanza |
+| `stampa/Targa10_flyer_A6_orizzontale_abbondanza-3mm.pdf` | stampa online, copisteria digitale | 154 × 111 mm (A6 + 3 mm di abbondanza), senza crocini |
+| `stampa/Targa10_flyer_A6_orizzontale_con-crocini.pdf` | tipografia che vuole i segni di taglio | 174 × 131 mm, crocini fuori dall'abbondanza |
 
-Pagina 1 = fronte, pagina 2 = retro. Nei PDF sono impostati TrimBox 105 × 148 mm e BleedBox, i font sono incorporati e i QR sono vettoriali.
+Pagina 1 = fronte, pagina 2 = retro. Nei PDF sono impostati TrimBox 148 × 105 mm e BleedBox, i font sono incorporati e i QR sono vettoriali.
 
 ## Specifiche da dare alla tipografia
 
-- Formato finito: A6, 105 × 148 mm, verticale
-- Stampa: fronte e retro a colori (4/4), voltatura sul lato lungo
+- Formato finito: A6, 148 × 105 mm, orizzontale
+- Stampa: fronte e retro a colori (4/4), orientamento testa-testa: girando il flyer da destra a sinistra il retro è dritto
 - Carta: patinata opaca 350 g (va bene anche 300 g)
 - Finitura consigliata: plastificazione opaca soft-touch su entrambi i lati. Dà l'effetto premium e protegge il fondo scuro del fronte dai graffi.
 - Colori: il file è RGB, la conversione in CMYK la fa la tipografia. La texture metallica della targa è a 400 dpi.
@@ -42,7 +42,7 @@ python3 -I tools/verifica.py
 ```
 
 - Gli indirizzi dei QR sono in cima a `build.mjs`.
-- Testi e grafica sono in `src/flyer.html`, con tutte le misure in millimetri.
+- Testi e grafica sono in `src/flyer.html`, con tutte le misure in millimetri. La build si ferma se un blocco esce dall'area sicura di 4 mm o ne copre un altro.
 - `tools/verifica.py` controlla il formato delle pagine, i font incorporati, la risoluzione delle immagini e rilegge i QR dal PDF, anche a bassa risoluzione e sfocati.
 - La texture dell'alluminio si rigenera con `python3 tools/alluminio.py`.
 

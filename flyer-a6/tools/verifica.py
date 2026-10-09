@@ -18,9 +18,10 @@ from PIL import Image, ImageFilter
 ROOT = Path(__file__).resolve().parent.parent
 ATTESI = {0: "https://targa10.it/demo/", 1: "https://targa10.it/"}
 FORMATI = {
-    "Targa10_flyer_A6_fronte-retro_abbondanza-3mm.pdf": (111, 154),
-    "Targa10_flyer_A6_fronte-retro_con-crocini.pdf": (131, 174),
+    "Targa10_flyer_A6_orizzontale_abbondanza-3mm.pdf": (154, 111),
+    "Targa10_flyer_A6_orizzontale_con-crocini.pdf": (174, 131),
 }
+FINITO = (148, 105)
 MM = 25.4 / 72
 errori = []
 
@@ -46,8 +47,8 @@ for nome, (w_att, h_att) in FORMATI.items():
             errori.append(f"{nome} {lato}: formato {w:.2f}x{h:.2f} invece di {w_att}x{h_att}")
         tb = page.trimbox
         print(f"    TrimBox (formato finito): {tb.width * MM:.2f} x {tb.height * MM:.2f} mm")
-        if abs(tb.width * MM - 105) > 0.05 or abs(tb.height * MM - 148) > 0.05:
-            errori.append(f"{nome} {lato}: TrimBox {tb.width * MM:.2f}x{tb.height * MM:.2f} invece di 105x148")
+        if abs(tb.width * MM - FINITO[0]) > 0.05 or abs(tb.height * MM - FINITO[1]) > 0.05:
+            errori.append(f"{nome} {lato}: TrimBox {tb.width * MM:.2f}x{tb.height * MM:.2f} invece di {FINITO[0]}x{FINITO[1]}")
 
         fonts = page.get_fonts()
         non_incorporati = [f[3] for f in fonts if f[1] == "n/a"]
