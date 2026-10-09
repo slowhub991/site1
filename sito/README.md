@@ -2,6 +2,8 @@
 
 Contiene il sito Targa10 (copia dell'artifact "Targa10 · Targa QR, archivio 10 anni e AI sul manuale CNC", versione del 9 ottobre 2026) più la cartella `demo/`, che è la pagina aperta dal QR sulla targa del flyer A6.
 
+Il sito online su targa10.it è un'altra versione, con pagine in cartelle (`/check-up/`, `/servizi/`, `/faq/`…): la demo rimanda a quelle.
+
 | Percorso | Indirizzo pubblico | Cos'è |
 |---|---|---|
 | `index.html` | `https://targa10.it/` | home con i servizi (QR sul retro del flyer) |

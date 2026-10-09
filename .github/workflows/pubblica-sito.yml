@@ -63,7 +63,7 @@ jobs:
             case "$u" in *targa10.it*) echo "$(curl -sS -o /dev/null -L --max-time 15 -w '%{http_code}' "$u" 2>/dev/null) $u" ;; esac
           done
           echo "== Pagine linkate dalla demo"
-          for u in https://targa10.it/checkup.html https://targa10.it/; do
+          for u in https://targa10.it/check-up/ https://targa10.it/; do
             echo "$(curl -sS -o /dev/null -L --max-time 15 -w '%{http_code}' "$u" 2>/dev/null) $u"
           done
 
