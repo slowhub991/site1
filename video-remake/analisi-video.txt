@@ -1,0 +1,110 @@
+ANALISI VIDEO: TUFFO DALLA SCOGLIERA + SQUALO AI
+================================================
+
+FILE ORIGINALE
+- Durata: 5,83 secondi (140 fotogrammi)
+- Formato: 1080x1920 verticale 9:16, 24 fps
+- Audio: presente solo nei primi 3,17 secondi, poi silenzio assoluto
+- Testi a schermo: nessuno. Musica: nessuna.
+- Metadati: nessuna traccia di un generatore AI; c'è l'identificativo di un'app Meta (com.burbn.basel)
+
+
+COSA SUCCEDE
+Un ragazzo si tuffa da una scogliera in acqua turchese. Un amico filma dall'alto
+col telefono. Dopo il tuffo, dall'acqua sotto la scogliera esce uno squalo bianco
+a bocca aperta che punta verso di lui. Il video finisce di colpo.
+
+I primi ~3,1 secondi sono una ripresa VERA.
+Dal secondo 3,1 in poi è tutto GENERATO CON AI. Le prove:
+  1. A 3,165 s l'audio diventa silenzio digitale assoluto (in una ripresa vera c'è sempre rumore)
+  2. A 3,08 s la schiuma forma una "corona" di getti perfettamente simmetrica, tipica dell'acqua AI
+  3. Dopo il taglio l'immagine diventa più scura e meno satura
+
+
+LA FORMULA (perché diventa virale)
+Video vacanza normale  ->  svolta impossibile a metà video  ->  fine brusca
+- I primi 3 secondi sono veri: chi guarda ci crede
+- La svolta arriva al 56% del video e blocca lo scroll
+- Dura meno di 6 secondi e finisce a metà azione: la gente lo riguarda
+- Niente testo, niente musica: sembra autentico
+- Nei commenti partono le discussioni "è vero o AI?"
+
+
+SEQUENZA SECONDO PER SECONDO
+
+1) 0,00-0,33 s  SALTO  (reale)
+   Ragazzo sul bordo della scogliera, sulla destra dell'inquadratura.
+   Sullo sfondo persone in piedi sull'altopiano.
+
+2) 0,33-1,46 s  CADUTA + URLO  (reale)
+   Cade a candela. Chi filma lo segue spostandosi a sinistra e verso il basso.
+   Urlo forte tra 0,5 e 1,1 s.
+
+3) 1,46-1,63 s  IMPATTO  (reale)
+   Entra in acqua a 1,5 s, colpo secco nell'audio.
+
+4) 1,63-3,08 s  SCHIUMA, ATTESA  (reale)
+   Cerchio di schiuma bianca. La camera rallenta e quasi si ferma.
+
+5) 3,08-3,29 s  PASSAGGIO ALL'AI
+   La schiuma si trasforma in una corona di getti. L'audio si spegne.
+
+6) 3,29-5,83 s  SQUALO  (AI)
+   Lo squalo esce in basso al centro, bocca aperta, e sale verso il ragazzo
+   che riemerge nella schiuma. La camera scende e si sporge in avanti
+   (+9% di avvicinamento, leggera rotazione). Fine improvvisa.
+
+
+COME RIFARLO UGUALE
+
+A) LA RIPRESA VERA (la giri tu)
+   Luogo: scogliera, molo o barca alta sopra acqua profonda e limpida.
+          Tuffati solo dove è consentito e dove sei sicuro che l'acqua sia profonda.
+   Luce: tardo pomeriggio, cielo sereno.
+   Telefono: verticale, grandangolo 0.5x, 24 fps, tenuto da un amico
+             in piedi 2-3 m accanto al punto di salto, ad altezza petto.
+   Inquadratura iniziale: tu sul bordo a destra, acqua a sinistra e in basso,
+             orizzonte a un terzo dall'alto.
+   Movimento: segui il tuffo spostandoti a sinistra e verso il basso nei primi
+             1,6 secondi, poi fermati sulla schiuma per un secondo e mezzo.
+   Audio: urla durante la caduta.
+   Gira 5-8 secondi: poi si taglia a 3,08 s.
+
+B) L'ULTIMO FOTOGRAMMA
+   Prendi il fotogramma esatto del taglio (3,08 s). Te lo estraggo io.
+
+C) LA PARTE AI (squalo)
+   In Kling, Google Veo, Runway, Higgsfield o Hailuo:
+   modalità "immagine -> video", carichi l'ultimo fotogramma, formato 9:16, 5 secondi.
+
+   PROMPT (in inglese, funziona meglio):
+   Continue this exact shot without any cut. Handheld vertical smartphone
+   footage filmed from the top of a limestone sea cliff, looking down at clear
+   turquoise water where a man has just jumped in and is surfacing inside a
+   ring of white foam. Suddenly a huge great white shark bursts out of the
+   water right below the cliff, mouth wide open, lunging toward the swimmer
+   and throwing spray. The camera slowly tilts down and leans forward over the
+   cliff edge, with slight natural hand shake. Same late-afternoon sunlight,
+   same colors and same location, photorealistic, no music, no text.
+
+   DA EVITARE (prompt negativo):
+   cuts, scene change, text, watermark, cartoon, CGI look, slow motion,
+   extra people, distorted body
+
+   Genera 3-5 versioni e tieni quella dove il passaggio non si nota.
+
+D) MONTAGGIO
+   Clip vera 0-3,08 s  +  clip AI 0-2,75 s  =  5,83 s totali
+   Audio uguale all'originale: audio vero fino a 3,17 s, poi silenzio.
+   Audio migliore (consigliato): aggiungi uno splash forte quando esce lo squalo
+   e un urlo. Il silenzio improvviso fa capire che è AI.
+   Colore: rendi la parte AI luminosa e satura come quella vera.
+   Esporta: 1080x1920, 24 fps, nessun testo, nessuna musica.
+
+E) PUBBLICAZIONE
+   Attiva l'etichetta "contenuto AI" su Instagram/TikTok: lo chiedono le
+   piattaforme e l'AI Act per i video realistici.
+
+
+I DATI PRECISI (posizioni, movimenti di camera fotogramma per fotogramma,
+luminosità, colori) sono nel file analisi-video.json.

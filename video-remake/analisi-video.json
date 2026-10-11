@@ -1,0 +1,1824 @@
+{
+  "file": {
+    "durata_s": 5.833,
+    "risoluzione": "1080x1920 (9:16 verticale)",
+    "fps": 24,
+    "fotogrammi_totali": 140,
+    "video": "HEVC/H.265, ~7,8 Mbit/s",
+    "audio": "AAC stereo 44,1 kHz (taglio a ~16,5 kHz: ricompresso)",
+    "metadati": "nessun Content Credentials (C2PA); presente l'identificativo com.burbn.basel, un'app Meta (com.burbn = Instagram)",
+    "testi_a_schermo": "nessuno",
+    "musica": "nessuna"
+  },
+  "concetto": {
+    "titolo": "Tuffo dalla scogliera + squalo AI",
+    "formula": "Video vacanza reale e credibile -> svolta impossibile generata con AI a metà video -> fine brusca",
+    "luogo_probabile": "scogliere calcaree con grotte marine e acqua turchese (stile Cape Greco, Cipro)",
+    "punto_di_svolta": {
+      "tempo_s": 3.29,
+      "percentuale_video": 56
+    },
+    "perche_funziona": [
+      "Primi 3 secondi reali, girati col telefono da un amico: chi guarda crede che sia vero",
+      "Svolta improvvisa a metà video: interrompe le aspettative e blocca lo scroll",
+      "Durata 5,8 s e fine a metà azione: la gente lo riguarda (visualizzazioni ripetute, tempo di visione >100%)",
+      "Nessun testo né musica: sembra grezzo e autentico",
+      "Commenti 'è vero o AI?': discussione = più engagement"
+    ]
+  },
+  "ripresa": {
+    "dispositivo": "smartphone in verticale, tenuto a mano da chi è sulla scogliera",
+    "obiettivo": "grandangolo (probabilmente 0.5x)",
+    "posizione": "in piedi sulla scogliera, 2-3 m accanto al punto di salto, telefono ad altezza petto",
+    "luce": "sole del tardo pomeriggio, cielo sereno, controluce leggero",
+    "colore": {
+      "luminosita_media_0_255": {
+        "inizio": 166,
+        "fine": 147
+      },
+      "saturazione_media_0_255": {
+        "inizio": 98,
+        "fine": 66
+      },
+      "nota": "la parte AI è più scura e desaturata: in un remake conviene uniformare il colore"
+    }
+  },
+  "sequenze": [
+    {
+      "id": 1,
+      "nome": "Salto",
+      "inizio": 0.0,
+      "fine": 0.333,
+      "origine": "reale",
+      "descrizione": "Ragazzo in costume nero sul bordo della scogliera, a destra dell'inquadratura, già in spinta con le braccia in avanti. Sullo sfondo persone in piedi sull'altopiano.",
+      "soggetto_posizione": {
+        "x": 0.8,
+        "y": 0.42
+      },
+      "audio": "vento e mare, voci lontane",
+      "fotogrammi": [
+        0,
+        7
+      ],
+      "durata_s": 0.333,
+      "camera": {
+        "panoramica": "sinistra 4% larghezza",
+        "inclinazione": "verso il basso 1% altezza",
+        "avvicinamento": "+1%",
+        "rotazione_gradi": 0.2,
+        "misurato_px_1080x1920": {
+          "dx": 41,
+          "dy": -26,
+          "zoom": 1.005
+        }
+      }
+    },
+    {
+      "id": 2,
+      "nome": "Caduta + urlo",
+      "inizio": 0.333,
+      "fine": 1.458,
+      "origine": "reale",
+      "descrizione": "Il tuffatore cade a candela, braccia aperte. Chi filma lo segue spostando il telefono a sinistra e verso il basso.",
+      "soggetto_posizione": {
+        "da": {
+          "x": 0.59,
+          "y": 0.46
+        },
+        "a": {
+          "x": 0.37,
+          "y": 0.67
+        }
+      },
+      "audio": "urlo forte 0,5-1,1 s (picco -10 dB, voce acuta)",
+      "fotogrammi": [
+        8,
+        34
+      ],
+      "durata_s": 1.125,
+      "camera": {
+        "panoramica": "sinistra 18% larghezza",
+        "inclinazione": "verso il basso 9% altezza",
+        "avvicinamento": "+4%",
+        "rotazione_gradi": 1.2,
+        "misurato_px_1080x1920": {
+          "dx": 194,
+          "dy": -168,
+          "zoom": 1.045
+        }
+      }
+    },
+    {
+      "id": 3,
+      "nome": "Impatto",
+      "inizio": 1.458,
+      "fine": 1.625,
+      "origine": "reale",
+      "descrizione": "Ingresso in acqua, primo spruzzo bianco.",
+      "soggetto_posizione": {
+        "x": 0.35,
+        "y": 0.7
+      },
+      "audio": "colpo secco a 1,5 s (impatto/splash)",
+      "fotogrammi": [
+        35,
+        38
+      ],
+      "durata_s": 0.167,
+      "camera": {
+        "panoramica": "sinistra 2% larghezza",
+        "inclinazione": "verso il basso 2% altezza",
+        "avvicinamento": "+1%",
+        "rotazione_gradi": 0.1,
+        "misurato_px_1080x1920": {
+          "dx": 25,
+          "dy": -32,
+          "zoom": 1.011
+        }
+      }
+    },
+    {
+      "id": 4,
+      "nome": "Schiuma, attesa",
+      "inizio": 1.625,
+      "fine": 3.083,
+      "origine": "reale",
+      "descrizione": "Cerchio di schiuma bianca che si allarga. La camera rallenta e resta quasi ferma: momento di attesa, sembra un normale video delle vacanze.",
+      "soggetto_posizione": {
+        "schiuma": {
+          "x": 0.4,
+          "y": 0.68
+        }
+      },
+      "audio": "ambiente mare/vento, piccoli suoni 2,3-2,6 s",
+      "fotogrammi": [
+        39,
+        73
+      ],
+      "durata_s": 1.458,
+      "camera": {
+        "panoramica": "sinistra 4% larghezza",
+        "inclinazione": "verso il basso 3% altezza",
+        "avvicinamento": "+2%",
+        "rotazione_gradi": -0.5,
+        "misurato_px_1080x1920": {
+          "dx": 46,
+          "dy": -50,
+          "zoom": 1.018
+        }
+      }
+    },
+    {
+      "id": 5,
+      "nome": "Transizione verso AI",
+      "inizio": 3.083,
+      "fine": 3.292,
+      "origine": "AI",
+      "descrizione": "La schiuma forma una 'corona' simmetrica di getti d'acqua (tipico dell'acqua generata da AI). L'audio si interrompe di colpo a 3,165 s.",
+      "soggetto_posizione": {
+        "schiuma": {
+          "x": 0.4,
+          "y": 0.62
+        }
+      },
+      "audio": "silenzio digitale assoluto da 3,165 s",
+      "fotogrammi": [
+        74,
+        78
+      ],
+      "durata_s": 0.209,
+      "camera": {
+        "panoramica": "ferma 0% larghezza",
+        "inclinazione": "ferma 0% altezza",
+        "avvicinamento": "+0%",
+        "rotazione_gradi": -0.0,
+        "misurato_px_1080x1920": {
+          "dx": 1,
+          "dy": -3,
+          "zoom": 1.002
+        }
+      }
+    },
+    {
+      "id": 6,
+      "nome": "Squalo",
+      "inizio": 3.292,
+      "fine": 5.833,
+      "origine": "AI",
+      "descrizione": "Uno squalo bianco esce dall'acqua proprio sotto la scogliera, in basso al centro, bocca aperta, e risale verso il ragazzo che riemerge nella schiuma. La camera scende e si sporge in avanti. Il video finisce di colpo, a metà dell'azione.",
+      "soggetto_posizione": {
+        "squalo_da": {
+          "x": 0.4,
+          "y": 0.88
+        },
+        "squalo_a": {
+          "x": 0.5,
+          "y": 0.72
+        },
+        "nuotatore": {
+          "x": 0.52,
+          "y": 0.55
+        }
+      },
+      "audio": "silenzio totale",
+      "fotogrammi": [
+        79,
+        139
+      ],
+      "durata_s": 2.541,
+      "camera": {
+        "panoramica": "sinistra 5% larghezza",
+        "inclinazione": "verso il basso 7% altezza",
+        "avvicinamento": "+9%",
+        "rotazione_gradi": -1.7,
+        "misurato_px_1080x1920": {
+          "dx": 52,
+          "dy": -127,
+          "zoom": 1.09
+        }
+      }
+    }
+  ],
+  "rifacimento": {
+    "parte_reale": {
+      "durata_da_girare_s": "5-8 (poi si taglia a 3,1 s)",
+      "fps": 24,
+      "formato": "1080x1920 o 4K verticale",
+      "inquadratura_iniziale": "tuffatore sul bordo all'80% della larghezza e al 42% dell'altezza, acqua nella metà sinistra/bassa, orizzonte al 30% dall'alto",
+      "movimento": "seguire il tuffo: 0-1,6 s a sinistra ~24% della larghezza e in basso ~12% dell'altezza, sporgendosi un po' (+5%); 1,6-3,1 s rallentare quasi fino a fermarsi sulla schiuma",
+      "audio": "urlo durante la caduta, splash naturale"
+    },
+    "taglio_s": 3.083,
+    "taglio_fotogramma": 74,
+    "parte_ai": {
+      "metodo": "image-to-video partendo dall'ultimo fotogramma della parte reale",
+      "strumenti": [
+        "Kling",
+        "Google Veo",
+        "Runway",
+        "Higgsfield",
+        "Hailuo"
+      ],
+      "durata_da_generare_s": 5,
+      "durata_da_usare_s": 2.75,
+      "formato": "9:16",
+      "prompt_en": "Continue this exact shot without any cut. Handheld vertical smartphone footage filmed from the top of a limestone sea cliff, looking down at clear turquoise water where a man has just jumped in and is surfacing inside a ring of white foam. Suddenly a huge great white shark bursts out of the water right below the cliff, mouth wide open, lunging toward the swimmer and throwing spray. The camera slowly tilts down and leans forward over the cliff edge, with slight natural hand shake. Same late-afternoon sunlight, same colors and same location, photorealistic, no music, no text.",
+      "prompt_negativo_en": "cuts, scene change, text, watermark, cartoon, CGI look, slow motion, extra people, distorted body",
+      "consiglio": "genera 3-5 versioni e scegli quella dove il passaggio è invisibile"
+    },
+    "montaggio": {
+      "ordine": [
+        "clip reale 0-3,083 s",
+        "clip AI 0-2,75 s"
+      ],
+      "audio_identico_all_originale": "audio reale fino a 3,165 s, poi silenzio",
+      "audio_consigliato": "aggiungi uno splash forte all'uscita dello squalo e un urlo: il silenzio improvviso è il segnale che tradisce l'AI",
+      "colore": "porta la clip AI alla stessa luminosità e saturazione della parte reale",
+      "export": "1080x1920, 24 fps, H.264, nessun testo, nessuna musica"
+    },
+    "pubblicazione": {
+      "etichetta_ai": "attiva l'etichetta 'contenuto generato con AI' su Instagram/TikTok (richiesta dalle piattaforme e dall'AI Act per contenuti realistici)",
+      "durata_finale_s": 5.83
+    }
+  },
+  "dati_per_fotogramma": {
+    "legenda": "t=secondi, luma/sat=luminosità e saturazione medie 0-255, dx/dy=spostamento dell'immagine in px su 1080x1920 rispetto al fotogramma prima (dx>0: camera va a sinistra, dy<0: camera scende), scale>1: avvicinamento, rot=rotazione in gradi",
+    "fotogrammi": [
+      {
+        "f": 0,
+        "t": 0.0,
+        "luma": 167.4,
+        "sat": 99.4
+      },
+      {
+        "f": 1,
+        "t": 0.042,
+        "luma": 167.1,
+        "sat": 99.0,
+        "dx": 6.4,
+        "dy": -4.1,
+        "scale": 1.0009,
+        "rot": 0.032,
+        "inliers": 207
+      },
+      {
+        "f": 2,
+        "t": 0.083,
+        "luma": 167.1,
+        "sat": 99.1,
+        "dx": 4.5,
+        "dy": -2.9,
+        "scale": 1.0007,
+        "rot": 0.036,
+        "inliers": 201
+      },
+      {
+        "f": 3,
+        "t": 0.125,
+        "luma": 166.9,
+        "sat": 98.7,
+        "dx": 6.8,
+        "dy": -4.3,
+        "scale": 1.0008,
+        "rot": 0.041,
+        "inliers": 203
+      },
+      {
+        "f": 4,
+        "t": 0.167,
+        "luma": 166.8,
+        "sat": 98.5,
+        "dx": 4.4,
+        "dy": -2.8,
+        "scale": 1.0004,
+        "rot": 0.016,
+        "inliers": 213
+      },
+      {
+        "f": 5,
+        "t": 0.208,
+        "luma": 166.8,
+        "sat": 98.3,
+        "dx": 6.9,
+        "dy": -4.4,
+        "scale": 1.0009,
+        "rot": 0.044,
+        "inliers": 209
+      },
+      {
+        "f": 6,
+        "t": 0.25,
+        "luma": 166.7,
+        "sat": 98.0,
+        "dx": 5.0,
+        "dy": -2.7,
+        "scale": 1.0,
+        "rot": 0.029,
+        "inliers": 219
+      },
+      {
+        "f": 7,
+        "t": 0.292,
+        "luma": 166.4,
+        "sat": 97.7,
+        "dx": 7.0,
+        "dy": -4.9,
+        "scale": 1.0013,
+        "rot": 0.044,
+        "inliers": 220
+      },
+      {
+        "f": 8,
+        "t": 0.333,
+        "luma": 166.4,
+        "sat": 97.6,
+        "dx": 5.1,
+        "dy": -2.9,
+        "scale": 1.0002,
+        "rot": 0.042,
+        "inliers": 226
+      },
+      {
+        "f": 9,
+        "t": 0.375,
+        "luma": 166.0,
+        "sat": 97.3,
+        "dx": 7.7,
+        "dy": -5.0,
+        "scale": 1.001,
+        "rot": 0.057,
+        "inliers": 210
+      },
+      {
+        "f": 10,
+        "t": 0.417,
+        "luma": 165.8,
+        "sat": 97.3,
+        "dx": 4.9,
+        "dy": -3.4,
+        "scale": 1.0007,
+        "rot": 0.026,
+        "inliers": 236
+      },
+      {
+        "f": 11,
+        "t": 0.458,
+        "luma": 165.5,
+        "sat": 96.8,
+        "dx": 7.7,
+        "dy": -5.3,
+        "scale": 1.0013,
+        "rot": 0.049,
+        "inliers": 243
+      },
+      {
+        "f": 12,
+        "t": 0.5,
+        "luma": 165.3,
+        "sat": 96.7,
+        "dx": 5.4,
+        "dy": -3.4,
+        "scale": 1.0007,
+        "rot": 0.037,
+        "inliers": 246
+      },
+      {
+        "f": 13,
+        "t": 0.542,
+        "luma": 164.9,
+        "sat": 96.4,
+        "dx": 7.9,
+        "dy": -5.3,
+        "scale": 1.0011,
+        "rot": 0.045,
+        "inliers": 248
+      },
+      {
+        "f": 14,
+        "t": 0.583,
+        "luma": 164.8,
+        "sat": 96.1,
+        "dx": 5.4,
+        "dy": -3.6,
+        "scale": 1.0005,
+        "rot": 0.034,
+        "inliers": 254
+      },
+      {
+        "f": 15,
+        "t": 0.625,
+        "luma": 164.4,
+        "sat": 95.9,
+        "dx": 7.9,
+        "dy": -5.1,
+        "scale": 1.0011,
+        "rot": 0.04,
+        "inliers": 265
+      },
+      {
+        "f": 16,
+        "t": 0.667,
+        "luma": 164.2,
+        "sat": 95.9,
+        "dx": 5.5,
+        "dy": -4.0,
+        "scale": 1.0009,
+        "rot": 0.051,
+        "inliers": 260
+      },
+      {
+        "f": 17,
+        "t": 0.708,
+        "luma": 163.9,
+        "sat": 95.6,
+        "dx": 8.0,
+        "dy": -5.4,
+        "scale": 1.0013,
+        "rot": 0.031,
+        "inliers": 278
+      },
+      {
+        "f": 18,
+        "t": 0.75,
+        "luma": 163.9,
+        "sat": 95.6,
+        "dx": 5.6,
+        "dy": -3.7,
+        "scale": 1.0005,
+        "rot": 0.046,
+        "inliers": 279
+      },
+      {
+        "f": 19,
+        "t": 0.792,
+        "luma": 163.5,
+        "sat": 95.1,
+        "dx": 8.3,
+        "dy": -5.3,
+        "scale": 1.0011,
+        "rot": 0.046,
+        "inliers": 279
+      },
+      {
+        "f": 20,
+        "t": 0.833,
+        "luma": 163.3,
+        "sat": 95.1,
+        "dx": 5.7,
+        "dy": -3.8,
+        "scale": 1.0005,
+        "rot": 0.037,
+        "inliers": 288
+      },
+      {
+        "f": 21,
+        "t": 0.875,
+        "luma": 163.0,
+        "sat": 94.7,
+        "dx": 8.6,
+        "dy": -6.4,
+        "scale": 1.0015,
+        "rot": 0.04,
+        "inliers": 285
+      },
+      {
+        "f": 22,
+        "t": 0.917,
+        "luma": 162.7,
+        "sat": 94.5,
+        "dx": 5.8,
+        "dy": -4.6,
+        "scale": 1.0009,
+        "rot": 0.03,
+        "inliers": 300
+      },
+      {
+        "f": 23,
+        "t": 0.958,
+        "luma": 162.3,
+        "sat": 94.1,
+        "dx": 8.9,
+        "dy": -7.0,
+        "scale": 1.0019,
+        "rot": 0.054,
+        "inliers": 290
+      },
+      {
+        "f": 24,
+        "t": 1.0,
+        "luma": 162.0,
+        "sat": 93.9,
+        "dx": 6.3,
+        "dy": -5.9,
+        "scale": 1.0016,
+        "rot": 0.035,
+        "inliers": 295
+      },
+      {
+        "f": 25,
+        "t": 1.042,
+        "luma": 161.3,
+        "sat": 93.3,
+        "dx": 10.0,
+        "dy": -8.4,
+        "scale": 1.0015,
+        "rot": 0.058,
+        "inliers": 291
+      },
+      {
+        "f": 26,
+        "t": 1.083,
+        "luma": 161.1,
+        "sat": 93.0,
+        "dx": 6.7,
+        "dy": -6.6,
+        "scale": 1.0019,
+        "rot": 0.042,
+        "inliers": 300
+      },
+      {
+        "f": 27,
+        "t": 1.125,
+        "luma": 160.6,
+        "sat": 92.6,
+        "dx": 10.1,
+        "dy": -9.2,
+        "scale": 1.002,
+        "rot": 0.051,
+        "inliers": 300
+      },
+      {
+        "f": 28,
+        "t": 1.167,
+        "luma": 160.2,
+        "sat": 92.5,
+        "dx": 6.9,
+        "dy": -7.8,
+        "scale": 1.0027,
+        "rot": 0.049,
+        "inliers": 300
+      },
+      {
+        "f": 29,
+        "t": 1.208,
+        "luma": 159.0,
+        "sat": 93.3,
+        "dx": 10.2,
+        "dy": -11.7,
+        "scale": 1.0037,
+        "rot": 0.045,
+        "inliers": 296
+      },
+      {
+        "f": 30,
+        "t": 1.25,
+        "luma": 158.6,
+        "sat": 92.6,
+        "dx": 6.8,
+        "dy": -8.0,
+        "scale": 1.003,
+        "rot": 0.034,
+        "inliers": 300
+      },
+      {
+        "f": 31,
+        "t": 1.292,
+        "luma": 157.9,
+        "sat": 92.4,
+        "dx": 9.3,
+        "dy": -11.5,
+        "scale": 1.0039,
+        "rot": 0.048,
+        "inliers": 300
+      },
+      {
+        "f": 32,
+        "t": 1.333,
+        "luma": 157.8,
+        "sat": 91.6,
+        "dx": 6.1,
+        "dy": -7.3,
+        "scale": 1.0025,
+        "rot": 0.044,
+        "inliers": 300
+      },
+      {
+        "f": 33,
+        "t": 1.375,
+        "luma": 157.7,
+        "sat": 90.9,
+        "dx": 8.7,
+        "dy": -10.4,
+        "scale": 1.0031,
+        "rot": 0.056,
+        "inliers": 300
+      },
+      {
+        "f": 34,
+        "t": 1.417,
+        "luma": 157.6,
+        "sat": 90.1,
+        "dx": 5.0,
+        "dy": -6.9,
+        "scale": 1.0026,
+        "rot": 0.03,
+        "inliers": 300
+      },
+      {
+        "f": 35,
+        "t": 1.458,
+        "luma": 157.9,
+        "sat": 88.9,
+        "dx": 8.2,
+        "dy": -10.0,
+        "scale": 1.003,
+        "rot": 0.057,
+        "inliers": 298
+      },
+      {
+        "f": 36,
+        "t": 1.5,
+        "luma": 158.1,
+        "sat": 87.9,
+        "dx": 4.7,
+        "dy": -6.2,
+        "scale": 1.0022,
+        "rot": 0.017,
+        "inliers": 300
+      },
+      {
+        "f": 37,
+        "t": 1.542,
+        "luma": 158.8,
+        "sat": 86.7,
+        "dx": 7.4,
+        "dy": -9.3,
+        "scale": 1.0031,
+        "rot": 0.044,
+        "inliers": 298
+      },
+      {
+        "f": 38,
+        "t": 1.583,
+        "luma": 159.7,
+        "sat": 85.2,
+        "dx": 4.6,
+        "dy": -6.1,
+        "scale": 1.0023,
+        "rot": 0.031,
+        "inliers": 300
+      },
+      {
+        "f": 39,
+        "t": 1.625,
+        "luma": 160.3,
+        "sat": 84.3,
+        "dx": 6.7,
+        "dy": -8.2,
+        "scale": 1.0028,
+        "rot": 0.016,
+        "inliers": 296
+      },
+      {
+        "f": 40,
+        "t": 1.667,
+        "luma": 160.8,
+        "sat": 83.6,
+        "dx": 4.2,
+        "dy": -5.2,
+        "scale": 1.0016,
+        "rot": 0.025,
+        "inliers": 300
+      },
+      {
+        "f": 41,
+        "t": 1.708,
+        "luma": 161.5,
+        "sat": 82.9,
+        "dx": 5.9,
+        "dy": -8.0,
+        "scale": 1.0031,
+        "rot": 0.051,
+        "inliers": 300
+      },
+      {
+        "f": 42,
+        "t": 1.75,
+        "luma": 161.9,
+        "sat": 82.3,
+        "dx": 3.7,
+        "dy": -4.9,
+        "scale": 1.0014,
+        "rot": 0.025,
+        "inliers": 300
+      },
+      {
+        "f": 43,
+        "t": 1.792,
+        "luma": 162.5,
+        "sat": 81.5,
+        "dx": 4.9,
+        "dy": -6.8,
+        "scale": 1.0027,
+        "rot": 0.013,
+        "inliers": 300
+      },
+      {
+        "f": 44,
+        "t": 1.833,
+        "luma": 163.0,
+        "sat": 81.0,
+        "dx": 3.0,
+        "dy": -4.0,
+        "scale": 1.0015,
+        "rot": 0.007,
+        "inliers": 300
+      },
+      {
+        "f": 45,
+        "t": 1.875,
+        "luma": 163.4,
+        "sat": 80.9,
+        "dx": 4.3,
+        "dy": -5.4,
+        "scale": 1.0017,
+        "rot": 0.006,
+        "inliers": 300
+      },
+      {
+        "f": 46,
+        "t": 1.917,
+        "luma": 163.6,
+        "sat": 80.2,
+        "dx": 2.5,
+        "dy": -3.2,
+        "scale": 1.0015,
+        "rot": -0.032,
+        "inliers": 300
+      },
+      {
+        "f": 47,
+        "t": 1.958,
+        "luma": 163.7,
+        "sat": 80.0,
+        "dx": 3.6,
+        "dy": -4.6,
+        "scale": 1.0012,
+        "rot": 0.01,
+        "inliers": 300
+      },
+      {
+        "f": 48,
+        "t": 2.0,
+        "luma": 163.8,
+        "sat": 79.7,
+        "dx": 2.1,
+        "dy": -2.7,
+        "scale": 1.0011,
+        "rot": -0.005,
+        "inliers": 300
+      },
+      {
+        "f": 49,
+        "t": 2.042,
+        "luma": 164.1,
+        "sat": 79.4,
+        "dx": 3.0,
+        "dy": -3.5,
+        "scale": 1.0009,
+        "rot": -0.001,
+        "inliers": 300
+      },
+      {
+        "f": 50,
+        "t": 2.083,
+        "luma": 164.2,
+        "sat": 79.0,
+        "dx": 1.3,
+        "dy": -2.2,
+        "scale": 1.0013,
+        "rot": -0.009,
+        "inliers": 300
+      },
+      {
+        "f": 51,
+        "t": 2.125,
+        "luma": 164.6,
+        "sat": 78.5,
+        "dx": 1.8,
+        "dy": -2.6,
+        "scale": 1.0012,
+        "rot": -0.031,
+        "inliers": 300
+      },
+      {
+        "f": 52,
+        "t": 2.167,
+        "luma": 164.7,
+        "sat": 78.2,
+        "dx": 0.9,
+        "dy": -1.6,
+        "scale": 1.0011,
+        "rot": -0.009,
+        "inliers": 300
+      },
+      {
+        "f": 53,
+        "t": 2.208,
+        "luma": 165.0,
+        "sat": 78.1,
+        "dx": 1.1,
+        "dy": -1.7,
+        "scale": 1.0011,
+        "rot": -0.019,
+        "inliers": 300
+      },
+      {
+        "f": 54,
+        "t": 2.25,
+        "luma": 165.2,
+        "sat": 77.3,
+        "dx": 0.5,
+        "dy": -0.7,
+        "scale": 1.0006,
+        "rot": -0.018,
+        "inliers": 300
+      },
+      {
+        "f": 55,
+        "t": 2.292,
+        "luma": 165.5,
+        "sat": 77.0,
+        "dx": 0.7,
+        "dy": -0.8,
+        "scale": 1.0005,
+        "rot": -0.023,
+        "inliers": 300
+      },
+      {
+        "f": 56,
+        "t": 2.333,
+        "luma": 165.6,
+        "sat": 76.7,
+        "dx": 0.2,
+        "dy": -0.4,
+        "scale": 1.0004,
+        "rot": -0.022,
+        "inliers": 300
+      },
+      {
+        "f": 57,
+        "t": 2.375,
+        "luma": 165.7,
+        "sat": 76.7,
+        "dx": 0.3,
+        "dy": -0.2,
+        "scale": 1.0001,
+        "rot": -0.022,
+        "inliers": 300
+      },
+      {
+        "f": 58,
+        "t": 2.417,
+        "luma": 165.8,
+        "sat": 76.8,
+        "dx": 0.2,
+        "dy": 0.1,
+        "scale": 1.0,
+        "rot": -0.013,
+        "inliers": 300
+      },
+      {
+        "f": 59,
+        "t": 2.458,
+        "luma": 165.9,
+        "sat": 76.1,
+        "dx": 0.0,
+        "dy": 0.9,
+        "scale": 0.9996,
+        "rot": -0.034,
+        "inliers": 300
+      },
+      {
+        "f": 60,
+        "t": 2.5,
+        "luma": 165.9,
+        "sat": 76.2,
+        "dx": -0.0,
+        "dy": 0.6,
+        "scale": 0.9997,
+        "rot": -0.021,
+        "inliers": 300
+      },
+      {
+        "f": 61,
+        "t": 2.542,
+        "luma": 165.7,
+        "sat": 76.2,
+        "dx": -0.2,
+        "dy": 1.2,
+        "scale": 0.9994,
+        "rot": -0.04,
+        "inliers": 300
+      },
+      {
+        "f": 62,
+        "t": 2.583,
+        "luma": 165.7,
+        "sat": 76.3,
+        "dx": -0.1,
+        "dy": 0.8,
+        "scale": 0.9995,
+        "rot": -0.018,
+        "inliers": 300
+      },
+      {
+        "f": 63,
+        "t": 2.625,
+        "luma": 165.7,
+        "sat": 76.0,
+        "dx": -0.3,
+        "dy": 1.7,
+        "scale": 0.9991,
+        "rot": -0.043,
+        "inliers": 300
+      },
+      {
+        "f": 64,
+        "t": 2.667,
+        "luma": 165.6,
+        "sat": 76.2,
+        "dx": -0.3,
+        "dy": 1.2,
+        "scale": 0.9994,
+        "rot": -0.028,
+        "inliers": 300
+      },
+      {
+        "f": 65,
+        "t": 2.708,
+        "luma": 165.6,
+        "sat": 76.2,
+        "dx": -0.8,
+        "dy": 1.1,
+        "scale": 0.9997,
+        "rot": -0.037,
+        "inliers": 300
+      },
+      {
+        "f": 66,
+        "t": 2.75,
+        "luma": 165.4,
+        "sat": 76.7,
+        "dx": -0.4,
+        "dy": 1.0,
+        "scale": 0.9996,
+        "rot": -0.029,
+        "inliers": 300
+      },
+      {
+        "f": 67,
+        "t": 2.792,
+        "luma": 165.3,
+        "sat": 76.4,
+        "dx": -0.8,
+        "dy": 1.3,
+        "scale": 0.9996,
+        "rot": -0.045,
+        "inliers": 300
+      },
+      {
+        "f": 68,
+        "t": 2.833,
+        "luma": 165.3,
+        "sat": 76.6,
+        "dx": -0.3,
+        "dy": 1.3,
+        "scale": 0.9992,
+        "rot": -0.019,
+        "inliers": 300
+      },
+      {
+        "f": 69,
+        "t": 2.875,
+        "luma": 165.3,
+        "sat": 76.5,
+        "dx": -0.4,
+        "dy": 1.9,
+        "scale": 0.9991,
+        "rot": -0.057,
+        "inliers": 300
+      },
+      {
+        "f": 70,
+        "t": 2.917,
+        "luma": 165.4,
+        "sat": 76.6,
+        "dx": -0.5,
+        "dy": 1.3,
+        "scale": 0.9994,
+        "rot": -0.034,
+        "inliers": 300
+      },
+      {
+        "f": 71,
+        "t": 2.958,
+        "luma": 164.9,
+        "sat": 75.1,
+        "dx": -0.2,
+        "dy": 0.5,
+        "scale": 0.9997,
+        "rot": -0.019,
+        "inliers": 300
+      },
+      {
+        "f": 72,
+        "t": 3.0,
+        "luma": 164.4,
+        "sat": 74.1,
+        "dx": -0.3,
+        "dy": 1.1,
+        "scale": 0.9995,
+        "rot": -0.032,
+        "inliers": 300
+      },
+      {
+        "f": 73,
+        "t": 3.042,
+        "luma": 163.8,
+        "sat": 73.3,
+        "dx": -0.2,
+        "dy": 0.4,
+        "scale": 0.9998,
+        "rot": -0.021,
+        "inliers": 300
+      },
+      {
+        "f": 74,
+        "t": 3.083,
+        "luma": 162.9,
+        "sat": 73.1,
+        "dx": -0.2,
+        "dy": 0.5,
+        "scale": 0.9998,
+        "rot": -0.023,
+        "inliers": 300
+      },
+      {
+        "f": 75,
+        "t": 3.125,
+        "luma": 161.8,
+        "sat": 71.5,
+        "dx": 0.0,
+        "dy": -0.5,
+        "scale": 1.0004,
+        "rot": -0.015,
+        "inliers": 300
+      },
+      {
+        "f": 76,
+        "t": 3.167,
+        "luma": 160.1,
+        "sat": 70.6,
+        "dx": -0.2,
+        "dy": 0.6,
+        "scale": 0.9997,
+        "rot": -0.021,
+        "inliers": 300
+      },
+      {
+        "f": 77,
+        "t": 3.208,
+        "luma": 158.0,
+        "sat": 69.4,
+        "dx": 1.8,
+        "dy": -3.2,
+        "scale": 1.0019,
+        "rot": 0.021,
+        "inliers": 300
+      },
+      {
+        "f": 78,
+        "t": 3.25,
+        "luma": 155.9,
+        "sat": 69.7,
+        "dx": -0.0,
+        "dy": 0.0,
+        "scale": 1.0,
+        "rot": -0.005,
+        "inliers": 300
+      },
+      {
+        "f": 79,
+        "t": 3.292,
+        "luma": 153.7,
+        "sat": 68.5,
+        "dx": 2.9,
+        "dy": -3.8,
+        "scale": 1.0019,
+        "rot": 0.018,
+        "inliers": 300
+      },
+      {
+        "f": 80,
+        "t": 3.333,
+        "luma": 151.4,
+        "sat": 69.6,
+        "dx": 0.0,
+        "dy": -0.2,
+        "scale": 1.0001,
+        "rot": -0.003,
+        "inliers": 300
+      },
+      {
+        "f": 81,
+        "t": 3.375,
+        "luma": 149.0,
+        "sat": 70.5,
+        "dx": 3.2,
+        "dy": -3.7,
+        "scale": 1.0015,
+        "rot": 0.007,
+        "inliers": 300
+      },
+      {
+        "f": 82,
+        "t": 3.417,
+        "luma": 146.5,
+        "sat": 73.3,
+        "dx": 0.0,
+        "dy": -0.1,
+        "scale": 1.0001,
+        "rot": -0.002,
+        "inliers": 300
+      },
+      {
+        "f": 83,
+        "t": 3.458,
+        "luma": 146.8,
+        "sat": 72.6,
+        "dx": 2.9,
+        "dy": -3.8,
+        "scale": 1.0021,
+        "rot": -0.001,
+        "inliers": 300
+      },
+      {
+        "f": 84,
+        "t": 3.5,
+        "luma": 147.1,
+        "sat": 72.0,
+        "dx": 2.9,
+        "dy": -3.7,
+        "scale": 1.0019,
+        "rot": 0.009,
+        "inliers": 300
+      },
+      {
+        "f": 85,
+        "t": 3.542,
+        "luma": 147.1,
+        "sat": 71.7,
+        "dx": 2.9,
+        "dy": -3.4,
+        "scale": 1.0018,
+        "rot": 0.001,
+        "inliers": 300
+      },
+      {
+        "f": 86,
+        "t": 3.583,
+        "luma": 147.1,
+        "sat": 71.5,
+        "dx": 2.7,
+        "dy": -3.4,
+        "scale": 1.0015,
+        "rot": 0.005,
+        "inliers": 300
+      },
+      {
+        "f": 87,
+        "t": 3.625,
+        "luma": 146.9,
+        "sat": 71.5,
+        "dx": 2.4,
+        "dy": -3.4,
+        "scale": 1.0019,
+        "rot": -0.011,
+        "inliers": 300
+      },
+      {
+        "f": 88,
+        "t": 3.667,
+        "luma": 147.0,
+        "sat": 71.1,
+        "dx": 2.6,
+        "dy": -3.4,
+        "scale": 1.0019,
+        "rot": 0.002,
+        "inliers": 300
+      },
+      {
+        "f": 89,
+        "t": 3.708,
+        "luma": 147.1,
+        "sat": 71.0,
+        "dx": 2.5,
+        "dy": -3.3,
+        "scale": 1.0018,
+        "rot": -0.001,
+        "inliers": 300
+      },
+      {
+        "f": 90,
+        "t": 3.75,
+        "luma": 147.0,
+        "sat": 70.9,
+        "dx": 2.5,
+        "dy": -2.9,
+        "scale": 1.0014,
+        "rot": -0.005,
+        "inliers": 300
+      },
+      {
+        "f": 91,
+        "t": 3.792,
+        "luma": 147.1,
+        "sat": 70.8,
+        "dx": 2.1,
+        "dy": -3.1,
+        "scale": 1.0019,
+        "rot": -0.008,
+        "inliers": 300
+      },
+      {
+        "f": 92,
+        "t": 3.833,
+        "luma": 147.4,
+        "sat": 70.2,
+        "dx": 2.2,
+        "dy": -3.1,
+        "scale": 1.0018,
+        "rot": -0.006,
+        "inliers": 300
+      },
+      {
+        "f": 93,
+        "t": 3.875,
+        "luma": 147.5,
+        "sat": 70.0,
+        "dx": 2.0,
+        "dy": -3.1,
+        "scale": 1.0019,
+        "rot": -0.007,
+        "inliers": 300
+      },
+      {
+        "f": 94,
+        "t": 3.917,
+        "luma": 147.4,
+        "sat": 70.0,
+        "dx": 1.9,
+        "dy": -2.9,
+        "scale": 1.0015,
+        "rot": -0.008,
+        "inliers": 300
+      },
+      {
+        "f": 95,
+        "t": 3.958,
+        "luma": 147.1,
+        "sat": 70.1,
+        "dx": 1.6,
+        "dy": -2.8,
+        "scale": 1.0018,
+        "rot": -0.016,
+        "inliers": 300
+      },
+      {
+        "f": 96,
+        "t": 4.0,
+        "luma": 147.1,
+        "sat": 69.8,
+        "dx": 1.9,
+        "dy": -2.7,
+        "scale": 1.0017,
+        "rot": -0.005,
+        "inliers": 300
+      },
+      {
+        "f": 97,
+        "t": 4.042,
+        "luma": 147.1,
+        "sat": 69.7,
+        "dx": 1.8,
+        "dy": -2.6,
+        "scale": 1.0017,
+        "rot": -0.016,
+        "inliers": 300
+      },
+      {
+        "f": 98,
+        "t": 4.083,
+        "luma": 147.0,
+        "sat": 69.7,
+        "dx": 1.7,
+        "dy": -2.7,
+        "scale": 1.0017,
+        "rot": -0.006,
+        "inliers": 300
+      },
+      {
+        "f": 99,
+        "t": 4.125,
+        "luma": 147.2,
+        "sat": 69.4,
+        "dx": 1.5,
+        "dy": -2.6,
+        "scale": 1.0018,
+        "rot": -0.015,
+        "inliers": 300
+      },
+      {
+        "f": 100,
+        "t": 4.167,
+        "luma": 147.6,
+        "sat": 68.9,
+        "dx": 1.5,
+        "dy": -2.5,
+        "scale": 1.0017,
+        "rot": -0.016,
+        "inliers": 300
+      },
+      {
+        "f": 101,
+        "t": 4.208,
+        "luma": 147.9,
+        "sat": 68.7,
+        "dx": 1.5,
+        "dy": -2.6,
+        "scale": 1.0016,
+        "rot": -0.01,
+        "inliers": 300
+      },
+      {
+        "f": 102,
+        "t": 4.25,
+        "luma": 147.9,
+        "sat": 68.5,
+        "dx": 1.4,
+        "dy": -2.5,
+        "scale": 1.0015,
+        "rot": -0.015,
+        "inliers": 300
+      },
+      {
+        "f": 103,
+        "t": 4.292,
+        "luma": 147.8,
+        "sat": 68.6,
+        "dx": 1.1,
+        "dy": -2.3,
+        "scale": 1.0016,
+        "rot": -0.025,
+        "inliers": 300
+      },
+      {
+        "f": 104,
+        "t": 4.333,
+        "luma": 147.8,
+        "sat": 68.3,
+        "dx": 1.4,
+        "dy": -2.2,
+        "scale": 1.0014,
+        "rot": -0.016,
+        "inliers": 300
+      },
+      {
+        "f": 105,
+        "t": 4.375,
+        "luma": 147.9,
+        "sat": 68.2,
+        "dx": 1.2,
+        "dy": -2.3,
+        "scale": 1.0015,
+        "rot": -0.014,
+        "inliers": 300
+      },
+      {
+        "f": 106,
+        "t": 4.417,
+        "luma": 147.9,
+        "sat": 68.1,
+        "dx": 1.1,
+        "dy": -2.4,
+        "scale": 1.0015,
+        "rot": -0.018,
+        "inliers": 300
+      },
+      {
+        "f": 107,
+        "t": 4.458,
+        "luma": 148.2,
+        "sat": 67.7,
+        "dx": 0.9,
+        "dy": -2.4,
+        "scale": 1.0016,
+        "rot": -0.022,
+        "inliers": 298
+      },
+      {
+        "f": 108,
+        "t": 4.5,
+        "luma": 148.5,
+        "sat": 67.2,
+        "dx": 1.0,
+        "dy": -2.3,
+        "scale": 1.0016,
+        "rot": -0.022,
+        "inliers": 298
+      },
+      {
+        "f": 109,
+        "t": 4.542,
+        "luma": 148.4,
+        "sat": 67.0,
+        "dx": 0.9,
+        "dy": -2.3,
+        "scale": 1.0015,
+        "rot": -0.02,
+        "inliers": 297
+      },
+      {
+        "f": 110,
+        "t": 4.583,
+        "luma": 148.0,
+        "sat": 66.9,
+        "dx": 1.1,
+        "dy": -2.0,
+        "scale": 1.0011,
+        "rot": -0.014,
+        "inliers": 296
+      },
+      {
+        "f": 111,
+        "t": 4.625,
+        "luma": 147.5,
+        "sat": 66.9,
+        "dx": 0.7,
+        "dy": -1.7,
+        "scale": 1.0014,
+        "rot": -0.029,
+        "inliers": 295
+      },
+      {
+        "f": 112,
+        "t": 4.667,
+        "luma": 147.4,
+        "sat": 66.5,
+        "dx": 0.8,
+        "dy": -1.9,
+        "scale": 1.0014,
+        "rot": -0.02,
+        "inliers": 296
+      },
+      {
+        "f": 113,
+        "t": 4.708,
+        "luma": 147.1,
+        "sat": 66.4,
+        "dx": 0.8,
+        "dy": -1.7,
+        "scale": 1.0012,
+        "rot": -0.032,
+        "inliers": 289
+      },
+      {
+        "f": 114,
+        "t": 4.75,
+        "luma": 146.8,
+        "sat": 66.2,
+        "dx": 0.7,
+        "dy": -1.7,
+        "scale": 1.0012,
+        "rot": -0.03,
+        "inliers": 286
+      },
+      {
+        "f": 115,
+        "t": 4.792,
+        "luma": 146.8,
+        "sat": 65.9,
+        "dx": 0.6,
+        "dy": -1.6,
+        "scale": 1.0011,
+        "rot": -0.032,
+        "inliers": 286
+      },
+      {
+        "f": 116,
+        "t": 4.833,
+        "luma": 147.0,
+        "sat": 65.7,
+        "dx": 0.5,
+        "dy": -1.6,
+        "scale": 1.0012,
+        "rot": -0.031,
+        "inliers": 288
+      },
+      {
+        "f": 117,
+        "t": 4.875,
+        "luma": 146.7,
+        "sat": 65.5,
+        "dx": 0.5,
+        "dy": -1.6,
+        "scale": 1.001,
+        "rot": -0.024,
+        "inliers": 288
+      },
+      {
+        "f": 118,
+        "t": 4.917,
+        "luma": 146.3,
+        "sat": 65.6,
+        "dx": 0.4,
+        "dy": -1.8,
+        "scale": 1.0011,
+        "rot": -0.018,
+        "inliers": 288
+      },
+      {
+        "f": 119,
+        "t": 4.958,
+        "luma": 145.6,
+        "sat": 65.6,
+        "dx": 0.4,
+        "dy": -1.8,
+        "scale": 1.001,
+        "rot": -0.02,
+        "inliers": 292
+      },
+      {
+        "f": 120,
+        "t": 5.0,
+        "luma": 145.4,
+        "sat": 65.7,
+        "dx": 0.2,
+        "dy": -1.6,
+        "scale": 1.0012,
+        "rot": -0.021,
+        "inliers": 286
+      },
+      {
+        "f": 121,
+        "t": 5.042,
+        "luma": 145.1,
+        "sat": 65.4,
+        "dx": 0.4,
+        "dy": -1.4,
+        "scale": 1.0008,
+        "rot": -0.024,
+        "inliers": 287
+      },
+      {
+        "f": 122,
+        "t": 5.083,
+        "luma": 145.1,
+        "sat": 65.5,
+        "dx": 0.2,
+        "dy": -1.5,
+        "scale": 1.0007,
+        "rot": -0.034,
+        "inliers": 294
+      },
+      {
+        "f": 123,
+        "t": 5.125,
+        "luma": 145.3,
+        "sat": 65.3,
+        "dx": -0.2,
+        "dy": -1.7,
+        "scale": 1.0014,
+        "rot": -0.04,
+        "inliers": 286
+      },
+      {
+        "f": 124,
+        "t": 5.167,
+        "luma": 145.7,
+        "sat": 65.5,
+        "dx": 0.1,
+        "dy": -1.3,
+        "scale": 1.001,
+        "rot": -0.04,
+        "inliers": 286
+      },
+      {
+        "f": 125,
+        "t": 5.208,
+        "luma": 145.8,
+        "sat": 65.2,
+        "dx": 0.4,
+        "dy": -1.2,
+        "scale": 1.0005,
+        "rot": -0.015,
+        "inliers": 286
+      },
+      {
+        "f": 126,
+        "t": 5.25,
+        "luma": 146.0,
+        "sat": 65.2,
+        "dx": 0.1,
+        "dy": -1.0,
+        "scale": 1.0002,
+        "rot": -0.06,
+        "inliers": 297
+      },
+      {
+        "f": 127,
+        "t": 5.292,
+        "luma": 145.8,
+        "sat": 65.3,
+        "dx": 0.0,
+        "dy": -0.8,
+        "scale": 1.0003,
+        "rot": -0.069,
+        "inliers": 296
+      },
+      {
+        "f": 128,
+        "t": 5.333,
+        "luma": 146.2,
+        "sat": 65.5,
+        "dx": -0.0,
+        "dy": -0.6,
+        "scale": 1.0003,
+        "rot": -0.076,
+        "inliers": 297
+      },
+      {
+        "f": 129,
+        "t": 5.375,
+        "luma": 146.1,
+        "sat": 65.4,
+        "dx": -0.0,
+        "dy": -0.7,
+        "scale": 1.0006,
+        "rot": -0.07,
+        "inliers": 298
+      },
+      {
+        "f": 130,
+        "t": 5.417,
+        "luma": 146.4,
+        "sat": 65.3,
+        "dx": -0.5,
+        "dy": -1.0,
+        "scale": 1.0009,
+        "rot": -0.082,
+        "inliers": 300
+      },
+      {
+        "f": 131,
+        "t": 5.458,
+        "luma": 146.7,
+        "sat": 65.1,
+        "dx": -0.7,
+        "dy": -0.8,
+        "scale": 1.0012,
+        "rot": -0.096,
+        "inliers": 300
+      },
+      {
+        "f": 132,
+        "t": 5.5,
+        "luma": 147.2,
+        "sat": 65.3,
+        "dx": -0.7,
+        "dy": -0.8,
+        "scale": 1.0012,
+        "rot": -0.085,
+        "inliers": 300
+      },
+      {
+        "f": 133,
+        "t": 5.542,
+        "luma": 147.3,
+        "sat": 65.3,
+        "dx": -0.8,
+        "dy": -1.2,
+        "scale": 1.0015,
+        "rot": -0.083,
+        "inliers": 300
+      },
+      {
+        "f": 134,
+        "t": 5.583,
+        "luma": 147.3,
+        "sat": 65.3,
+        "dx": -1.1,
+        "dy": -1.3,
+        "scale": 1.0016,
+        "rot": -0.078,
+        "inliers": 300
+      },
+      {
+        "f": 135,
+        "t": 5.625,
+        "luma": 147.1,
+        "sat": 65.4,
+        "dx": -1.1,
+        "dy": -1.2,
+        "scale": 1.0018,
+        "rot": -0.073,
+        "inliers": 299
+      },
+      {
+        "f": 136,
+        "t": 5.667,
+        "luma": 147.2,
+        "sat": 65.8,
+        "dx": -1.4,
+        "dy": -1.4,
+        "scale": 1.0021,
+        "rot": -0.073,
+        "inliers": 300
+      },
+      {
+        "f": 137,
+        "t": 5.708,
+        "luma": 147.2,
+        "sat": 65.8,
+        "dx": -1.6,
+        "dy": -1.7,
+        "scale": 1.0024,
+        "rot": -0.077,
+        "inliers": 300
+      },
+      {
+        "f": 138,
+        "t": 5.75,
+        "luma": 147.3,
+        "sat": 65.8,
+        "dx": -1.7,
+        "dy": -1.8,
+        "scale": 1.0025,
+        "rot": -0.07,
+        "inliers": 300
+      },
+      {
+        "f": 139,
+        "t": 5.792,
+        "luma": 147.6,
+        "sat": 65.6,
+        "dx": -1.8,
+        "dy": -2.0,
+        "scale": 1.0028,
+        "rot": -0.058,
+        "inliers": 300
+      }
+    ]
+  }
+}
