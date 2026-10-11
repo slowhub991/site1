@@ -1,0 +1,89 @@
+STORYBOARD: CADUTA DALLA BARCA
+==============================
+
+VIDEO ORIGINALE
+- 10,0 secondi, 1280x720 orizzontale (16:9), 24 fps, 240 fotogrammi
+- Generato con Veo di Google, partendo da un'immagine: nel file c'è la firma
+  digitale di Google e il watermark invisibile SynthID
+- 3 inquadrature, nessun testo, nessuna musica
+
+PERCHÉ FUNZIONA
+Scena elegante e lenta (vestito, yacht, sera) -> incidente improvviso -> splash.
+5 secondi di discesa: lo spettatore sente che sta per succedere qualcosa.
+Montaggio da film: campo lungo, urlo da vicino, splash dall'alto.
+
+--------------------------------------------------------------
+SHOT 1   0,000-6,000 s   (durata 6,000 s, fotogrammi 0-143)
+--------------------------------------------------------------
+Inquadratura: campo lungo, altezza occhi (~1,6 m), camera sul pontile a 8-10 m dalla poppa, leggermente a destra dell'asse della passerella, obiettivo ~35 mm
+Movimento camera (misurato): panoramica a destra 25% della larghezza, in basso 10% dell'altezza, avvicinamento 5,0%, rotazione 0,6 gradi
+Azione:
+  0,0-1,0 s  Esce dalla porta della cabina illuminata e appoggia la mano sinistra al corrimano
+  1,0-4,5 s  Scende la passerella verde a piccoli passi sui tacchi, guardando i piedi
+  4,5-5,0 s  Arriva in fondo e mette il piede sul bordo del pontile
+  5,0-6,0 s  Il tacco si impunta, perde l'equilibrio verso l'acqua (a destra), braccia aperte, bocca aperta
+Audio: ambiente: porto silenzioso (~-50 dB); tacchi: 0,3, 1,0, 1,8, 2,6, 3,2, 3,8, 4,5, 4,9 s; voce: 'Oh!' sorpreso a 5,0-5,4 s; musica: nessuna
+Fotogrammi di riferimento: fotogrammi/shot1_inizio.png  ->  fotogrammi/shot1_fine.png
+
+PROMPT (copia e incolla):
+A Mediterranean marina at night, rows of moored motor yachts and sailboats, lamp posts, dark green still water with light reflections. Eye-level wide shot from the concrete pontoon facing the stern of a white 15-meter motor yacht with a flybridge, stainless steel railings, a life ring and a small red flag on top, a warm-lit teak cockpit and wooden cabin interior, the name "CALA MAYOR" in blue capital letters on the stern, white fenders, and a green-carpeted gangway with stainless handrails leading down to a concrete floating pontoon. A curvy woman in her early 30s with long wavy ombre hair (dark brown roots, honey-blonde lengths), wearing a long-sleeved blush-pink satin wrap midi dress with a tie at the hip and a deep V neckline, a thin gold necklace and bracelet, and nude pointed high heels walks out of the cabin and carefully down the gangway toward the camera, holding the railing and looking down at her steps. As she reaches the pontoon her heel catches on the edge, she wobbles and loses her balance toward the water, arms flailing, gasping "Oh!". The camera slowly pans right to follow her, accelerating slightly at the end. Sounds: quiet marina ambience, gentle water lapping, heels clicking on the metal gangway, her surprised gasp. No music. Muted cinematic color grade, cool teal-green shadows, warm practical lights, soft contrast, slight film grain, shot on a cinema camera, 24 fps.
+
+--------------------------------------------------------------
+SHOT 2   6,000-7,417 s   (durata 1,417 s, fotogrammi 144-177)
+--------------------------------------------------------------
+Inquadratura: piano americano (dalle cosce in su), camera a mano ad altezza petto, ~2,5 m da lei; poppa a sinistra, acqua e barche a destra
+Movimento camera (misurato): panoramica a destra 34% della larghezza, in basso 27% dell'altezza, avvicinamento 1,3%, rotazione -4,2 gradi
+Azione:
+  6,0-6,5 s  Sul bordo del pontile stringe il corrimano con la destra, braccio sinistro teso, occhi sgranati, urla
+  6,5-7,0 s  Si inclina all'indietro verso l'acqua
+  7,0-7,42 s  Cade dal bordo, braccia in alto, gambe in aria, vestito che si solleva
+Audio: voce: due urla 'Aaah!' a 6,2-6,5 s e 6,6-7,0 s (forti, ~-18 dB); effetti: scarpe che strisciano sul pontile; musica: nessuna
+Fotogrammi di riferimento: fotogrammi/shot2_inizio.png  ->  fotogrammi/shot2_fine.png
+
+PROMPT (copia e incolla):
+Night, same marina. Handheld medium shot at chest height, very close to the same woman (a curvy woman in her early 30s with long wavy ombre hair (dark brown roots, honey-blonde lengths), wearing a long-sleeved blush-pink satin wrap midi dress with a tie at the hip and a deep V neckline, a thin gold necklace and bracelet, and nude pointed high heels) standing at the very edge of the pontoon next to the yacht's green gangway; the yacht stern is on the left, dark water and moored boats on the right. She clutches the stainless railing with one hand, the other arm stretched out, eyes wide and mouth open, screaming "Aaah!" as she tips backward toward the water. The camera quickly pans right and tilts down with a slight roll to follow her as she falls off the edge, legs kicking up, dress flaring. Sounds: two panicked screams, shoes scraping on concrete. No music. Muted cinematic color grade, cool teal-green shadows, warm practical lights, soft contrast, slight film grain, shot on a cinema camera, 24 fps.
+
+--------------------------------------------------------------
+SHOT 3   7,417-10,000 s   (durata 2,583 s, fotogrammi 178-239)
+--------------------------------------------------------------
+Inquadratura: campo lungo dall'alto (~3 m), dal bordo del pontile; angolo di cemento con bitta di ferro in basso a sinistra, pontile galleggiante in diagonale sullo sfondo con yacht e lampioni
+Movimento camera (misurato): panoramica a destra 15% della larghezza, in basso 10% dell'altezza, avvicinamento 8,1%, rotazione -1,3 gradi
+Azione:
+  7,42-7,6 s  Entra in acqua in piedi/seduta, braccia alzate, capelli mossi (sfocatura di movimento)
+  7,6-8,8 s  Splash enorme, lame d'acqua a ventaglio, lei scompare
+  8,8-10,0 s  L'acqua si calma in un grande anello di schiuma; riemerge fino al petto, agita le braccia, bocca aperta
+Audio: effetti: splash fortissimo a 7,4 s, acqua che ribolle e si calma (da -20 a -40 dB); voce: ansimare; musica: nessuna
+Fotogrammi di riferimento: fotogrammi/shot3_inizio.png  ->  fotogrammi/shot3_fine.png
+
+PROMPT (copia e incolla):
+Night, same marina. Wide high-angle shot from the edge of the concrete pontoon, an iron mooring bollard in the bottom-left foreground, a long floating dock running diagonally in the background with moored motor yachts and lamp posts. The same woman in the blush-pink wrap dress drops feet-first in a seated position with arms raised into the dark green water, creating a huge splash with sheets of water fanning out. The splash settles into a wide ring of white foam as she resurfaces up to her chest, gasping and splashing with her arms. Slow push-in with a slight pan right. Sounds: a loud splash, churning water, her gasping. No music. Muted cinematic color grade, cool teal-green shadows, warm practical lights, soft contrast, slight film grain, shot on a cinema camera, 24 fps.
+
+PROMPT NEGATIVO (se lo strumento lo permette):
+text, subtitles, captions, music, watermark, logo, extra people, distorted hands, deformed face, cartoon, CGI look
+
+==============================================================
+COME RIFARLO IL PIÙ IDENTICO POSSIBILE
+==============================================================
+1. Usa lo stesso motore: Veo (Google Flow oppure app Gemini).
+2. Per ogni shot apri 'Frames to Video' (Flow) e carica:
+     primo fotogramma = shotN_inizio.png
+     ultimo fotogramma = shotN_fine.png (se disponibile)
+   Così inizio e fine sono uguali all'originale; il centro sarà molto simile.
+   Nell'app Gemini puoi caricare solo il fotogramma iniziale.
+3. Incolla il prompt dello shot, formato 16:9.
+4. Genera 3-4 versioni per shot e tieni la più simile.
+5. Taglia: shot 1 = 6,000 s | shot 2 = 1,417 s | shot 3 = 2,583 s
+6. Unisci in ordine: 10,0 s, 1280x720, 24 fps. Il montaggio te lo faccio io.
+
+Il testo "CALA MAYOR" sulla barca a volte esce storto: rigenera o correggi
+il fotogramma di partenza.
+
+CON UN ALTRO VOLTO (es. il tuo)
+Prima modifica i 6 fotogrammi di riferimento mettendo il nuovo volto
+(modifica immagine in Gemini), poi usa quelli come primo/ultimo fotogramma.
+Solo con il tuo volto o con il consenso della persona.
+
+PUBBLICAZIONE
+Attiva l'etichetta 'contenuto AI' su Instagram/TikTok.
+
+Dati completi (posizioni, movimenti fotogramma per fotogramma): storyboard.json
