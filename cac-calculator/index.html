@@ -1,0 +1,306 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>CAC per canale</title>
+<style>
+  :root {
+    --bg: #f6f7f9; --card: #ffffff; --text: #16181d; --muted: #5d6470;
+    --line: #e2e5ea; --accent: #2f6fed; --good: #12865a; --warn: #b26a00; --bad: #c43838;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #111317; --card: #1a1d23; --text: #eef0f3; --muted: #9aa2ae;
+      --line: #2b3038; --accent: #6b9bff; --good: #3ccf8e; --warn: #f0a841; --bad: #ff6b6b;
+    }
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; background: var(--bg); color: var(--text);
+    font: 15px/1.5 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  }
+  main { max-width: 1040px; margin: 0 auto; padding: 24px 16px 48px; }
+  h1 { font-size: 1.6rem; margin: 0 0 4px; }
+  .sub { color: var(--muted); margin: 0 0 16px; }
+  .notice { border: 1px solid var(--warn); color: var(--warn); border-radius: 10px; padding: 10px 14px; margin-bottom: 20px; font-size: .9rem; }
+  .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  @media (max-width: 760px) { .grid { grid-template-columns: 1fr; } }
+  .card { background: var(--card); border: 1px solid var(--line); border-radius: 12px; padding: 18px; margin-bottom: 16px; }
+  .grid .card { margin-bottom: 0; }
+  .card h2 { font-size: 1rem; margin: 0 0 6px; }
+  .card .hint { color: var(--muted); font-size: .85rem; margin: 0 0 14px; }
+  .field { margin-bottom: 14px; }
+  .field label { display: flex; justify-content: space-between; gap: 8px; font-size: .9rem; color: var(--muted); }
+  .field label b { color: var(--text); font-variant-numeric: tabular-nums; white-space: nowrap; }
+  input[type=range] { width: 100%; accent-color: var(--accent); }
+  .seg { display: inline-flex; border: 1px solid var(--line); border-radius: 999px; overflow: hidden; margin-bottom: 16px; }
+  .seg button { border: 0; background: var(--card); color: var(--text); padding: 7px 16px; cursor: pointer; font: inherit; font-size: .88rem; }
+  .seg button[aria-pressed=true] { background: var(--accent); color: #fff; }
+  .scroll { overflow-x: auto; }
+  table { width: 100%; border-collapse: collapse; font-size: .88rem; font-variant-numeric: tabular-nums; }
+  th, td { text-align: right; padding: 7px 8px; border-bottom: 1px solid var(--line); white-space: nowrap; }
+  th:first-child, td:first-child { text-align: left; white-space: normal; min-width: 170px; }
+  th { color: var(--muted); font-weight: 600; font-size: .78rem; }
+  .bar { height: 8px; border-radius: 4px; background: var(--accent); opacity: .8; min-width: 2px; margin-top: 4px; }
+  .badge { display: inline-block; padding: 1px 10px; border-radius: 999px; border: 1px solid currentColor; font-weight: 700; font-size: .8rem; }
+  .good { color: var(--good); } .warn { color: var(--warn); } .bad { color: var(--bad); }
+  tr.us td { font-weight: 700; }
+  details { border-top: 1px solid var(--line); padding: 10px 0; }
+  details summary { cursor: pointer; font-weight: 600; }
+  details .note { color: var(--muted); font-size: .82rem; margin: 6px 0 10px; }
+  .edit { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 10px; }
+  .edit label { display: block; font-size: .78rem; color: var(--muted); }
+  .edit input { width: 100%; font: inherit; padding: 5px 8px; border: 1px solid var(--line); border-radius: 8px; background: var(--bg); color: var(--text); }
+  .reset { border: 1px solid var(--line); background: var(--card); color: var(--text); border-radius: 999px; padding: 6px 14px; cursor: pointer; font: inherit; font-size: .85rem; margin-left: 8px; }
+  .big { font-size: 1.15rem; }
+</style>
+</head>
+<body>
+<main>
+  <h1>Costo di acquisizione cliente (CAC) per canale</h1>
+  <p class="sub">Receptionist AI · quanto costa portare a casa un cliente pagante con ogni strategia, e quanto puoi permetterti di spendere dati i prezzi dei concorrenti.</p>
+  <div class="notice">I tassi di conversione sono benchmark pubblici o ipotesi, non dati tuoi. Dopo i primi test (50 email, 100 chiamate, 30 visite) sostituiscili con i tuoi numeri: è quello che rende il calcolo affidabile.</div>
+
+  <div class="seg" role="group" aria-label="Scenario" id="seg"></div><button class="reset" id="reset" type="button">Ripristina ipotesi</button>
+
+  <div class="grid">
+    <section class="card">
+      <h2>Il tuo prodotto</h2>
+      <p class="hint">Prezzo, costo per servire il cliente e churn decidono quanto CAC puoi sostenere. Cambiando scenario il churn passa a 6% / 4% / 2,5%: puoi correggerlo dopo.</p>
+      <div id="fields"></div>
+    </section>
+    <section class="card">
+      <h2>Unit economics</h2>
+      <p class="hint" id="econ-hint"></p>
+      <div id="econ"></div>
+    </section>
+  </div>
+
+  <section class="card" style="margin-top:16px">
+    <h2>CAC per canale</h2>
+    <p class="hint">Costo totale (spesa + tempo tuo) diviso i clienti ottenuti nel mese. Ordinato dal più economico. “Costo per cliente attivo” aggiunge l’onboarding e sottrae l’attivazione incassata.</p>
+    <div class="scroll"><table id="results"></table></div>
+    <p class="hint" style="margin:12px 0 0">“Regge” significa solo che, con queste ipotesi non ancora validate, LTV:CAC è almeno 3 e il payback al massimo 12 mesi.</p>
+  </section>
+
+  <section class="card">
+    <h2 id="target-title"></h2>
+    <p class="hint">Volume necessario se usassi un solo canale. Oltre le 150 ore al mese non è fattibile da solo: serve un mix di canali o un collaboratore.</p>
+    <div class="scroll"><table id="target"></table></div>
+  </section>
+
+  <section class="card">
+    <h2>Concorrenza: che CAC puoi permetterti a quel prezzo</h2>
+    <p class="hint">Se un cliente confrontasse il tuo servizio con questi prezzi d’ingresso e tu dovessi allinearti, quanto potresti spendere per acquisirlo (payback entro 12 mesi e LTV:CAC ≥ 3)? Il costo per servire resta quello che hai impostato. Prezzi in $ convertiti a 0,91 (indicativo), da verificare sui siti ufficiali.</p>
+    <div class="scroll"><table id="comp"></table></div>
+  </section>
+
+  <section class="card">
+    <h2>Ipotesi per canale (modificabili)</h2>
+    <p class="hint">Le modifiche valgono per lo scenario selezionato sopra.</p>
+    <div id="editors"></div>
+  </section>
+</main>
+
+<script>
+const GLOBAL = [
+  { id: "price", label: "Prezzo mensile (€)", min: 29, max: 700, step: 1, v: 249, fmt: n => "€" + n },
+  { id: "cogs", label: "Costo per servire un cliente (€/mese)", min: 10, max: 250, step: 1, v: 75, fmt: n => "€" + n },
+  { id: "churn", label: "Churn mensile", min: 0, max: 12, step: 0.5, v: 4, fmt: n => n + "%" },
+  { id: "hourly", label: "Valore della tua ora (€)", min: 0, max: 100, step: 5, v: 25, fmt: n => "€" + n },
+  { id: "hDemo", label: "Ore per demo (preparazione inclusa)", min: 0.25, max: 2, step: 0.25, v: 0.75, fmt: n => n + " h" },
+  { id: "onboard", label: "Onboarding per cliente (€)", min: 0, max: 500, step: 10, v: 100, fmt: n => "€" + n },
+  { id: "setup", label: "Attivazione incassata (€)", min: 0, max: 500, step: 10, v: 0, fmt: n => "€" + n },
+];
+
+// s = { pess, base, opt } → { cpu: costo per unità, p1: unità→demo fissata, p2: demo fissata→fatta, p3: demo fatta→cliente }
+const CHANNELS = [
+  { id: "email", name: "Cold email", unitLabel: "Prospect contattati", cpuLabel: "Costo per prospect", p1Label: "Demo fissate / prospect",
+    units: 2000, fixed: 120, perClient: 0, hFixed: 8, hUnit: 0.003,
+    s: { pess: { cpu: .03, p1: .0025, p2: .60, p3: .15 }, base: { cpu: .03, p1: .005, p2: .70, p3: .25 }, opt: { cpu: .03, p1: .010, p2: .80, p3: .35 } },
+    note: "Meeting fissati 0,34–2,5% dei contatti (Visionary Marketing, Cleverly). Per ristoranti e hotel ho usato la parte bassa: i titolari leggono poco la posta. Costi fissi: domini, caselle, strumento di invio, verifica indirizzi. Verifica la base legale (art. 130 Codice Privacy)." },
+  { id: "call", name: "Cold call", unitLabel: "Chiamate", cpuLabel: "Costo per chiamata", p1Label: "Demo fissate / chiamata",
+    units: 1200, fixed: 50, perClient: 0, hFixed: 4, hUnit: 0.05,
+    s: { pess: { cpu: .05, p1: .01, p2: .65, p3: .18 }, base: { cpu: .05, p1: .02, p2: .75, p3: .25 }, opt: { cpu: .05, p1: .035, p2: .85, p3: .30 } },
+    note: "Dalla chiamata al meeting 1,5–3% (Apollo, StealthAgents); contatto utile con le PMI 15–22%. 20 chiamate all’ora. Verifica il Registro Pubblico delle Opposizioni prima di chiamare." },
+  { id: "gads", name: "Google Ads (ricerca)", unitLabel: "Clic", cpuLabel: "Costo per clic", p1Label: "Richieste demo / clic",
+    units: 300, fixed: 30, perClient: 0, hFixed: 8, hUnit: 0,
+    s: { pess: { cpu: 6, p1: .02, p2: .50, p3: .15 }, base: { cpu: 3.5, p1: .04, p2: .60, p3: .25 }, opt: { cpu: 2, p1: .07, p2: .70, p3: .35 } },
+    note: "CPC per l’Italia non verificato. Riferimento USA: ristorazione circa 2,05 $, media di tutti i settori 5,42 $ (WordStream/LocaliQ 2026). Misura il CPC reale con Keyword Planner prima di spendere." },
+  { id: "meta", name: "Meta Ads (Facebook/Instagram)", unitLabel: "Lead da modulo", cpuLabel: "Costo per lead", p1Label: "Demo fissate / lead",
+    units: 50, fixed: 30, perClient: 0, hFixed: 10, hUnit: 0.05,
+    s: { pess: { cpu: 35, p1: .25, p2: .50, p3: .12 }, base: { cpu: 18, p1: .30, p2: .60, p3: .20 }, opt: { cpu: 9, p1: .40, p2: .70, p3: .30 } },
+    note: "Costo per lead stimato, nessun benchmark italiano verificato. I lead da modulo hanno intenzione bassa: servono chiamate di richiamo rapide. Valida con un test da 300–500 €." },
+  { id: "visit", name: "Visita di persona", unitLabel: "Visite", cpuLabel: "Costo per visita", p1Label: "Demo fissate / visita",
+    units: 120, fixed: 20, perClient: 0, hFixed: 6, hUnit: 0.25,
+    s: { pess: { cpu: 2, p1: .04, p2: .80, p3: .20 }, base: { cpu: 2, p1: .08, p2: .90, p3: .30 }, opt: { cpu: 2, p1: .14, p2: .95, p3: .40 } },
+    note: "Nessun benchmark pubblico: sono ipotesi da validare con 30 visite reali nella tua zona (lista da Google Maps). 4 visite all’ora, carburante e materiale inclusi." },
+  { id: "partner", name: "Partner (commercialisti, web agency, gestionali, associazioni)", unitLabel: "Introduzioni ricevute", cpuLabel: "Costo per introduzione", p1Label: "Demo fissate / introduzione",
+    units: 10, fixed: 0, perClient: 150, hFixed: 8, hUnit: 0.2,
+    s: { pess: { cpu: 0, p1: .40, p2: .70, p3: .25 }, base: { cpu: 0, p1: .60, p2: .80, p3: .35 }, opt: { cpu: 0, p1: .75, p2: .90, p3: .45 } },
+    note: "Lead caldi con la fiducia del partner. Commissione di 150 € per cliente chiuso (ipotesi). È lento: servono 2–3 mesi per attivare i primi partner, e il volume iniziale è basso." },
+];
+
+const COMP = [
+  ["Yourang.ai (Italia)", 40, "Piano base circa 40 €/mese, sale con i volumi"],
+  ["Synthflow", 26, "29 $/mese per 50 minuti, poi a consumo"],
+  ["RingCentral AI Receptionist", 35, "da 39 $/mese, circa 100 minuti inclusi"],
+  ["Rosie", 45, "da 49 $/mese (250 minuti)"],
+  ["Goodcall", 72, "da 79 $/mese"],
+  ["Smith.ai (piani AI)", 86, "da 95 $/mese più extra a chiamata"],
+  ["Fascia ristoranti Italia (guida Techsy)", 99, "99–499 €/mese per sede, fascia generica"],
+  ["Assemblo Starter", 124, "99–149 €/mese (punto medio)", true],
+  ["Assemblo Business", 249, "199–299 €/mese (punto medio)", true],
+  ["Slang.ai (ristoranti)", 363, "da 399 $/mese per sede"],
+  ["Assemblo Growth", 549, "399–699 €/mese (punto medio)", true],
+];
+
+const SCEN = [["pess", "Prudente"], ["base", "Base"], ["opt", "Ottimista"]];
+const SCEN_CHURN = { pess: 6, base: 4, opt: 2.5 };
+const G = Object.fromEntries(GLOBAL.map(f => [f.id, f.v]));
+let scen = "base";
+let chs = JSON.parse(JSON.stringify(CHANNELS));
+
+const eur = n => isFinite(n) ? "€" + Math.round(n).toLocaleString("it-IT") : "—";
+const num = (n, d = 1) => isFinite(n) ? (Math.round(n * 10 ** d) / 10 ** d).toLocaleString("it-IT") : "—";
+const $ = id => document.getElementById(id);
+
+function evalChannel(ch, units, g) {
+  const s = ch.s[scen];
+  const booked = units * s.p1, held = booked * s.p2, clients = held * s.p3;
+  const spend = units * s.cpu + ch.fixed + clients * ch.perClient;
+  const hours = ch.hFixed + ch.hUnit * units + held * g.hDemo;
+  const cost = spend + hours * g.hourly;
+  return { booked, held, clients, spend, hours, cost, cac: clients > 0 ? cost / clients : Infinity };
+}
+
+function economics(cac, g) {
+  const contrib = g.price - g.cogs;
+  const life = g.churn > 0 ? Math.min(100 / g.churn, 36) : 36;
+  const ltv = Math.max(0, contrib) * life;
+  const total = cac + g.onboard - g.setup;
+  return {
+    contrib, life, ltv, total,
+    payback: contrib > 0 ? Math.max(0, total) / contrib : Infinity,
+    ratio: total > 0 ? ltv / total : Infinity,
+  };
+}
+
+function verdict(e, cac) {
+  if (!isFinite(cac) || e.contrib <= 0) return ["bad", "No"];
+  if (e.ratio >= 3 && e.payback <= 12) return ["good", "Regge"];
+  if (e.ratio >= 1.5) return ["warn", "Al limite"];
+  return ["bad", "No"];
+}
+
+function maxCac(price, g) {
+  const contrib = price - g.cogs;
+  if (contrib <= 0) return 0;
+  const life = g.churn > 0 ? Math.min(100 / g.churn, 36) : 36;
+  return Math.min(12 * contrib, contrib * life / 3);
+}
+
+function renderSeg() {
+  $("seg").innerHTML = SCEN.map(([k, l]) => `<button type="button" data-s="${k}" aria-pressed="${k === scen}">${l}</button>`).join("");
+  $("seg").querySelectorAll("button").forEach(b => b.onclick = () => { scen = b.dataset.s; G.churn = SCEN_CHURN[scen]; renderSeg(); renderFields(); renderEditors(); compute(); });
+}
+
+function renderFields() {
+  $("fields").innerHTML = GLOBAL.map(f => `
+    <div class="field">
+      <label for="${f.id}">${f.label} <b id="${f.id}-v">${f.fmt(G[f.id])}</b></label>
+      <input type="range" id="${f.id}" min="${f.min}" max="${f.max}" step="${f.step}" value="${G[f.id]}">
+    </div>`).join("");
+  GLOBAL.forEach(f => $(f.id).addEventListener("input", e => {
+    G[f.id] = +e.target.value;
+    $(f.id + "-v").textContent = f.fmt(G[f.id]);
+    compute();
+  }));
+}
+
+function renderEditors() {
+  $("editors").innerHTML = chs.map((ch, i) => {
+    const s = ch.s[scen];
+    const pct = x => +(x * 100).toFixed(3);
+    const fields = [
+      ["units", ch.unitLabel + " al mese", ch.units, 1],
+      ["cpu", ch.cpuLabel + " (€)", s.cpu, 0.01],
+      ["fixed", "Costi fissi al mese (€)", ch.fixed, 1],
+      ["perClient", "Commissione per cliente chiuso (€)", ch.perClient, 1],
+      ["hFixed", "Ore fisse al mese (liste, setup, gestione)", ch.hFixed, 1],
+      ["hUnit", "Ore per unità di volume", ch.hUnit, 0.001],
+      ["p1", ch.p1Label + " (%)", pct(s.p1), 0.05],
+      ["p2", "Demo fatte / demo fissate (%)", pct(s.p2), 1],
+      ["p3", "Clienti / demo fatte (%)", pct(s.p3), 1],
+    ];
+    return `<details><summary>${ch.name}</summary><p class="note">${ch.note}</p><div class="edit">` +
+      fields.map(([k, l, v, st]) => `<label>${l}<input type="number" inputmode="decimal" min="0" step="${st}" value="${v}" data-ch="${i}" data-f="${k}"></label>`).join("") +
+      `</div></details>`;
+  }).join("");
+  $("editors").querySelectorAll("input").forEach(inp => inp.addEventListener("input", () => {
+    const ch = chs[+inp.dataset.ch], k = inp.dataset.f, v = parseFloat(inp.value);
+    if (!isFinite(v) || v < 0) return;
+    if (["units", "fixed", "perClient", "hFixed", "hUnit"].includes(k)) ch[k] = v;
+    else if (k === "cpu") ch.s[scen].cpu = v;
+    else ch.s[scen][k] = v / 100;
+    compute();
+  }));
+}
+
+function compute() {
+  const g = G;
+  const base = economics(0, g);
+  $("econ-hint").textContent = `Contributo mensile per cliente: ${eur(base.contrib)} (${num(g.price > 0 ? base.contrib / g.price * 100 : 0, 0)}% di margine). Vita media stimata: ${num(base.life, 0)} mesi (tetto 36).`;
+  $("econ").innerHTML = `<div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">` + [
+    ["LTV (margine × vita)", eur(base.ltv)],
+    ["CAC massimo sostenibile", eur(maxCac(g.price, g))],
+  ].map(([k, v]) => `<div style="border:1px solid var(--line);border-radius:10px;padding:10px 12px"><small style="color:var(--muted);display:block">${k}</small><strong class="big">${v}</strong></div>`).join("") + `</div>
+    <p class="hint" style="margin-top:12px">Il CAC massimo è il minore tra 12 mesi di contributo (payback) e un terzo dell’LTV (rapporto 3:1).</p>`;
+
+  const rows = chs.map(ch => {
+    const r = evalChannel(ch, ch.units, g), e = economics(r.cac, g);
+    return { ch, r, e, v: verdict(e, r.cac) };
+  }).sort((a, b) => a.e.total - b.e.total || 0);
+  const maxTotal = Math.max(...rows.filter(x => isFinite(x.e.total)).map(x => x.e.total), 1);
+
+  $("results").innerHTML = `<tr><th>Canale</th><th>Clienti/mese</th><th>Spesa/mese</th><th>Ore/mese</th><th>CAC</th><th>Costo per cliente attivo</th><th>Payback</th><th>LTV:CAC</th><th>Esito</th></tr>` +
+    rows.map(({ ch, r, e, v }) => `<tr>
+      <td>${ch.name}</td>
+      <td>${num(r.clients)}</td>
+      <td>${eur(r.spend)}</td>
+      <td class="${r.hours > 150 ? "warn" : ""}">${num(r.hours, 0)}</td>
+      <td>${eur(r.cac)}</td>
+      <td>${eur(e.total)}<div class="bar" style="width:${isFinite(e.total) ? Math.max(2, e.total / maxTotal * 100) : 0}%"></div></td>
+      <td>${isFinite(e.payback) ? num(e.payback) + " mesi" : "—"}</td>
+      <td>${isFinite(e.ratio) ? num(e.ratio) + "×" : "—"}</td>
+      <td><span class="badge ${v[0]}">${v[1]}</span></td></tr>`).join("");
+
+  const needClients = Math.ceil(10000 / g.price), c = g.churn / 100;
+  const need = c > 0 ? needClients * c / (1 - Math.pow(1 - c, 12)) : needClients / 12;
+  $("target-title").textContent = `Obiettivo €10.000 MRR in 12 mesi: ${needClients} clienti attivi, cioè circa ${num(need)} nuovi clienti al mese`;
+  $("target").innerHTML = `<tr><th>Canale</th><th>Volume necessario/mese</th><th>Spesa/mese</th><th>Ore/mese</th><th>Fattibile da solo?</th></tr>` +
+    rows.map(({ ch, r }) => {
+      if (!(r.clients > 0)) return `<tr><td>${ch.name}</td><td colspan="4">—</td></tr>`;
+      const units = ch.units * need / r.clients, r2 = evalChannel(ch, units, g), ok = r2.hours <= 150;
+      return `<tr><td>${ch.name}</td><td>${Math.round(units).toLocaleString("it-IT")} ${ch.unitLabel.toLowerCase()}</td><td>${eur(r2.spend)}</td><td>${num(r2.hours, 0)}</td><td class="${ok ? "good" : "bad"}">${ok ? "Sì" : "No, serve un mix"}</td></tr>`;
+    }).join("");
+
+  $("comp").innerHTML = `<tr><th>Fornitore</th><th>Prezzo ingresso</th><th>Tuo contributo/mese a quel prezzo</th><th>Tuo CAC max sostenibile</th></tr>` +
+    COMP.map(([n, p, note, us]) => {
+      const contrib = p - g.cogs;
+      return `<tr class="${us ? "us" : ""}"><td>${n}<div style="color:var(--muted);font-weight:400;font-size:.78rem">${note}</div></td><td>${eur(p)}</td><td class="${contrib > 0 ? "" : "bad"}">${contrib > 0 ? eur(contrib) : "in perdita"}</td><td>${contrib > 0 ? eur(maxCac(p, g)) : "0"}</td></tr>`;
+    }).join("");
+}
+
+$("reset").onclick = () => {
+  GLOBAL.forEach(f => G[f.id] = f.v);
+  chs = JSON.parse(JSON.stringify(CHANNELS));
+  scen = "base";
+  renderSeg(); renderFields(); renderEditors(); compute();
+};
+
+renderSeg(); renderFields(); renderEditors(); compute();
+</script>
+</body>
+</html>
